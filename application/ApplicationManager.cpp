@@ -20,7 +20,8 @@ void ApplicationManager::initialize(const Desc& desc) {
   }
 
   // タイトルを設定
-  s3d::Window::SetTitle(U"クレイジーサイコレズ");
+  s3d::Window::SetTitle(desc.windowTitle);
+  s3d::Window::Resize(desc.windowSize);
 
   // 背景色を設定
   s3d::Scene::SetBackground(s3d::ColorF(0.2, 0.8, 0.4));

@@ -1,18 +1,13 @@
 #include "ExecutiveManager.hpp"
 
-#include "ApplicationManager.hpp"
-#include "AssetManager.hpp"
+#include "MainExecutiveManager.hpp"
 
 namespace dx {
 namespace app {
 
-
 void ExecutiveManager::initialize() {
-  const ApplicationManager::Desc appDesc = {
-    .isCloseByEscapeKey = true,
-    .windowTitle = "クレイジーサイコレズ"
-  };
-  ApplicationManager::instance()->initialize(appDesc);
+  const auto& desc = kanji::app::createExecutiveDesc();
+  ApplicationManager::instance()->initialize(desc.application);
   AssetManager::instance()->initialize();
 }
 

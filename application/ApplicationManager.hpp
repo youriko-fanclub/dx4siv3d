@@ -1,6 +1,7 @@
 #pragma once
 
-#include <string>
+#include <Siv3D/String.hpp>
+#include <Siv3D/Point.hpp>
 #include "Singleton.hpp"
 
 namespace dx {
@@ -10,7 +11,8 @@ class ApplicationManager final : public cmp::Singleton<ApplicationManager> {
 public: // static_const/enum
   struct Desc {
     bool isCloseByEscapeKey;
-    std::string windowTitle;
+    s3d::String windowTitle;
+    s3d::Size windowSize;
   };
   
 public: // static

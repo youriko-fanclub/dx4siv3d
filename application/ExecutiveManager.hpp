@@ -1,25 +1,28 @@
 #pragma once
 
 #include "Singleton.hpp"
-// #include "./sequenceManager.h"
-// #include "../_main/CommonData.h"
+#include "ApplicationManager.hpp"
+#include "AssetManager.hpp"
 
 namespace dx {
 namespace app {
 
 
 class ExecutiveManager final : public cmp::Singleton<ExecutiveManager> {
-private:
-  // CommonData m_common_data;
-  // Scene::Manager m_scene_manager;
-  
-public:
+public: // static_const/enum
+  class Desc {
+  public:
+    ApplicationManager::Desc application;
+  };
+public: // static
+public: // public function
   void initialize();
-public:
   // bool update();
-  
   // void draw() const { m_scene_manager.draw(); }
   // void transScene(){ m_scene_manager.transitionScene(); }
+private: // field
+private: // private function
+public: // ctor/dtor
 };
 
 
