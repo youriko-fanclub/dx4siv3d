@@ -9,7 +9,7 @@ namespace app {
 void ExecutiveManager::initialize() {
   const auto& desc = kanji::app::createExecutiveDesc();
   ApplicationManager::instance()->initialize(desc.application);
-  AssetManager::instance()->initialize(desc.font);
+  AssetManager::instance()->initialize(desc.font, desc.texture);
   m_sequencer = kanji::seq::SequenceManager::instance().get();
   m_sequencer->initialize();
 }
