@@ -7,6 +7,16 @@
 namespace dx {
 namespace app {
 
+class ISequenceManager {
+public:
+  virtual void initialize() = 0;
+  virtual bool update() = 0;
+  virtual void draw() const = 0;
+protected:
+  ISequenceManager() = default;
+  virtual ~ISequenceManager() = default;
+};
+
 
 class ExecutiveManager final : public cmp::Singleton<ExecutiveManager> {
 public: // static_const/enum
@@ -17,10 +27,11 @@ public: // static_const/enum
 public: // static
 public: // public function
   void initialize();
-  // bool update();
-  // void draw() const { m_scene_manager.draw(); }
-  // void transScene(){ m_scene_manager.transitionScene(); }
+  bool update();
+  void draw() const;
+  // void transScene();
 private: // field
+  ISequenceManager* m_sequencer = nullptr;
 private: // private function
 public: // ctor/dtor
 };
