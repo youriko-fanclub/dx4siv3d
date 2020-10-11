@@ -23,6 +23,7 @@ public: // static_const/enum
   class Desc {
   public:
     ApplicationManager::Desc application;
+    std::vector<AssetManager::FontDesc> font;
   };
 public: // static
 public: // public function

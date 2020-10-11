@@ -10,11 +10,16 @@ namespace app {
 
 // static ----------------------------------------
 // public function -------------------------------
-void AssetManager::initialize() {
+void AssetManager::initialize(const std::vector<FontDesc>& descs) {
   // 使用するフォントアセットを登録
-  s3d::FontAsset::Register(U"Title", 120, U"example/font/AnnyantRoman/AnnyantRoman.ttf");
-  s3d::FontAsset::Register(U"Menu", 30, s3d::Typeface::Regular);
-  s3d::FontAsset::Register(U"Score", 36, s3d::Typeface::Bold);
+  for (const auto& desc : descs) {
+    if (desc.typefaceString.empty()) {
+      s3d::FontAsset::Register(desc.key, desc.size, desc.typeface);
+    }
+    else {
+      s3d::FontAsset::Register(desc.key, desc.size, desc.typefaceString);
+    }
+  }
 }
 
 // private function ------------------------------
