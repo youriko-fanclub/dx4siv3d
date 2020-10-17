@@ -15,7 +15,7 @@ void AssetManager::initialize(
   const std::vector<FontDesc>& fontDescs,
   const std::vector<TextureDesc>& textureDescs) {
   
-  const s3d::String assetPath = U"../asset/";
+  const s3d::String assetPath = U"../KANJI-asset/";
   
   // 使用するフォントアセットを登録
   for (const s3d::String fontPath = assetPath + U"font/";
