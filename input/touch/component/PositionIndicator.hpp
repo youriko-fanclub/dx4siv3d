@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+#pragma once
+#if false
+
+using UnityEngine;
 using UGUI = UnityEngine.UI;
 using static du.Ex.ExVector;
 
@@ -20,3 +23,5 @@ namespace du.di {
     }
 
 }
+#endif
+

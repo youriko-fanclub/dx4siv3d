@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+#pragma once
+#if false
+
+using UnityEngine;
 using UGUI = UnityEngine.UI;
 
 
@@ -34,3 +37,5 @@ namespace du.di {
     }
 
 }
+#endif
+

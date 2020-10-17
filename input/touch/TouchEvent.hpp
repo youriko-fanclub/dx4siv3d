@@ -1,4 +1,5 @@
-﻿#if false
+#pragma once
+#if false
 using UnityEngine;
 
 namespace du.di {

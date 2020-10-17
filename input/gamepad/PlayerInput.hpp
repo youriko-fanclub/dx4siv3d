@@ -1,4 +1,7 @@
-﻿using PlayerID = du.di.Id.Player;
+#pragma once
+#if false
+
+using PlayerID = du.di.Id.Player;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -65,3 +68,5 @@ namespace du.di {
     }
 
 }
+#endif
+

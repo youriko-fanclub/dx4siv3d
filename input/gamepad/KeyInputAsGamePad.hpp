@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+#pragma once
+#if false
+
+using UnityEngine;
 using System.Collections.Generic;
 using GamePadRaw = du.di.Id.GamePadRaw;
 
@@ -111,3 +114,5 @@ namespace du.di {
     }
 
 }
+#endif
+

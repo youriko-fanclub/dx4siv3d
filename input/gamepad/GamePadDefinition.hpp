@@ -1,3 +1,6 @@
+#pragma once
+#if false
+
 
 
 namespace du.di {
@@ -23,3 +26,5 @@ namespace du.di {
     public enum GPAxis { Any, LeftStick, RightStick, Dpad }
 
 }
+#endif
+

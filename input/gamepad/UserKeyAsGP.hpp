@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+#pragma once
+#if false
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace du.di {
@@ -56,3 +59,5 @@ namespace du.di {
     }
 
 }
+#endif
+

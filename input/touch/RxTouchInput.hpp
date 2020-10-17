@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+#pragma once
+#if false
+
+using UnityEngine;
 using UniRx;
 using System;
 using System.Collections.Generic;
@@ -96,3 +99,5 @@ namespace du.di {
 #endif
 
 }
+#endif
+

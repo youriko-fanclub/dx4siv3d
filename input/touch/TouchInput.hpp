@@ -1,4 +1,7 @@
-﻿/*
+#pragma once
+#if false
+
+/*
 * AUTHORITY : tempura
 * URL : https://qiita.com/tempura/items/4a5482ff6247ec8873df
 * LICENSE : UNK
@@ -183,3 +186,5 @@ namespace du.di {
     }
 
 }
+#endif
+

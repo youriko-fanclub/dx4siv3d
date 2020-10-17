@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+#pragma once
+#if false
+
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UInput = UnityEngine.Input;
@@ -121,4 +124,6 @@ namespace du.di {
     }
 
 }
+
+#endif
 

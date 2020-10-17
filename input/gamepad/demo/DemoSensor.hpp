@@ -1,3 +1,5 @@
+#pragma once
+#if false
 
 using UnityEngine;
 
@@ -73,3 +75,5 @@ namespace du.di {
     }
 
 }
+#endif
+

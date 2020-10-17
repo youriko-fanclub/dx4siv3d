@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+#pragma once
+#if false
+
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary> 複数プレイヤーによる入力を管理するIDを管理 </summary>
@@ -193,3 +196,5 @@ namespace du.di.Id {
 #endif
 
 }
+#endif
+

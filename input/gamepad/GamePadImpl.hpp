@@ -1,3 +1,6 @@
+#pragma once
+#if false
+
 //Author: Richard Pieterse
 //Date: 16 May 2013
 //Email: Merrik44@live.com
@@ -381,3 +384,5 @@ namespace GamepadInput {
     }
 
 }
+#endif
+
