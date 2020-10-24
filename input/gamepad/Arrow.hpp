@@ -1,7 +1,7 @@
 #pragma once
 #include "Axis.hpp"
 
-namespace du {
+namespace dx {
 namespace di {
 
 using GPArrow = GPAxis;

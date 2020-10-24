@@ -1,7 +1,7 @@
 #pragma once
 #include "Misc.hpp"
 
-namespace du {
+namespace dx {
 namespace di {
 
 enum class GPAxis : int {

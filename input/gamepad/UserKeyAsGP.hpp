@@ -1,6 +1,6 @@
 #pragma once
 
-namespace du {
+namespace dx {
 namespace di {
 
     /// <summary> GamePadとキーボードの入力対応表 </summary>

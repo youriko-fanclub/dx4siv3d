@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneStates.hpp"
+#include "PlayerInput.hpp"
 
 namespace dx {
 namespace di {
@@ -11,11 +12,12 @@ public: // public function
     void update();
     void draw() const;
 private: // field
+    const PlayerInputFromKeyboard m_input;
     Vec2 m_center;
     double m_scale;
 private: // private function
 public: // ctor/dtor
-    SampleGamePadDemo(const Vec2& center, double scale);
+    SampleGamePadDemo(const PlayerInputFromKeyboard input, const Vec2& center, double scale);
 };
 
 class JoyConDemo {
