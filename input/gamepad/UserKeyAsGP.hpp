@@ -1,10 +1,7 @@
 #pragma once
-#if false
 
-using System.Collections.Generic;
-using System.Linq;
-
-namespace du.di {
+namespace du {
+namespace di {
 
     /// <summary> GamePadとキーボードの入力対応表 </summary>
     public interface IUserKeyAsGP {
@@ -34,7 +31,7 @@ namespace du.di {
 
     /// <summary>
     /// Anyユーザ用入力対応表
-    /// - UserInputを複数持ち、そのいずれかが発火していれば全体も発火
+    /// - UserInputを複数持つ
     /// </summary>
     public class AnyUserKeyAsGP : IUserKeyAsGP {
         #region field
@@ -59,5 +56,5 @@ namespace du.di {
     }
 
 }
-#endif
+}
 
