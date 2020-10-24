@@ -11,10 +11,10 @@ enum class GPDPad : int {
 class IDPad {
 public:
     virtual const Key& key(GPDPad button) const = 0;
-    virtual const Key& keyLeft () const = 0;
-    virtual const Key& keyRight() const = 0;
-    virtual const Key& keyUp   () const = 0;
-    virtual const Key& keyDown () const = 0;
+    virtual const Key& left () const = 0;
+    virtual const Key& right() const = 0;
+    virtual const Key& up   () const = 0;
+    virtual const Key& down () const = 0;
     virtual Vec2 vec() const = 0;
 protected:
     IDPad() = default;
@@ -24,15 +24,15 @@ protected:
 class AbsDPad : public IDPad {
 public:
     // virtual const IKey& key(GPButton button) const = 0;
-    const Key& keyLeft () const override { return key(GPDPad::Left ); }
-    const Key& keyRight() const override { return key(GPDPad::Right); }
-    const Key& keyUp   () const override { return key(GPDPad::Up   ); }
-    const Key& keyDown () const override { return key(GPDPad::Down ); }
+    const Key& left () const override { return key(GPDPad::Left ); }
+    const Key& right() const override { return key(GPDPad::Right); }
+    const Key& up   () const override { return key(GPDPad::Up   ); }
+    const Key& down () const override { return key(GPDPad::Down ); }
     Vec2 vec() const override {
         // return dx::misc::keyPressedToVec2(keyRight(), keyLeft(), keyDown(), keyUp());
         return dx::misc::boolToVec2(
-            keyRight().pressed(), keyLeft().pressed(),
-            keyDown ().pressed(), keyUp  ().pressed());
+            right().pressed(), left().pressed(),
+            down ().pressed(), up  ().pressed());
     }
 protected:
     AbsDPad() = default;

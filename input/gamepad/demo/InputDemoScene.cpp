@@ -27,16 +27,16 @@ void SampleGamePadDemo::draw() const {
     RoundRect(Arg::center(m_center), Size(25, 15) * m_scale, m_scale).draw(base_color);
     // ABXY
     Circle circle(m_center + Vec2(8, 0) * m_scale, 1 * m_scale);
-    circle.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(m_input.buttons().keyA().pressed()));
-    circle.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(m_input.buttons().keyB().pressed()));
-    circle.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(m_input.buttons().keyX().pressed()));
-    circle.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(m_input.buttons().keyY().pressed()));
+    circle.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(m_input.buttons().a().pressed()));
+    circle.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(m_input.buttons().b().pressed()));
+    circle.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(m_input.buttons().x().pressed()));
+    circle.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(m_input.buttons().y().pressed()));
     // 十字ボタン
     RectF rect(Arg::center(m_center + Vec2(-8, 0) * m_scale), 1.8 * m_scale);
-    rect.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(m_input.dpad().keyLeft ().pressed()));
-    rect.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(m_input.dpad().keyRight().pressed()));
-    rect.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(m_input.dpad().keyUp   ().pressed()));
-    rect.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(m_input.dpad().keyDown ().pressed()));
+    rect.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(m_input.dpad().left ().pressed()));
+    rect.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(m_input.dpad().right().pressed()));
+    rect.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(m_input.dpad().up   ().pressed()));
+    rect.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(m_input.dpad().down ().pressed()));
     // スティック
     Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(button_color);
     Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(button_color);

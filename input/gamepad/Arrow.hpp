@@ -37,8 +37,8 @@ public: // public function
         }
         case GPArrow::R: {
             return (m_axis.keyR() + dx::misc::boolToVec2(
-                m_buttons.keyA().pressed(), m_buttons.keyY().pressed(),
-                m_buttons.keyB().pressed(), m_buttons.keyX().pressed()))
+                m_buttons.a().pressed(), m_buttons.y().pressed(),
+                m_buttons.b().pressed(), m_buttons.x().pressed()))
                 .clamped(RectF(Arg::center(0, 0), 2));
         }
         }

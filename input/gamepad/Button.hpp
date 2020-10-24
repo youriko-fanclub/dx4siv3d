@@ -12,10 +12,10 @@ enum class GPButton : int {
 class IButtons {
 public:
     virtual const Key& key(GPButton button) const = 0;
-    virtual const Key& keyA() const = 0;
-    virtual const Key& keyB() const = 0;
-    virtual const Key& keyX() const = 0;
-    virtual const Key& keyY() const = 0;
+    virtual const Key& a() const = 0;
+    virtual const Key& b() const = 0;
+    virtual const Key& x() const = 0;
+    virtual const Key& y() const = 0;
 protected:
     IButtons() = default;
     virtual ~IButtons() = default;
@@ -24,10 +24,10 @@ protected:
 class AbsButtons : public IButtons {
 public:
     // virtual const IKey& key(GPButton button) const = 0;
-    const Key& keyA() const override { return key(GPButton::A); }
-    const Key& keyB() const override { return key(GPButton::B); }
-    const Key& keyX() const override { return key(GPButton::X); }
-    const Key& keyY() const override { return key(GPButton::Y); }
+    const Key& a() const override { return key(GPButton::A); }
+    const Key& b() const override { return key(GPButton::B); }
+    const Key& x() const override { return key(GPButton::X); }
+    const Key& y() const override { return key(GPButton::Y); }
 protected:
     AbsButtons() = default;
     virtual ~AbsButtons() = default;

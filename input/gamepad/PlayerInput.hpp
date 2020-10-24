@@ -18,8 +18,6 @@ public: // getter
     virtual const IArrow  & arrow  () const = 0;
     virtual const IDPad   & dpad   () const = 0;
     virtual const IAxis   & axis   () const = 0;
-    // virtual const IAxis& axisL() const = 0;
-    // virtual const IAxis& axisR() const = 0;
 };
 
 /// <summary> プレイヤー入力 </summary>
