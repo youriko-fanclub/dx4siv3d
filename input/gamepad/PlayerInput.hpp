@@ -38,8 +38,10 @@ public: // getter
     // const IAxis& axisL() const override { return axis(GPAxis::L); }
     // const IAxis& axisR() const override { return axis(GPAxis::R); }
 private: // field
-    const ButtonsFromKeyboard m_buttons;
-    const DPadFromKeyboard m_dpad;
+    // const ButtonsFromKeyboard m_buttons;
+    const ButtonsFromJoyCon m_buttons;
+    // const DPadFromKeyboard m_dpad;
+    const DPadFromJoyCon m_dpad;
     const AxisFromKeyboard m_axis;
     const ArrowFromKeyboard m_arrow;
 public: // ctor/dtor

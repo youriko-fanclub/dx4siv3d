@@ -1,4 +1,5 @@
 #pragma once
+#include <Siv3D/JoyCon.hpp>
 #include "Misc.hpp"
 
 namespace dx {
@@ -55,6 +56,26 @@ private: // field
     };
 private: // private function
 public: // ctor/dtor
+};
+
+class DPadFromJoyCon final : public AbsDPad {
+public: // static_const/enum
+public: // static
+public: // public function
+    const Key& key(GPDPad button) const override {
+        return m_keyMap.at(button)();
+    }
+private: // field
+    const std::unordered_map<GPDPad, std::function<const Key&()>> m_keyMap {
+        { GPDPad::Left , [this](){ const auto joy = JoyConL(0); { return joy.button2; } } },
+        { GPDPad::Right, [this](){ const auto joy = JoyConL(0); { return joy.button1; } } },
+        { GPDPad::Up   , [this](){ const auto joy = JoyConL(0); { return joy.button3; } } },
+        { GPDPad::Down , [this](){ const auto joy = JoyConL(0); { return joy.button0; } } },
+    };
+private: // private function
+    JoyCon m_joycon;
+public: // ctor/dtor
+    DPadFromJoyCon() : m_joycon(JoyConL(0)) {}
 };
 
 }
