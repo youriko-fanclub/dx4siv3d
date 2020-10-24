@@ -29,21 +29,17 @@ protected:
 class ArrowFromKeyboard final : public AbsArrow {
 public: // static_const/enum
 public: // static
-    static Vec2 clamped(const Vec2& vec) {
-        return Vec2(
-            std::clamp<float>(vec.x, -1, 1),
-            std::clamp<float>(vec.y, -1, 1));
-    }
 public: // public function
     Vec2 key(GPArrow arrow) const override {
         switch (arrow) {
         case GPArrow::L: {
-            return clamped(m_axis.keyL() + m_dpad.vec());
+            return (m_axis.keyL() + m_dpad.vec()).clamped(RectF(Arg::center(0, 0), 2));
         }
         case GPArrow::R: {
-            return clamped(m_axis.keyR() + dx::misc::boolToVec2(
+            return (m_axis.keyR() + dx::misc::boolToVec2(
                 m_buttons.keyA().pressed(), m_buttons.keyY().pressed(),
-                m_buttons.keyB().pressed(), m_buttons.keyX().pressed()));
+                m_buttons.keyB().pressed(), m_buttons.keyX().pressed()))
+                .clamped(RectF(Arg::center(0, 0), 2));
         }
         }
     }

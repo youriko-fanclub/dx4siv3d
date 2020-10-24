@@ -29,6 +29,7 @@ public:
     const Key& keyUp   () const override { return key(GPDPad::Up   ); }
     const Key& keyDown () const override { return key(GPDPad::Down ); }
     Vec2 vec() const override {
+        // return dx::misc::keyPressedToVec2(keyRight(), keyLeft(), keyDown(), keyUp());
         return dx::misc::boolToVec2(
             keyRight().pressed(), keyLeft().pressed(),
             keyDown ().pressed(), keyUp  ().pressed());
