@@ -20,10 +20,19 @@ bool ButtonsFromJoyCon::key(GPButton button) const {
     return false;
 }
 
-bool ButtonsFromMultiDevice::key(GPButton button) const {
+bool ButtonsFromMultiSource::key(GPButton button) const {
     return std::any_of(m_buttons_list.begin(), m_buttons_list.end(),
         [button](const auto& buttons){ return buttons->key(button); });
 }
+
+
+Buttons::Buttons() :
+    m_down   ({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Down   ),
+                std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Down   ) }),
+    m_pressed({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Pressed),
+                std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Pressed) }),
+    m_up     ({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Up     ),
+                std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Up     ) }) {}
 
 }
 }

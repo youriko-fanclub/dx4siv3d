@@ -23,42 +23,39 @@ protected:
     virtual ~IDPad() = default;
 };
 
-class AbsDPad : public IDPad {
+class DPadBase : public IDPad {
 protected:
     const GamePadId m_gpId;
     const KeyState m_state;
 protected:
-    AbsDPad(GamePadId _gpId, KeyState _state) :
+    DPadBase(GamePadId _gpId, KeyState _state) :
         m_gpId(_gpId), m_state(_state) {}
-    virtual ~AbsDPad() = default;
+    virtual ~DPadBase() = default;
 };
 
-class DPadFromKeyboard final : public AbsDPad {
+class DPadFromKeyboard final : public DPadBase {
 public: // public function
     bool key(GPDPad button) const override;
 public: // ctor/dtor
     DPadFromKeyboard(GamePadId _gpId, KeyState _state) :
-        AbsDPad(_gpId, _state) {}
+        DPadBase(_gpId, _state) {}
 };
 
-class DPadFromJoyCon final : public AbsDPad {
+class DPadFromJoyCon final : public DPadBase {
 public: // public function
     bool key(GPDPad button) const override;
 public: // ctor/dtor
     DPadFromJoyCon(GamePadId _gpId, KeyState _state) :
-        AbsDPad(_gpId, _state) {}
+        DPadBase(_gpId, _state) {}
 };
 
-class DPadFromMultiDevice final : public IDPad {
+class DPadFromMultiSource final : public IDPad {
 public: // public function
-    bool key(GPDPad button) const override {
-        return std::any_of(m_dpad_list.begin(), m_dpad_list.end(),
-            [button](const auto& dpad){ return dpad->key(button); });
-    }
+    bool key(GPDPad button) const override;
 private: // field
     const std::vector<std::shared_ptr<IDPad>> m_dpad_list;
 public: // ctor/dtor
-    DPadFromMultiDevice(const std::initializer_list<std::shared_ptr<IDPad>>& dpad_list) :
+    DPadFromMultiSource(const std::initializer_list<std::shared_ptr<IDPad>>& dpad_list) :
     m_dpad_list(dpad_list) {}
 };
 
@@ -70,17 +67,11 @@ public:
     s3d::Duration pressedDuration() const;
     s3d::Vec2 vec() const;
 private: // field
-    DPadFromMultiDevice m_down;
-    DPadFromMultiDevice m_pressed;
-    DPadFromMultiDevice m_up;
+    DPadFromMultiSource m_down;
+    DPadFromMultiSource m_pressed;
+    DPadFromMultiSource m_up;
 public: // ctor/dtor
-    DPad() :
-        m_down   ({ std::make_shared<DPadFromKeyboard>(GamePadId::_1P, KeyState::Down   ),
-                    std::make_shared<DPadFromJoyCon  >(GamePadId::_1P, KeyState::Down   ) }),
-        m_pressed({ std::make_shared<DPadFromKeyboard>(GamePadId::_1P, KeyState::Pressed),
-                    std::make_shared<DPadFromJoyCon  >(GamePadId::_1P, KeyState::Pressed) }),
-        m_up     ({ std::make_shared<DPadFromKeyboard>(GamePadId::_1P, KeyState::Up     ),
-                    std::make_shared<DPadFromJoyCon  >(GamePadId::_1P, KeyState::Up     ) }) {}
+    DPad();
 };
 
 }

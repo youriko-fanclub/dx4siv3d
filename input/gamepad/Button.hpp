@@ -27,39 +27,39 @@ protected:
     virtual ~IButtons() = default;
 };
 
-class AbsButtons : public IButtons {
+class ButtonsBase : public IButtons {
 protected:
     const GamePadId m_gpId;
     const KeyState m_state;
 protected:
-    AbsButtons(GamePadId _gpId, KeyState _state) :
+    ButtonsBase(GamePadId _gpId, KeyState _state) :
         m_gpId(_gpId), m_state(_state) {}
-    virtual ~AbsButtons() = default;
+    virtual ~ButtonsBase() = default;
 };
 
-class ButtonsFromKeyboard final : public AbsButtons {
+class ButtonsFromKeyboard final : public ButtonsBase {
 public: // public function
     bool key(GPButton button) const override;
 public: // ctor/dtor
     ButtonsFromKeyboard(GamePadId gpId, KeyState state) :
-        AbsButtons(gpId, state) {}
+        ButtonsBase(gpId, state) {}
 };
 
-class ButtonsFromJoyCon final : public AbsButtons {
+class ButtonsFromJoyCon final : public ButtonsBase {
 public: // public function
     bool key(GPButton button) const override;
 public: // ctor/dtor
     ButtonsFromJoyCon(GamePadId gpId, KeyState state) :
-        AbsButtons(gpId, state) {}
+        ButtonsBase(gpId, state) {}
 };
 
-class ButtonsFromMultiDevice final : public IButtons {
+class ButtonsFromMultiSource final : public IButtons {
 public: // public function
     bool key(GPButton button) const override;
 private: // field
     const std::vector<std::shared_ptr<IButtons>> m_buttons_list;
 public: // ctor/dtor
-    ButtonsFromMultiDevice(const std::initializer_list<std::shared_ptr<IButtons>>& buttons_list) :
+    ButtonsFromMultiSource(const std::initializer_list<std::shared_ptr<IButtons>>& buttons_list) :
     m_buttons_list(buttons_list) {}
 };
 
@@ -70,17 +70,11 @@ public:
     const IButtons& up     () const { return m_up; }
     s3d::Duration pressedDuration() const { return s3d::Duration(0); } // TOdO:
 private: // field
-    ButtonsFromMultiDevice m_down;
-    ButtonsFromMultiDevice m_pressed;
-    ButtonsFromMultiDevice m_up;
+    ButtonsFromMultiSource m_down;
+    ButtonsFromMultiSource m_pressed;
+    ButtonsFromMultiSource m_up;
 public: // ctor/dtor
-    Buttons() :
-        m_down   ({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Down   ),
-                    std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Down   ) }),
-        m_pressed({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Pressed),
-                    std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Pressed) }),
-        m_up     ({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Up     ),
-                    std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Up     ) }) {}
+    Buttons();
 };
 
 
