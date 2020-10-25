@@ -5,6 +5,19 @@
 namespace dx {
 namespace di {
 
+enum class KeyState : int {
+    Down, Pressed, Up
+};
+
+inline bool isState(const s3d::Key& key, KeyState state) {
+    switch (state) {
+    case KeyState::Down   : return key.down();
+    case KeyState::Pressed: return key.pressed();
+    case KeyState::Up     : return key.up();
+    }
+}
+
+
 enum class KeyCode : int {
     None,
     Cancel,

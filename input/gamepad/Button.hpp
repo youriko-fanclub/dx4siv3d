@@ -6,10 +6,6 @@
 namespace dx {
 namespace di {
 
-enum class KeyState : int {
-    Down, Pressed, Up
-};
-
 enum class GPButton : int {
     A, B, X, Y,
     L1, R1, L2, R2,
@@ -37,14 +33,6 @@ protected:
         m_gpId(_gpId), m_state(_state) {}
     virtual ~AbsButtons() = default;
 };
-
-inline bool isState(const s3d::Key& key, KeyState state) {
-    switch (state) {
-    case KeyState::Down   : return key.down();
-    case KeyState::Pressed: return key.pressed();
-    case KeyState::Up     : return key.up();
-    }
-}
 
 class ButtonsFromKeyboard final : public AbsButtons {
 public: // static_const/enum
