@@ -30,11 +30,11 @@ private: // field
     const DPad m_dpad;
     const AxisFromMultiSource m_axis;
 public: // ctor/dtor
-    PlayerInput() :
-        m_buttons(),
-        m_dpad(),
-        m_axis({ std::make_shared<AxisFromKeyboard>(GamePadId::_1P),
-                 std::make_shared<AxisFromJoyCon  >(GamePadId::_1P), }) {} // TOdO:
+    PlayerInput(GamePadId gpid) :
+        m_buttons(gpid),
+        m_dpad(gpid),
+        m_axis({ std::make_shared<AxisFromKeyboard>(gpid),
+                 std::make_shared<AxisFromJoyCon  >(gpid), }) {} // TOdO:
 };
 
 }

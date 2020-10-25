@@ -71,7 +71,7 @@ private: // field
     DPadFromMultiSource m_pressed;
     DPadFromMultiSource m_up;
 public: // ctor/dtor
-    DPad();
+    DPad(GamePadId gpid);
 };
 
 }

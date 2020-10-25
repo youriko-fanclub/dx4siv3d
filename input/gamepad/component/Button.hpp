@@ -74,7 +74,7 @@ private: // field
     ButtonsFromMultiSource m_pressed;
     ButtonsFromMultiSource m_up;
 public: // ctor/dtor
-    Buttons();
+    Buttons(GamePadId gpid);
 };
 
 

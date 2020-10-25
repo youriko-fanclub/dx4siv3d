@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <vector>
 
 /// <summary> 複数プレイヤーによる入力を管理するIDを管理 </summary>
 namespace dx {
@@ -10,15 +11,39 @@ enum class PlayerId {
     _1P, _2P, _3P, _4P// , Any
 };
 
+template <typename EnumType>
+inline std::vector<EnumType> elems() { return std::vector<EnumType>(); }
+
+template <>
+inline std::vector<PlayerId> elems() {
+    return std::vector<PlayerId>({
+        PlayerId::_1P, PlayerId::_2P, PlayerId::_3P, PlayerId::_4P,
+    });
+}
+
 /// <summary> コントローラー </summary>
 enum class GamePadId {
     _1P, _2P, _3P, _4P// , Any
 };
 
+template <>
+inline std::vector<GamePadId> elems() {
+    return std::vector<GamePadId>({
+        GamePadId::_1P, GamePadId::_2P, GamePadId::_3P, GamePadId::_4P,
+    });
+}
+
 /// <summary> コントローラー自動割り振り </summary>
 enum class GamePadRawId {
     _1P, _2P, _3P, _4P// , Any, Max
 };
+
+template <>
+inline std::vector<GamePadRawId> elems() {
+    return std::vector<GamePadRawId>({
+        GamePadRawId::_1P, GamePadRawId::_2P, GamePadRawId::_3P, GamePadRawId::_4P,
+    });
+}
 
 // e.g. スマブラ
 // - Player     : キャラが左から何枠目か

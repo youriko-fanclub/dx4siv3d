@@ -12,12 +12,12 @@ public: // public function
     void update();
     void draw() const;
 private: // field
-    const PlayerInput m_input;
+    GamePadId m_gpid;
     Vec2 m_center;
     double m_scale;
 private: // private function
 public: // ctor/dtor
-    SampleGamePadDemo(const PlayerInput input, const Vec2& center, double scale);
+    SampleGamePadDemo(GamePadId id, const Vec2& center, double scale);
 };
 
 class JoyConDemo {

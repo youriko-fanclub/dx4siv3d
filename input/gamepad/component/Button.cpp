@@ -26,13 +26,13 @@ bool ButtonsFromMultiSource::key(GPButton button) const {
 }
 
 
-Buttons::Buttons() :
-    m_down   ({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Down   ),
-                std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Down   ) }),
-    m_pressed({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Pressed),
-                std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Pressed) }),
-    m_up     ({ std::make_shared<ButtonsFromKeyboard>(GamePadId::_1P, KeyState::Up     ),
-                std::make_shared<ButtonsFromJoyCon  >(GamePadId::_1P, KeyState::Up     ) }) {}
+Buttons::Buttons(GamePadId gpid) :
+    m_down   ({ std::make_shared<ButtonsFromKeyboard>(gpid, KeyState::Down   ),
+                std::make_shared<ButtonsFromJoyCon  >(gpid, KeyState::Down   ) }),
+    m_pressed({ std::make_shared<ButtonsFromKeyboard>(gpid, KeyState::Pressed),
+                std::make_shared<ButtonsFromJoyCon  >(gpid, KeyState::Pressed) }),
+    m_up     ({ std::make_shared<ButtonsFromKeyboard>(gpid, KeyState::Up     ),
+                std::make_shared<ButtonsFromJoyCon  >(gpid, KeyState::Up     ) }) {}
 
 }
 }

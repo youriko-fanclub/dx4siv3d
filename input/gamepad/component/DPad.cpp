@@ -38,13 +38,13 @@ bool DPadFromMultiSource::key(GPDPad button) const {
 s3d::Duration DPad::pressedDuration() const { return s3d::Duration(0); } // TOdO:
 s3d::Vec2 DPad::vec() const { return m_pressed.vec(); }
 
-DPad::DPad() :
-    m_down   ({ std::make_shared<DPadFromKeyboard>(GamePadId::_1P, KeyState::Down   ),
-                std::make_shared<DPadFromJoyCon  >(GamePadId::_1P, KeyState::Down   ) }),
-    m_pressed({ std::make_shared<DPadFromKeyboard>(GamePadId::_1P, KeyState::Pressed),
-                std::make_shared<DPadFromJoyCon  >(GamePadId::_1P, KeyState::Pressed) }),
-    m_up     ({ std::make_shared<DPadFromKeyboard>(GamePadId::_1P, KeyState::Up     ),
-                std::make_shared<DPadFromJoyCon  >(GamePadId::_1P, KeyState::Up     ) }) {}
+DPad::DPad(GamePadId gpid) :
+    m_down   ({ std::make_shared<DPadFromKeyboard>(gpid, KeyState::Down   ),
+                std::make_shared<DPadFromJoyCon  >(gpid, KeyState::Down   ) }),
+    m_pressed({ std::make_shared<DPadFromKeyboard>(gpid, KeyState::Pressed),
+                std::make_shared<DPadFromJoyCon  >(gpid, KeyState::Pressed) }),
+    m_up     ({ std::make_shared<DPadFromKeyboard>(gpid, KeyState::Up     ),
+                std::make_shared<DPadFromJoyCon  >(gpid, KeyState::Up     ) }) {}
 
 }
 }
