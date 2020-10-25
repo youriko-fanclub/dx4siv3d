@@ -2,6 +2,10 @@
 #include <string>
 #include <Siv3D/Key.hpp>
 
+namespace s3d {
+class JoyCon;
+}
+
 namespace dx {
 namespace di {
 
@@ -81,6 +85,20 @@ enum class KeyCode : int {
 
 KeyCode keyFromString(const std::string& str);
 s3d::Key keyFromCode(KeyCode code);
+
+
+enum class KeyCodeOfJoyCon : int {
+    None,
+    A, B, X, Y,
+    Left, Right, Up, Down,
+    L, R, ZL, ZR, SL, SR,
+    Plus, Minus,
+    Home, Screenshot,
+};
+
+KeyCodeOfJoyCon keyOfJoyConFromString(const std::string& str);
+s3d::Key keyFromCodeAtHorizontally(const s3d::JoyCon& joy, KeyCodeOfJoyCon code);
+s3d::Key keyFromCodeAtFrontally(const s3d::JoyCon& joyL, const s3d::JoyCon& joyR, KeyCodeOfJoyCon code);
 
 }
 }

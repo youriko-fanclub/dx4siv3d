@@ -1,6 +1,7 @@
 #include "KeyCode.hpp"
 #include <unordered_map>
 #include <Siv3D/Keyboard.hpp>
+#include <Siv3D/JoyCon.hpp>
 
 namespace dx {
 namespace di {
@@ -136,7 +137,12 @@ KeyCode keyFromString(const std::string& str) {
         { "Apostrophe_US" , KeyCode::Apostrophe_US  },
         { "Underscore_JIS", KeyCode::Underscore_JIS },
     };
-    return map.at(str);
+    if (map.contains(str)) {
+        return map.at(str);
+    }
+    else {
+        return KeyCode::None;
+    }
 }
 
 s3d::Key keyFromCode(KeyCode code) {
@@ -271,6 +277,86 @@ s3d::Key keyFromCode(KeyCode code) {
     case KeyCode::Apostrophe_US : return KeyApostrophe_US ;
     case KeyCode::Underscore_JIS: return KeyUnderscore_JIS;
     default: return KeyPrintScreen;
+    }
+}
+
+
+KeyCodeOfJoyCon keyOfJoyConFromString(const std::string& str) {
+    static std::unordered_map<std::string, KeyCodeOfJoyCon> map {
+        { "A"         , KeyCodeOfJoyCon::A          },
+        { "B"         , KeyCodeOfJoyCon::B          },
+        { "X"         , KeyCodeOfJoyCon::X          },
+        { "Y"         , KeyCodeOfJoyCon::Y          },
+        { "Left"      , KeyCodeOfJoyCon::Left       },
+        { "Right"     , KeyCodeOfJoyCon::Right      },
+        { "Up"        , KeyCodeOfJoyCon::Up         },
+        { "Down"      , KeyCodeOfJoyCon::Down       },
+        { "L"         , KeyCodeOfJoyCon::L          },
+        { "R"         , KeyCodeOfJoyCon::R          },
+        { "ZL"        , KeyCodeOfJoyCon::ZL         },
+        { "ZR"        , KeyCodeOfJoyCon::ZR         },
+        { "SL"        , KeyCodeOfJoyCon::SL         },
+        { "SR"        , KeyCodeOfJoyCon::SR         },
+        { "Plus"      , KeyCodeOfJoyCon::Plus       },
+        { "Minus"     , KeyCodeOfJoyCon::Minus      },
+        { "Home"      , KeyCodeOfJoyCon::Home       },
+        { "Screenshot", KeyCodeOfJoyCon::Screenshot },
+    };
+    if (map.contains(str)) {
+        return map.at(str);
+    }
+    else {
+        return KeyCodeOfJoyCon::None;
+    }
+}
+
+s3d::Key keyFromCodeAtHorizontally(const s3d::JoyCon& joy, KeyCodeOfJoyCon code) {
+    using namespace s3d;
+    switch (code) {
+    case KeyCodeOfJoyCon::A         : return joy.button1;
+    case KeyCodeOfJoyCon::B         : return joy.button0;
+    case KeyCodeOfJoyCon::X         : return joy.button3;
+    case KeyCodeOfJoyCon::Y         : return joy.button2;
+ // case KeyCodeOfJoyCon::Left      : return joy.button0;
+ // case KeyCodeOfJoyCon::Right     : return joy.button0;
+ // case KeyCodeOfJoyCon::Up        : return joy.button0;
+ // case KeyCodeOfJoyCon::Down      : return joy.button0;
+    case KeyCodeOfJoyCon::L         : return joy.buttonSL;
+    case KeyCodeOfJoyCon::R         : return joy.buttonSR;
+ // case KeyCodeOfJoyCon::ZL        : return joy.button0;
+ // case KeyCodeOfJoyCon::ZR        : return joy.button0;
+    case KeyCodeOfJoyCon::SL        : return joy.buttonSL;
+    case KeyCodeOfJoyCon::SR        : return joy.buttonSR;
+    case KeyCodeOfJoyCon::Plus      : return joy.buttonPlus;
+    case KeyCodeOfJoyCon::Minus     : return joy.buttonMinus;
+    case KeyCodeOfJoyCon::Home      : return joy.buttonHome;
+    case KeyCodeOfJoyCon::Screenshot: return joy.buttonScreenshot;
+    default                         : return KeyPrintScreen;
+    }
+}
+
+s3d::Key keyFromCodeAtFrontally(const s3d::JoyCon& joyL, const s3d::JoyCon& joyR, KeyCodeOfJoyCon code) {
+    using namespace s3d;
+    switch (code) {
+    case KeyCodeOfJoyCon::A         : return joyR.button0;
+    case KeyCodeOfJoyCon::B         : return joyR.button2;
+    case KeyCodeOfJoyCon::X         : return joyR.button1;
+    case KeyCodeOfJoyCon::Y         : return joyR.button3;
+    case KeyCodeOfJoyCon::Left      : return joyL.button0;
+    case KeyCodeOfJoyCon::Right     : return joyL.button3;
+    case KeyCodeOfJoyCon::Up        : return joyL.button2;
+    case KeyCodeOfJoyCon::Down      : return joyL.button1;
+    case KeyCodeOfJoyCon::L         : return joyL.buttonLR;
+    case KeyCodeOfJoyCon::R         : return joyR.buttonLR;
+    case KeyCodeOfJoyCon::ZL        : return joyL.buttonZLZR;
+    case KeyCodeOfJoyCon::ZR        : return joyR.buttonZLZR;
+ // case KeyCodeOfJoyCon::SL        : return joyL.button0;
+ // case KeyCodeOfJoyCon::SR        : return joyR.button0;
+    case KeyCodeOfJoyCon::Plus      : return joyR.buttonPlus;
+    case KeyCodeOfJoyCon::Minus     : return joyL.buttonMinus;
+    case KeyCodeOfJoyCon::Home      : return joyR.buttonHome;
+    case KeyCodeOfJoyCon::Screenshot: return joyL.buttonScreenshot;
+    default                         : return KeyPrintScreen;
     }
 }
 

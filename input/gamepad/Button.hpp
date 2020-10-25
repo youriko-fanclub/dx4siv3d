@@ -50,19 +50,8 @@ class ButtonsFromJoyCon final : public AbsButtons {
 public: // static_const/enum
 public: // static
 public: // public function
-    bool key(GPButton button) const override {
-        if (m_keyMap.count(button) > 0) {
-            return m_keyMap.at(button)();
-        }
-        else { return false; }
-    }
+    bool key(GPButton button) const override;
 private: // field
-    const std::unordered_map<GPButton, std::function<bool()>> m_keyMap {
-        { GPButton::A, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button1, m_state); } else { return false; } } },
-        { GPButton::B, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button0, m_state); } else { return false; } } },
-        { GPButton::X, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button3, m_state); } else { return false; } } },
-        { GPButton::Y, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button2, m_state); } else { return false; } } },
-    };
 private: // private function
 public: // ctor/dtor
     ButtonsFromJoyCon(GamePadId gpId, KeyState state) :
