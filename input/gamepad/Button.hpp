@@ -118,11 +118,11 @@ private: // field
 public: // ctor/dtor
     Buttons() :
         m_down   ({ std::make_shared<ButtonsFromKeyboard>(KeyState::Down   ),
-                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Down   )}),
+                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Down   ) }),
         m_pressed({ std::make_shared<ButtonsFromKeyboard>(KeyState::Pressed),
-                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Pressed)}),
+                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Pressed) }),
         m_up     ({ std::make_shared<ButtonsFromKeyboard>(KeyState::Up     ),
-                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Up     )}) {}
+                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Up     ) }) {}
 };
 
 
