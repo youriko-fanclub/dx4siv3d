@@ -15,10 +15,10 @@ enum class GPButton : int {
 class IButtons {
 public:
     virtual bool key(GPButton button) const = 0;
-    virtual bool a() const { return key(GPButton::A); }
-    virtual bool b() const { return key(GPButton::B); }
-    virtual bool x() const { return key(GPButton::X); }
-    virtual bool y() const { return key(GPButton::Y); }
+    bool a() const { return key(GPButton::A); }
+    bool b() const { return key(GPButton::B); }
+    bool x() const { return key(GPButton::X); }
+    bool y() const { return key(GPButton::Y); }
 protected:
     IButtons() = default;
     virtual ~IButtons() = default;

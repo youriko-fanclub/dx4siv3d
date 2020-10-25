@@ -33,10 +33,10 @@ void SampleGamePadDemo::draw() const {
     circle.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(m_input.buttons().pressed().y()));
     // 十字ボタン
     RectF rect(Arg::center(m_center + Vec2(-8, 0) * m_scale), 1.8 * m_scale);
-    rect.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(m_input.dpad().left ().pressed()));
-    rect.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(m_input.dpad().right().pressed()));
-    rect.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(m_input.dpad().up   ().pressed()));
-    rect.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(m_input.dpad().down ().pressed()));
+    rect.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(m_input.dpad().pressed().left ()));
+    rect.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(m_input.dpad().pressed().right()));
+    rect.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(m_input.dpad().pressed().up   ()));
+    rect.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(m_input.dpad().pressed().down ()));
     // スティック
     Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(button_color);
     Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(button_color);

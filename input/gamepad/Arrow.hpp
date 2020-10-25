@@ -46,10 +46,10 @@ public: // public function
 private: // field
 private: // private function
     const Buttons& m_buttons;
-    const IDPad& m_dpad;
-    const IAxis& m_axis;
+    const DPad   & m_dpad;
+    const IAxis  & m_axis;
 public: // ctor/dtor
-    ArrowFromKeyboard(const Buttons& buttons, const IDPad& dpad, const IAxis& axis) :
+    ArrowFromKeyboard(const Buttons& buttons, const DPad& dpad, const IAxis& axis) :
         m_axis(axis),
         m_dpad(dpad),
         m_buttons(buttons) {}
