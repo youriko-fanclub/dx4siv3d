@@ -2,7 +2,7 @@
 #include <Siv3D/MathConstants.hpp>
 #include <Siv3D/Circular.hpp>
 #include "KeyMapping.hpp"
-// #include "Misc.hpp"
+#include "InputManager.hpp"
 
 using s3d::operator""_deg;
 
@@ -16,7 +16,10 @@ s3d::Vec2 AxisFromKeyboard::vec(GPAxis axis) const {
 }
 
 s3d::Vec2 AxisFromJoyCon::vec(GPAxis axis) const {
-    if (axis == GPAxis::R) { return s3d::Vec2::Zero(); } // TOdO: 横持ちでない場合は右スティックがある
+    if (axis == GPAxis::R
+    && InputManager::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
+        return s3d::Vec2::Zero();
+    } // TOdO:
     if (const auto joy = KeyMapping::getJoyCon(m_gpid)) {
         if (auto d = joy.povD8()) {
             return s3d::Circular(1, *d * 45_deg).toVec2();

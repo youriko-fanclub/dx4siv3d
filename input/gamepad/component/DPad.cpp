@@ -1,6 +1,7 @@
 #include "DPad.hpp"
 #include "KeyMapping.hpp"
 #include "Misc.hpp"
+#include "InputManager.hpp"
 
 namespace dx {
 namespace di {
@@ -17,6 +18,9 @@ bool DPadFromKeyboard::key(GPDPad button) const {
 }
 
 bool DPadFromJoyCon::key(GPDPad button) const {
+    if (InputManager::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
+        return false;
+    }
 #ifdef UNDER_CONSTRUCTION // TOdO: 横持ちなら常にfalse
     if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpid, button); code != KeyCodeOfJoyCon::None) {
         const auto joy_l = s3d::JoyConL(0);

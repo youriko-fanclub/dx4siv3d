@@ -3,6 +3,7 @@
 #include "PlayerId.hpp"
 #include "Button.hpp"
 #include "DPad.hpp"
+#include "InputManager.hpp"
 
 namespace dx {
 namespace di {
@@ -39,7 +40,7 @@ KeyCode KeyMapping::get(const GamePadId& gpid, const GPDPad& gp_dpad_button) {
 
 KeyCodeOfJoyCon KeyMapping::getJoyCon(const GamePadId& gpid, const GPButton& gp_button) {
     using Code = KeyCodeOfJoyCon;
-    bool is_horizontally = true; // TOdO:
+    bool is_horizontally = InputManager::instance()->source(gpid) == InputSource::JoyConHorizontally;
     switch (gp_button) {
     case GPButton::A: return Code::A;
     case GPButton::B: return Code::B;
