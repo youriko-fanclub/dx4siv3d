@@ -41,9 +41,9 @@ protected:
 
 inline bool isState(const Key& key, KeyState state) {
     switch (state) {
-    case KeyState::Down   : return KeyL.down();
-    case KeyState::Pressed: return KeyL.pressed();
-    case KeyState::Up     : return KeyL.up();
+    case KeyState::Down   : return key.down();
+    case KeyState::Pressed: return key.pressed();
+    case KeyState::Up     : return key.up();
     }
 }
 
@@ -52,15 +52,15 @@ public: // static_const/enum
 public: // static
 public: // public function
     bool key(GPButton button) const override {
-        return m_keyMap.at(button)();
+        return isState(keyFromCode(m_keyMap.at(button)), m_state);
     }
 private: // field
     const KeyState m_state;
-    const std::unordered_map<GPButton, std::function<bool()>> m_keyMap {
-        { GPButton::A, [this](){ return isState(KeyL, m_state); } },
-        { GPButton::B, [this](){ return isState(KeyK, m_state); } },
-        { GPButton::X, [this](){ return isState(KeyI, m_state); } },
-        { GPButton::Y, [this](){ return isState(KeyJ, m_state); } },
+    const std::unordered_map<GPButton, KeyCode> m_keyMap {
+        { GPButton::A, KeyCode::L },
+        { GPButton::B, KeyCode::K },
+        { GPButton::X, KeyCode::I },
+        { GPButton::Y, KeyCode::J },
     };
 private: // private function
 public: // ctor/dtor
@@ -76,7 +76,6 @@ public: // public function
     }
 private: // field
     const KeyState m_state;
-    JoyCon m_joycon;
     const std::unordered_map<GPButton, std::function<bool()>> m_keyMap {
         { GPButton::A, [this](){ if (const auto joy = JoyConL(0)) { return isState(joy.button1, m_state); } else { return false; } } },
         { GPButton::B, [this](){ if (const auto joy = JoyConL(0)) { return isState(joy.button0, m_state); } else { return false; } } },
@@ -85,7 +84,7 @@ private: // field
     };
 private: // private function
 public: // ctor/dtor
-    ButtonsFromJoyCon(KeyState state) : m_state(state), m_joycon(JoyConL(0)) {}
+    ButtonsFromJoyCon(KeyState state) : m_state(state) {}
 };
 
 

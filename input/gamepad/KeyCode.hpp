@@ -66,7 +66,7 @@ enum class KeyCode : int {
 };
 
 KeyCode keyFromString(const std::string& str);
-s3d::Key keyFromString(KeyCode code);
+s3d::Key keyFromCode(KeyCode code);
 
 }
 }

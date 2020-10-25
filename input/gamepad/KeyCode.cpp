@@ -139,7 +139,7 @@ KeyCode keyFromString(const std::string& str) {
     return map.at(str);
 }
 
-inline s3d::Key keyFromString(KeyCode code) {
+s3d::Key keyFromCode(KeyCode code) {
     using namespace s3d;
     switch (code) {
     case KeyCode::Cancel     : return KeyCancel     ;
