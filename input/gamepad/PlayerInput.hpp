@@ -14,7 +14,7 @@ namespace di {
 /// <summary> プレイヤー入力 </summary>
 class IPlayerInput {
 public: // getter
-    virtual const IButtons& buttons() const = 0;
+    virtual const Buttons& buttons() const = 0;
     virtual const IArrow  & arrow  () const = 0;
     virtual const IDPad   & dpad   () const = 0;
     virtual const IAxis   & axis   () const = 0;
@@ -31,12 +31,12 @@ public:
 /// <summary> プレイヤー入力 </summary>
 class PlayerInputFromKeyboard : public PlayerInput {
 public: // getter
-    const IButtons& buttons() const override { return m_buttons; }
-    const IArrow  & arrow  () const override { return m_arrow  ; }
-    const IDPad   & dpad   () const override { return m_dpad   ; }
-    const IAxis   & axis   () const override { return m_axis   ; }
+    const Buttons& buttons() const override { return m_buttons; }
+    const IArrow & arrow  () const override { return m_arrow  ; }
+    const IDPad  & dpad   () const override { return m_dpad   ; }
+    const IAxis  & axis   () const override { return m_axis   ; }
 private: // field
-    const ButtonsFromKeyboard m_buttons;
+    const Buttons m_buttons;
     // const ButtonsFromJoyCon m_buttons;
     // const DPadFromKeyboard m_dpad;
     const DPadFromJoyCon m_dpad;

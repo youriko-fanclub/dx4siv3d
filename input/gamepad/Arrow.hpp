@@ -37,19 +37,19 @@ public: // public function
         }
         case GPArrow::R: {
             return (m_axis.keyR() + dx::misc::boolToVec2(
-                m_buttons.a().pressed(), m_buttons.y().pressed(),
-                m_buttons.b().pressed(), m_buttons.x().pressed()))
+                m_buttons.pressed().a(), m_buttons.pressed().y(),
+                m_buttons.pressed().b(), m_buttons.pressed().x()))
                 .clamped(RectF(Arg::center(0, 0), 2));
         }
         }
     }
 private: // field
 private: // private function
-    const IButtons& m_buttons;
+    const Buttons& m_buttons;
     const IDPad& m_dpad;
     const IAxis& m_axis;
 public: // ctor/dtor
-    ArrowFromKeyboard(const IButtons& buttons, const IDPad& dpad, const IAxis& axis) :
+    ArrowFromKeyboard(const Buttons& buttons, const IDPad& dpad, const IAxis& axis) :
         m_axis(axis),
         m_dpad(dpad),
         m_buttons(buttons) {}
