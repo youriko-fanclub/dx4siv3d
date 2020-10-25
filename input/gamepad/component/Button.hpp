@@ -22,6 +22,7 @@ public:
     bool l() const { return key(GPButton::L1); }
     bool r() const { return key(GPButton::R1); }
     bool start() const { return key(GPButton::Start); }
+    virtual s3d::Duration pressedDuration(GPButton button) const = 0;
 protected:
     IButtons() = default;
     virtual ~IButtons() = default;
@@ -40,6 +41,7 @@ protected:
 class ButtonsFromKeyboard final : public ButtonsBase {
 public: // public function
     bool key(GPButton button) const override;
+    s3d::Duration pressedDuration(GPButton button) const override;
 public: // ctor/dtor
     ButtonsFromKeyboard(GamePadId gpid, KeyState state) :
         ButtonsBase(gpid, state) {}
@@ -48,6 +50,7 @@ public: // ctor/dtor
 class ButtonsFromJoyCon final : public ButtonsBase {
 public: // public function
     bool key(GPButton button) const override;
+    s3d::Duration pressedDuration(GPButton button) const override;
 public: // ctor/dtor
     ButtonsFromJoyCon(GamePadId gpid, KeyState state) :
         ButtonsBase(gpid, state) {}
@@ -56,6 +59,7 @@ public: // ctor/dtor
 class ButtonsFromMultiSource final : public IButtons {
 public: // public function
     bool key(GPButton button) const override;
+    s3d::Duration pressedDuration(GPButton button) const override;
 private: // field
     const std::vector<std::shared_ptr<IButtons>> m_buttons_list;
 public: // ctor/dtor
@@ -68,7 +72,7 @@ public:
     const IButtons& down   () const { return m_down; }
     const IButtons& pressed() const { return m_pressed; }
     const IButtons& up     () const { return m_up; }
-    s3d::Duration pressedDuration() const { return s3d::Duration(0); } // TOdO:
+    s3d::Duration pressedDuration(GPButton button) const { return m_pressed.pressedDuration(button); }
 private: // field
     ButtonsFromMultiSource m_down;
     ButtonsFromMultiSource m_pressed;

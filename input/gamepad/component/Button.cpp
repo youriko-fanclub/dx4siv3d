@@ -11,6 +11,14 @@ bool ButtonsFromKeyboard::key(GPButton button) const {
     return false;
 }
 
+s3d::Duration ButtonsFromKeyboard::pressedDuration(GPButton button) const {
+    if (KeyCode code = KeyMapping::get(m_gpid, button); code != KeyCode::None) {
+        return keyFromCode(code).pressedDuration();
+    }
+    return s3d::Duration(0);
+}
+
+
 bool ButtonsFromJoyCon::key(GPButton button) const {
     if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpid, button); code != KeyCodeOfJoyCon::None) {
         if (const auto joy = KeyMapping::getJoyCon(m_gpid)) {
@@ -20,9 +28,30 @@ bool ButtonsFromJoyCon::key(GPButton button) const {
     return false;
 }
 
+s3d::Duration ButtonsFromJoyCon::pressedDuration(GPButton button) const {
+    if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpid, button); code != KeyCodeOfJoyCon::None) {
+        if (const auto joy = KeyMapping::getJoyCon(m_gpid)) {
+            return keyFromCodeAtHorizontally(joy, code).pressedDuration();
+        }
+    }
+    return s3d::Duration(0);
+}
+
+
 bool ButtonsFromMultiSource::key(GPButton button) const {
     return std::any_of(m_buttons_list.begin(), m_buttons_list.end(),
         [button](const auto& buttons){ return buttons->key(button); });
+}
+
+s3d::Duration ButtonsFromMultiSource::pressedDuration(GPButton button) const {
+    s3d::Duration duration(0);
+    for (const auto& buttons : m_buttons_list) {
+        const auto& d = buttons->pressedDuration(button);
+        if (duration < d) {
+            duration = d;
+        }
+    }
+    return duration;
 }
 
 
