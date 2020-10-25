@@ -35,11 +35,9 @@ public: // getter
     const IArrow  & arrow  () const override { return m_arrow  ; }
     const IDPad   & dpad   () const override { return m_dpad   ; }
     const IAxis   & axis   () const override { return m_axis   ; }
-    // const IAxis& axisL() const override { return axis(GPAxis::L); }
-    // const IAxis& axisR() const override { return axis(GPAxis::R); }
 private: // field
-    // const ButtonsFromKeyboard m_buttons;
-    const ButtonsFromJoyCon m_buttons;
+    const ButtonsFromKeyboard m_buttons;
+    // const ButtonsFromJoyCon m_buttons;
     // const DPadFromKeyboard m_dpad;
     const DPadFromJoyCon m_dpad;
     const AxisFromKeyboard m_axis;

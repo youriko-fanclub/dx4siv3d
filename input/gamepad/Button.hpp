@@ -1,5 +1,6 @@
 #pragma once
 #include <Siv3D/JoyCon.hpp>
+#include "IKey.hpp"
 
 namespace dx {
 namespace di {
@@ -8,6 +9,16 @@ enum class GPButton : int {
     A, B, X, Y,
     L1, R1, L2, R2,
     Start, Select,
+};
+
+class IButtons;
+
+class Buttons {
+public:
+    const IButtons& down   () const;
+    const IButtons& pressed() const;
+    const IButtons& up     () const;
+    s3d::Duration pressedDuration() const;
 };
 
 class IButtons {
