@@ -34,7 +34,7 @@ public: // ctor/dtor
         m_buttons(gpid),
         m_dpad(gpid),
         m_axis({ std::make_shared<AxisFromKeyboard>(gpid),
-                 std::make_shared<AxisFromJoyCon  >(gpid), }) {} // TOdO:
+                 std::make_shared<AxisFromJoyCon  >(gpid), }) {}
 };
 
 }

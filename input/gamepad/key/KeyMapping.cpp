@@ -38,20 +38,22 @@ KeyCode KeyMapping::get(const GamePadId& gpid, const GPDPad& gp_dpad_button) {
 }
 
 KeyCodeOfJoyCon KeyMapping::getJoyCon(const GamePadId& gpid, const GPButton& gp_button) {
-    switch (gpid) {
-    case GamePadId::_1P: {
-        switch (gp_button) {
-        case GPButton::A: return KeyCodeOfJoyCon::A;
-        case GPButton::B: return KeyCodeOfJoyCon::B;
-        case GPButton::X: return KeyCodeOfJoyCon::X;
-        case GPButton::Y: return KeyCodeOfJoyCon::Y;
-        case GPButton::L1: return KeyCodeOfJoyCon::SL;
-        case GPButton::R1: return KeyCodeOfJoyCon::SR;
-        case GPButton::Start: return KeyCodeOfJoyCon::Minus;
-        default         : return KeyCodeOfJoyCon::None;
+    using Code = KeyCodeOfJoyCon;
+    bool is_horizontally = true; // TOdO:
+    switch (gp_button) {
+    case GPButton::A: return Code::A;
+    case GPButton::B: return Code::B;
+    case GPButton::X: return Code::X;
+    case GPButton::Y: return Code::Y;
+    case GPButton::L1: return is_horizontally ? Code::SL : Code::L;
+    case GPButton::R1: return is_horizontally ? Code::SR : Code::R;
+    case GPButton::Start:
+        switch (getJoyConLR(gpid)) {
+        case JoyConLR::L: return Code::Minus;
+        case JoyConLR::R: return Code::Plus;
+        case JoyConLR::None: return Code::None;
         }
-    } break;
-    default: return KeyCodeOfJoyCon::None;
+    default: return Code::None;
     }
 }
 
@@ -70,5 +72,23 @@ KeyCodeOfJoyCon KeyMapping::getJoyCon(const GamePadId& gpid, const GPDPad& gp_dp
     }
 }
 
+s3d::JoyCon KeyMapping::getJoyCon(const GamePadId& gpid) {
+    switch (gpid) {
+    case GamePadId::_1P: return s3d::JoyConL(0);
+    case GamePadId::_2P: return s3d::JoyConR(0);
+    case GamePadId::_3P: return s3d::JoyConL(1);
+    case GamePadId::_4P: return s3d::JoyConR(1);
+    }
+}
+
+JoyConLR KeyMapping::getJoyConLR(const GamePadId& gpid) {
+    switch (gpid) {
+    case GamePadId::_1P:
+    case GamePadId::_3P: return JoyConLR::L;
+    case GamePadId::_2P:
+    case GamePadId::_4P: return JoyConLR::R;
+    default            : return JoyConLR::None;
+    }
+}
 }
 }

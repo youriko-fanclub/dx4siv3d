@@ -13,7 +13,7 @@ bool ButtonsFromKeyboard::key(GPButton button) const {
 
 bool ButtonsFromJoyCon::key(GPButton button) const {
     if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpid, button); code != KeyCodeOfJoyCon::None) {
-        if (const auto joy = s3d::JoyConL(0)) { // TOdO:
+        if (const auto joy = KeyMapping::getJoyCon(m_gpid)) {
             return isState(keyFromCodeAtHorizontally(joy, code), m_state);
         }
     }

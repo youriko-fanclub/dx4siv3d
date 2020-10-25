@@ -150,7 +150,7 @@ void InputDemoScene::draw() const {
 // ctor/dtor -------------------------------------
 InputDemoScene::InputDemoScene(const InitData& init) :
     IScene(init),
-    m_gamepad_demo(GamePadId::_1P, Vec2(400, 300), 20.0),
+    m_gamepad_demo(GamePadId::_2P, Vec2(400, 300), 20.0),
     m_gamepad_demo_s(GamePadId::_1P, Vec2(500, 600), 10.0),
     m_joyConDemo() {}
 

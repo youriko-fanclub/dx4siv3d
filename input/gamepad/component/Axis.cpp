@@ -17,7 +17,7 @@ s3d::Vec2 AxisFromKeyboard::vec(GPAxis axis) const {
 
 s3d::Vec2 AxisFromJoyCon::vec(GPAxis axis) const {
     if (axis == GPAxis::R) { return s3d::Vec2::Zero(); } // TOdO: 横持ちでない場合は右スティックがある
-    if (const auto joy = s3d::JoyConL(0)) { // TOdO:
+    if (const auto joy = KeyMapping::getJoyCon(m_gpid)) {
         if (auto d = joy.povD8()) {
             return s3d::Circular(1, *d * 45_deg).toVec2();
         }
