@@ -69,15 +69,25 @@ void SampleGamePadDemo::draw() const {
     arrow.movedBy((input.arrowL() + Vec2(-4, 4.5)) * m_scale).draw(arrow_color);
     arrow.movedBy((input.arrowR() + Vec2( 4, 4.5)) * m_scale).draw(arrow_color);
     // L/R Trigger
+    const bool l1 = button.key(GPButton::L1), r1 = button.key(GPButton::R1), l2 = button.key(GPButton::L2), r2 = button.key(GPButton::R2);
     RoundRect shoulder(Arg::center(m_center), SizeF(4, 1) * m_scale, 0.2 * m_scale);
-    shoulder.movedBy(Vec2(-8, -4.5) * m_scale).draw(buttonColor(input.buttons().pressed().key(GPButton::L1)));
-    shoulder.movedBy(Vec2( 8, -4.5) * m_scale).draw(buttonColor(input.buttons().pressed().key(GPButton::R1)));
-    shoulder.movedBy(Vec2(-8, -6  ) * m_scale).draw(buttonColor(input.buttons().pressed().key(GPButton::L2)));
-    shoulder.movedBy(Vec2( 8, -6  ) * m_scale).draw(buttonColor(input.buttons().pressed().key(GPButton::R2)));
+    shoulder.movedBy(Vec2(-8, -4.5) * m_scale).draw(buttonColor(l1));
+    shoulder.movedBy(Vec2( 8, -4.5) * m_scale).draw(buttonColor(r1));
+    shoulder.movedBy(Vec2(-8, -6  ) * m_scale).draw(buttonColor(l2));
+    shoulder.movedBy(Vec2( 8, -6  ) * m_scale).draw(buttonColor(r2));
+    RoundRect shoulderIn(Arg::center(m_center), SizeF(3, 0.5) * m_scale, 0.2 * m_scale);
+    if (l1) { shoulderIn.movedBy(Vec2(-8, -4.5) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPButton::L1))); }
+    if (r1) { shoulderIn.movedBy(Vec2( 8, -4.5) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPButton::R1))); }
+    if (l2) { shoulderIn.movedBy(Vec2(-8, -6  ) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPButton::L2))); }
+    if (r2) { shoulderIn.movedBy(Vec2( 8, -6  ) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPButton::R2))); }
     // Start/Select
+    const bool start = button.key(GPButton::Start), select = button.key(GPButton::Select);
     RoundRect small(Arg::center(m_center), SizeF(2, 0.8) * m_scale, 0.2 * m_scale);
-    small.movedBy(Vec2( 1.7, 1.5) * m_scale).draw(buttonColor(input.buttons().pressed().key(GPButton::Start )));
-    small.movedBy(Vec2(-1.7, 1.5) * m_scale).draw(buttonColor(input.buttons().pressed().key(GPButton::Select)));
+    small.movedBy(Vec2( 1.7, 1.5) * m_scale).draw(buttonColor(start ));
+    small.movedBy(Vec2(-1.7, 1.5) * m_scale).draw(buttonColor(select));
+    RoundRect smallIn(Arg::center(m_center), SizeF(1.5, 0.4) * m_scale, 0.2 * m_scale);
+    if (start ) { smallIn.movedBy(Vec2( 1.7, 1.5) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPButton::Start ))); }
+    if (select) { smallIn.movedBy(Vec2(-1.7, 1.5) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPButton::Select))); }
 
 }
 
