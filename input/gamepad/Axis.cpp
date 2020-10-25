@@ -30,7 +30,7 @@ s3d::Vec2 AxisFromMultiSource::vec(GPAxis axis) const {
     for (const auto& axes : m_axes_list) {
         vec += axes->vec(axis);
     }
-    return vec.normalize();
+    return vec.clampLength(1.f);
 }
 
 

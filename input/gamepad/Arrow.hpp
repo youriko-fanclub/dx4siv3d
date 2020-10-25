@@ -1,59 +1,51 @@
 #pragma once
+#include <Siv3D/Vector2D.hpp>
 #include "Axis.hpp"
-#include "Misc.hpp"
+
+// TOdO:
 
 namespace dx {
 namespace di {
 
+class Buttons;
+class DPad;
+class IAxis;
+enum class GPAxis;
+
 using GPArrow = GPAxis;
 
-class IArrow {
-public:
-    virtual Vec2 key(GPArrow arrow) const = 0;
-    virtual Vec2 keyL() const = 0;
-    virtual Vec2 keyR() const = 0;
-protected:
-    IArrow() = default;
-    virtual ~IArrow() = default;
-};
-
-class AbsArrow : public IArrow {
-public:
-    // virtual const IKey& key(GPButton button) const = 0;
-    Vec2 keyL() const override { return key(GPArrow::L); }
-    Vec2 keyR() const override { return key(GPArrow::R); }
-protected:
-    AbsArrow() = default;
-    virtual ~AbsArrow() = default;
-};
-
-class ArrowFromKeyboard final : public AbsArrow {
-public: // static_const/enum
-public: // static
+class IArrows {
 public: // public function
-    Vec2 key(GPArrow arrow) const override {
-        switch (arrow) {
-        case GPArrow::L: {
-            return (m_axis.l() + m_dpad.vec()).clamped(RectF(Arg::center(0, 0), 2));
-        }
-        case GPArrow::R: {
-            return (m_axis.r() + dx::misc::boolToVec2(
-                m_buttons.pressed().a(), m_buttons.pressed().y(),
-                m_buttons.pressed().b(), m_buttons.pressed().x()))
-                .clamped(RectF(Arg::center(0, 0), 2));
-        }
-        }
-    }
+    virtual s3d::Vec2 vec(GPArrow arrow) const = 0;
+    s3d::Vec2 l() const { return vec(GPArrow::L); }
+    s3d::Vec2 r() const { return vec(GPArrow::R); }
+protected: // ctor/dtor
+    IArrows() = default;
+    virtual ~IArrows() = default;
+};
+
+#if false
+class ArrowsBase : public IArrows {
+protected: // field
+    const GamePadId m_gpid;
+protected: // ctor/dtor
+    ArrowsBase(GamePadId gpid) : m_gpid(gpid) {}
+    virtual ~ArrowsBase() = default;
+};
+#endif
+
+class ArrowFromKeyboard final : public IArrows {
+public: // public function
+    s3d::Vec2 vec(GPArrow arrow) const override;
 private: // field
-private: // private function
-    const Buttons& m_buttons;
-    const DPad   & m_dpad;
-    const IAxis  & m_axis;
+    const Buttons* m_buttons;
+    const DPad   * m_dpad;
+    const IAxis  * m_axis;
 public: // ctor/dtor
-    ArrowFromKeyboard(const Buttons& buttons, const DPad& dpad, const IAxis& axis) :
-        m_axis(axis),
+    ArrowFromKeyboard(const Buttons* buttons, const DPad* dpad, const IAxis* axis) :
+        m_buttons(buttons),
         m_dpad(dpad),
-        m_buttons(buttons) {}
+        m_axis(axis) {}
 };
 
 }
