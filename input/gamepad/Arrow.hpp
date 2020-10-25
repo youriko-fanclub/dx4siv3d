@@ -1,5 +1,6 @@
 #pragma once
 #include "Axis.hpp"
+#include "Misc.hpp"
 
 namespace dx {
 namespace di {
@@ -33,10 +34,10 @@ public: // public function
     Vec2 key(GPArrow arrow) const override {
         switch (arrow) {
         case GPArrow::L: {
-            return (m_axis.keyL() + m_dpad.vec()).clamped(RectF(Arg::center(0, 0), 2));
+            return (m_axis.l() + m_dpad.vec()).clamped(RectF(Arg::center(0, 0), 2));
         }
         case GPArrow::R: {
-            return (m_axis.keyR() + dx::misc::boolToVec2(
+            return (m_axis.r() + dx::misc::boolToVec2(
                 m_buttons.pressed().a(), m_buttons.pressed().y(),
                 m_buttons.pressed().b(), m_buttons.pressed().x()))
                 .clamped(RectF(Arg::center(0, 0), 2));

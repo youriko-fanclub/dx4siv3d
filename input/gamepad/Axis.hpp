@@ -1,5 +1,8 @@
 #pragma once
-#include "Misc.hpp"
+#include <Siv3D/JoyCon.hpp>
+#include <Siv3D/Vector2D.hpp>
+#include "KeyCode.hpp"
+#include "PlayerId.hpp"
 
 namespace dx {
 namespace di {
@@ -10,44 +13,44 @@ enum class GPAxis : int {
 
 class IAxis {
 public:
-    virtual const Vec2& key(GPAxis axis) const = 0;
-    virtual const Vec2& keyL() const = 0;
-    virtual const Vec2& keyR() const = 0;
+    virtual s3d::Vec2 vec(GPAxis axis) const = 0;
+    virtual s3d::Vec2 l() const { return vec(GPAxis::L); }
+    virtual s3d::Vec2 r() const { return vec(GPAxis::R); }
 protected:
     IAxis() = default;
     virtual ~IAxis() = default;
 };
 
-class AbsAxis : public IAxis {
-public:
-    // virtual const IKey& key(GPButton button) const = 0;
-    const Vec2& keyL() const override { return key(GPAxis::L); }
-    const Vec2& keyR() const override { return key(GPAxis::R); }
+class AxisBase : public IAxis {
 protected:
-    AbsAxis() = default;
-    virtual ~AbsAxis() = default;
+    const GamePadId m_gpid;
+protected:
+    AxisBase(GamePadId gpid) : m_gpid(gpid) {}
+    virtual ~AxisBase() = default;
 };
 
-class AxisFromKeyboard final : public AbsAxis {
-public: // static_const/enum
-public: // static
+class AxisFromKeyboard final : public AxisBase {
 public: // public function
-    const Vec2& key(GPAxis axis) const override {
-        return m_keyMap.at(axis)();
-    }
-private: // field
-    const std::unordered_map<GPAxis, std::function<const Vec2&()>> m_keyMap {
-        { GPAxis::L, [](){ return dx::misc::boolToVec2(
-            KeyF.pressed(), KeyS.pressed(),
-            KeyD.pressed(), KeyE.pressed()); }
-        },
-        { GPAxis::R, [](){ return dx::misc::boolToVec2(
-            KeyL.pressed(), KeyJ.pressed(),
-            KeyK.pressed(), KeyI.pressed()); }
-        },
-    };
-private: // private function
+    s3d::Vec2 vec(GPAxis axis) const override;
 public: // ctor/dtor
+    AxisFromKeyboard(GamePadId gpid) : AxisBase(gpid) {}
+};
+
+class AxisFromJoyCon final : public AxisBase {
+public: // public function
+    s3d::Vec2 vec(GPAxis axis) const override;
+public: // ctor/dtor
+    AxisFromJoyCon(GamePadId gpid) : AxisBase(gpid) {}
+};
+
+class AxisFromMultiSource final : public IAxis {
+public: // public function
+    s3d::Vec2 vec(GPAxis axis) const override;
+private: // field
+    const std::vector<std::shared_ptr<IAxis>> m_axes_list;
+public: // ctor/dtor
+    AxisFromMultiSource(const std::initializer_list<std::shared_ptr<IAxis>>& axes_list) :
+    m_axes_list(axes_list) {}
 };
 
 }

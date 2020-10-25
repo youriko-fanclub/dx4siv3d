@@ -10,7 +10,7 @@ s3d::Vec2 IDPad::vec() const {
 }
 
 bool DPadFromKeyboard::key(GPDPad button) const {
-    if (KeyCode code = KeyMapping::get(m_gpId, button); code != KeyCode::None) {
+    if (KeyCode code = KeyMapping::get(m_gpid, button); code != KeyCode::None) {
         return isState(keyFromCode(code), m_state);
     }
     return false;
@@ -18,7 +18,7 @@ bool DPadFromKeyboard::key(GPDPad button) const {
 
 bool DPadFromJoyCon::key(GPDPad button) const {
 #ifdef UNDER_CONSTRUCTION // TOdO: 横持ちなら常にfalse
-    if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpId, button); code != KeyCodeOfJoyCon::None) {
+    if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpid, button); code != KeyCodeOfJoyCon::None) {
         const auto joy_l = s3d::JoyConL(0);
         const auto joy_r = s3d::JoyConR(0);
         if (joy_l && joy_r) { // TOdO:

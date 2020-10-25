@@ -40,14 +40,15 @@ private: // field
     // const ButtonsFromJoyCon m_buttons;
     // const DPadFromKeyboard m_dpad;
     const DPad m_dpad;
-    const AxisFromKeyboard m_axis;
+    const AxisFromMultiSource m_axis;
     const ArrowFromKeyboard m_arrow;
 public: // ctor/dtor
     PlayerInputFromKeyboard() :
         PlayerInput(0),
         m_buttons(),
         m_dpad(),
-        m_axis(),
+        m_axis({ std::make_shared<AxisFromKeyboard>(GamePadId::_1P),
+                 std::make_shared<AxisFromJoyCon  >(GamePadId::_1P), }),
         m_arrow(m_buttons, m_dpad, m_axis)
          {} // TOdO:
 };

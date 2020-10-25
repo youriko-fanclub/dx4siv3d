@@ -25,11 +25,11 @@ protected:
 
 class DPadBase : public IDPad {
 protected:
-    const GamePadId m_gpId;
+    const GamePadId m_gpid;
     const KeyState m_state;
 protected:
-    DPadBase(GamePadId _gpId, KeyState _state) :
-        m_gpId(_gpId), m_state(_state) {}
+    DPadBase(GamePadId gpid, KeyState state) :
+        m_gpid(gpid), m_state(state) {}
     virtual ~DPadBase() = default;
 };
 
@@ -37,16 +37,16 @@ class DPadFromKeyboard final : public DPadBase {
 public: // public function
     bool key(GPDPad button) const override;
 public: // ctor/dtor
-    DPadFromKeyboard(GamePadId _gpId, KeyState _state) :
-        DPadBase(_gpId, _state) {}
+    DPadFromKeyboard(GamePadId gpid, KeyState state) :
+        DPadBase(gpid, state) {}
 };
 
 class DPadFromJoyCon final : public DPadBase {
 public: // public function
     bool key(GPDPad button) const override;
 public: // ctor/dtor
-    DPadFromJoyCon(GamePadId _gpId, KeyState _state) :
-        DPadBase(_gpId, _state) {}
+    DPadFromJoyCon(GamePadId gpid, KeyState state) :
+        DPadBase(gpid, state) {}
 };
 
 class DPadFromMultiSource final : public IDPad {

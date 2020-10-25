@@ -33,9 +33,9 @@ private:
     static std::unordered_map<GamePadId, GamePadRawId> s_gp2raw;
 public:
     /// <summary> PlayerIdIDをGamePadIdIDに変換 </summary>
-    static GamePadId ToGamePadId(PlayerId pId) { return s_p2gp.at(pId); }
+    static GamePadId ToGamePadId(PlayerId pid) { return s_p2gp.at(pid); }
     /// <summary> GamePadIdIDをGamePadRawIdIDに変換 </summary>
-    static GamePadRawId ToRawID(GamePadId gpId) { return s_gp2raw.at(gpId); }
+    static GamePadRawId ToRawID(GamePadId gpid) { return s_gp2raw.at(gpid); }
 };
 
 #if false

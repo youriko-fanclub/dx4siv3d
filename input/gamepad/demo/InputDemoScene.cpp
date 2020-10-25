@@ -40,8 +40,9 @@ void SampleGamePadDemo::draw() const {
     // スティック
     Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(button_color);
     Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(button_color);
-    Circle(m_center + Vec2(-4, 4.5) * m_scale, 0.5 * m_scale).draw(button_pressed_color);
-    Circle(m_center + Vec2( 4, 4.5) * m_scale, 0.5 * m_scale).draw(button_pressed_color);
+    Circle cursor(m_center, 0.5 * m_scale);
+    cursor.movedBy((m_input.axis().l() + Vec2(-4, 4.5)) * m_scale).draw(button_pressed_color);
+    cursor.movedBy((m_input.axis().r() + Vec2( 4, 4.5)) * m_scale).draw(button_pressed_color);
     // L/R
     RoundRect shoulder(Arg::center(m_center), SizeF(4, 1) * m_scale, 0.2 * m_scale);
     shoulder.movedBy(Vec2(-8, -4.5) * m_scale).draw(buttonColor(m_input.buttons().pressed().key(GPButton::L1)));
@@ -83,6 +84,8 @@ void JoyConDemo::update() {
     for (const auto& joy : { JoyConL(0), JoyConR(0) }) {
         if (!joy) { continue; }
         if (auto d = joy.povD8()) {
+            // 角度しか取れない
+            // 入力なし:無効値 / 入力あり:入力方向 (*d*45_deg)
             m_left += Circular(4, *d * 45_deg);
         }
     }

@@ -5,14 +5,14 @@ namespace dx {
 namespace di {
 
 bool ButtonsFromKeyboard::key(GPButton button) const {
-    if (KeyCode code = KeyMapping::get(m_gpId, button); code != KeyCode::None) {
+    if (KeyCode code = KeyMapping::get(m_gpid, button); code != KeyCode::None) {
         return isState(keyFromCode(code), m_state);
     }
     return false;
 }
 
 bool ButtonsFromJoyCon::key(GPButton button) const {
-    if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpId, button); code != KeyCodeOfJoyCon::None) {
+    if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpid, button); code != KeyCodeOfJoyCon::None) {
         if (const auto joy = s3d::JoyConL(0)) { // TOdO:
             return isState(keyFromCodeAtHorizontally(joy, code), m_state);
         }

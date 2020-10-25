@@ -29,11 +29,11 @@ protected:
 
 class ButtonsBase : public IButtons {
 protected:
-    const GamePadId m_gpId;
+    const GamePadId m_gpid;
     const KeyState m_state;
 protected:
-    ButtonsBase(GamePadId _gpId, KeyState _state) :
-        m_gpId(_gpId), m_state(_state) {}
+    ButtonsBase(GamePadId gpid, KeyState state) :
+        m_gpid(gpid), m_state(state) {}
     virtual ~ButtonsBase() = default;
 };
 
@@ -41,16 +41,16 @@ class ButtonsFromKeyboard final : public ButtonsBase {
 public: // public function
     bool key(GPButton button) const override;
 public: // ctor/dtor
-    ButtonsFromKeyboard(GamePadId gpId, KeyState state) :
-        ButtonsBase(gpId, state) {}
+    ButtonsFromKeyboard(GamePadId gpid, KeyState state) :
+        ButtonsBase(gpid, state) {}
 };
 
 class ButtonsFromJoyCon final : public ButtonsBase {
 public: // public function
     bool key(GPButton button) const override;
 public: // ctor/dtor
-    ButtonsFromJoyCon(GamePadId gpId, KeyState state) :
-        ButtonsBase(gpId, state) {}
+    ButtonsFromJoyCon(GamePadId gpid, KeyState state) :
+        ButtonsBase(gpid, state) {}
 };
 
 class ButtonsFromMultiSource final : public IButtons {
