@@ -26,11 +26,12 @@ enum class GamePadRawId {
 // - GamePadRaw : そのコントローラに対してマシンが振ったIndex
 
 class Id {
-public:
+private:
     /// <summary> PlayerIDとGamePadIDの対応表 </summary>
     static std::unordered_map<PlayerId, GamePadId> s_p2gp;
     /// <summary> GamePadIdIDとGamePadRawIdIDの対応表 </summary>
     static std::unordered_map<GamePadId, GamePadRawId> s_gp2raw;
+public:
     /// <summary> PlayerIdIDをGamePadIdIDに変換 </summary>
     static GamePadId ToGamePadId(PlayerId pId) { return s_p2gp.at(pId); }
     /// <summary> GamePadIdIDをGamePadRawIdIDに変換 </summary>

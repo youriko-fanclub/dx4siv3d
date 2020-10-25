@@ -6,6 +6,7 @@ namespace dx {
 namespace di {
 
 enum class KeyCode : int {
+    None,
     Cancel,
     Backspace,
     Tab,

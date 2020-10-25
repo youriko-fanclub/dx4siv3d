@@ -39,7 +39,7 @@ protected:
     virtual ~AbsButtons() = default;
 };
 
-inline bool isState(const Key& key, KeyState state) {
+inline bool isState(const s3d::Key& key, KeyState state) {
     switch (state) {
     case KeyState::Down   : return key.down();
     case KeyState::Pressed: return key.pressed();
@@ -77,10 +77,10 @@ public: // public function
 private: // field
     const KeyState m_state;
     const std::unordered_map<GPButton, std::function<bool()>> m_keyMap {
-        { GPButton::A, [this](){ if (const auto joy = JoyConL(0)) { return isState(joy.button1, m_state); } else { return false; } } },
-        { GPButton::B, [this](){ if (const auto joy = JoyConL(0)) { return isState(joy.button0, m_state); } else { return false; } } },
-        { GPButton::X, [this](){ if (const auto joy = JoyConL(0)) { return isState(joy.button3, m_state); } else { return false; } } },
-        { GPButton::Y, [this](){ if (const auto joy = JoyConL(0)) { return isState(joy.button2, m_state); } else { return false; } } },
+        { GPButton::A, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button1, m_state); } else { return false; } } },
+        { GPButton::B, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button0, m_state); } else { return false; } } },
+        { GPButton::X, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button3, m_state); } else { return false; } } },
+        { GPButton::Y, [this](){ if (const auto joy = s3d::JoyConL(0)) { return isState(joy.button2, m_state); } else { return false; } } },
     };
 private: // private function
 public: // ctor/dtor

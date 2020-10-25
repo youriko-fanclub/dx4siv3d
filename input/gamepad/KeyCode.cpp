@@ -270,6 +270,7 @@ s3d::Key keyFromCode(KeyCode code) {
     case KeyCode::Caret_JIS     : return KeyCaret_JIS     ;
     case KeyCode::Apostrophe_US : return KeyApostrophe_US ;
     case KeyCode::Underscore_JIS: return KeyUnderscore_JIS;
+    default: return KeyPrintScreen;
     }
 }
 
