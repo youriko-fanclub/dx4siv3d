@@ -42,12 +42,6 @@ public: // static
 public: // public function
     bool key(GPDPad button) const override;
 private: // field
-    // const std::unordered_map<GPDPad, std::function<bool()>> m_keyMap {
-    //     { GPDPad::Left , [](){ return KeyS; } },
-    //     { GPDPad::Right, [](){ return KeyF; } },
-    //     { GPDPad::Up   , [](){ return KeyE; } },
-    //     { GPDPad::Down , [](){ return KeyD; } },
-    // };
 private: // private function
 public: // ctor/dtor
     DPadFromKeyboard(GamePadId _gpId, KeyState _state) :
@@ -60,7 +54,10 @@ public: // static_const/enum
 public: // static
 public: // public function
     bool key(GPDPad button) const override {
-        return m_keyMap.at(button)();
+        if (m_keyMap.count(button) > 0) {
+            return m_keyMap.at(button)();
+        }
+        else { return false; }
     }
 private: // field
     const std::unordered_map<GPDPad, std::function<bool()>> m_keyMap {

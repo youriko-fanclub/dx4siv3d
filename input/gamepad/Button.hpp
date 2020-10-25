@@ -51,7 +51,10 @@ public: // static_const/enum
 public: // static
 public: // public function
     bool key(GPButton button) const override {
-        return m_keyMap.at(button)();
+        if (m_keyMap.count(button) > 0) {
+            return m_keyMap.at(button)();
+        }
+        else { return false; }
     }
 private: // field
     const std::unordered_map<GPButton, std::function<bool()>> m_keyMap {

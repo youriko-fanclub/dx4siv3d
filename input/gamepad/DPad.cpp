@@ -5,7 +5,12 @@ namespace dx {
 namespace di {
 
 bool DPadFromKeyboard::key(GPDPad button) const {
-    return isState(keyFromCode(KeyMapping::get(m_gpId, button)), m_state);
+    if (KeyCode code = KeyMapping::get(m_gpId, button); code != KeyCode::None) {
+        return isState(keyFromCode(code), m_state);
+    }
+    else {
+        return false;
+    }
 }
 
 }
