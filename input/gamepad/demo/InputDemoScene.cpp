@@ -54,11 +54,11 @@ void SampleGamePadDemo::draw() const {
     rect.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(r));
     rect.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(u));
     rect.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(d));
-    // RectF rectIn(rect.scaled(0.5));
-    // if (l) { rectIn.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPDPad::Left )))); }
-    // if (r) { rectIn.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPDPad::Right)))); }
-    // if (u) { rectIn.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPDPad::Up   )))); }
-    // if (d) { rectIn.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(input.buttons().pressedDuration(GPDPad::Down )))); }
+    RectF rectIn(rect.scaled(0.5));
+    if (l) { rectIn.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(input.dpad().pressedDuration(GPDPad::Left ))); }
+    if (r) { rectIn.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(input.dpad().pressedDuration(GPDPad::Right))); }
+    if (u) { rectIn.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(input.dpad().pressedDuration(GPDPad::Up   ))); }
+    if (d) { rectIn.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(input.dpad().pressedDuration(GPDPad::Down ))); }
     // スティック
     Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(button_color);
     Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(button_color);

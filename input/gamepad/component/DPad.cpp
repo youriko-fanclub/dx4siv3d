@@ -17,6 +17,13 @@ bool DPadFromKeyboard::key(GPDPad button) const {
     return false;
 }
 
+s3d::Duration DPadFromKeyboard::pressedDuration(GPDPad button) const {
+    if (KeyCode code = KeyMapping::get(m_gpid, button); code != KeyCode::None) {
+        return keyFromCode(code).pressedDuration();
+    }
+    return s3d::Duration(0);
+}
+
 bool DPadFromJoyCon::key(GPDPad button) const {
     if (InputManager::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
         return false;
@@ -33,13 +40,35 @@ bool DPadFromJoyCon::key(GPDPad button) const {
     return false;
 }
 
+s3d::Duration DPadFromJoyCon::pressedDuration(GPDPad button) const {
+    if (InputManager::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
+        return s3d::Duration(0);
+    }
+    return s3d::Duration(0); // TOdO:
+}
+
+
 bool DPadFromMultiSource::key(GPDPad button) const {
     return std::any_of(m_dpad_list.begin(), m_dpad_list.end(),
         [button](const auto& dpad){ return dpad->key(button); });
 }
 
+s3d::Duration DPadFromMultiSource::pressedDuration(GPDPad button) const {
+    s3d::Duration duration(0);
+    for (const auto& dpad : m_dpad_list) {
+        const auto& d = dpad->pressedDuration(button);
+        if (duration < d) {
+            duration = d;
+        }
+    }
+    return duration;
+}
 
-s3d::Duration DPad::pressedDuration() const { return s3d::Duration(0); } // TOdO:
+
+s3d::Duration DPad::pressedDuration(GPDPad button) const {
+    return m_pressed.pressedDuration(button);
+}
+
 s3d::Vec2 DPad::vec() const { return m_pressed.vec(); }
 
 DPad::DPad(GamePadId gpid) :
