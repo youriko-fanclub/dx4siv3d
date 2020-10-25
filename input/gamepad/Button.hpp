@@ -87,6 +87,23 @@ public: // ctor/dtor
     ButtonsFromJoyCon(KeyState state) : m_state(state) {}
 };
 
+class ButtonsFromMultiDevice final : public AbsButtons {
+public: // static_const/enum
+public: // static
+public: // public function
+    bool key(GPButton button) const override {
+        return std::any_of(m_buttons_list.begin(), m_buttons_list.end(),
+            [button](const auto& buttons){ return buttons->key(button); });
+    }
+private: // field
+    // const KeyState m_state;
+    const std::vector<std::shared_ptr<IButtons>> m_buttons_list;
+private: // private function
+public: // ctor/dtor
+    ButtonsFromMultiDevice(const std::initializer_list<std::shared_ptr<IButtons>>& buttons_list) :
+    // m_state(state),
+    m_buttons_list(buttons_list) {}
+};
 
 class Buttons {
 public:
@@ -95,14 +112,17 @@ public:
     const IButtons& up     () const { return m_up; }
     s3d::Duration pressedDuration() const { return s3d::Duration(0); } // TOdO:
 private: // field
-    ButtonsFromKeyboard m_down;
-    ButtonsFromKeyboard m_pressed;
-    ButtonsFromKeyboard m_up;
+    ButtonsFromMultiDevice m_down;
+    ButtonsFromMultiDevice m_pressed;
+    ButtonsFromMultiDevice m_up;
 public: // ctor/dtor
     Buttons() :
-        m_down(KeyState::Down),
-        m_pressed(KeyState::Pressed),
-        m_up(KeyState::Up) {}
+        m_down   ({ std::make_shared<ButtonsFromKeyboard>(KeyState::Down   ),
+                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Down   )}),
+        m_pressed({ std::make_shared<ButtonsFromKeyboard>(KeyState::Pressed),
+                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Pressed)}),
+        m_up     ({ std::make_shared<ButtonsFromKeyboard>(KeyState::Up     ),
+                    std::make_shared<ButtonsFromJoyCon  >(KeyState::Up     )}) {}
 };
 
 
