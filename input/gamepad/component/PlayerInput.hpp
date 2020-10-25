@@ -1,5 +1,4 @@
 #pragma once
-#include <algorithm>
 #include "Button.hpp"
 #include "DPad.hpp"
 #include "Axis.hpp"
