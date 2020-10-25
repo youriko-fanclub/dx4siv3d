@@ -15,10 +15,13 @@ enum class GPButton : int {
 class IButtons {
 public:
     virtual bool key(GPButton button) const = 0;
-    bool a() const { return key(GPButton::A); }
-    bool b() const { return key(GPButton::B); }
-    bool x() const { return key(GPButton::X); }
-    bool y() const { return key(GPButton::Y); }
+    bool a() const { return key(GPButton::A ); }
+    bool b() const { return key(GPButton::B ); }
+    bool x() const { return key(GPButton::X ); }
+    bool y() const { return key(GPButton::Y ); }
+    bool l() const { return key(GPButton::L1); }
+    bool r() const { return key(GPButton::R1); }
+    bool start() const { return key(GPButton::Start); }
 protected:
     IButtons() = default;
     virtual ~IButtons() = default;
@@ -35,40 +38,26 @@ protected:
 };
 
 class ButtonsFromKeyboard final : public AbsButtons {
-public: // static_const/enum
-public: // static
 public: // public function
     bool key(GPButton button) const override;
-private: // field
-private: // private function
 public: // ctor/dtor
     ButtonsFromKeyboard(GamePadId gpId, KeyState state) :
         AbsButtons(gpId, state) {}
 };
 
 class ButtonsFromJoyCon final : public AbsButtons {
-public: // static_const/enum
-public: // static
 public: // public function
     bool key(GPButton button) const override;
-private: // field
-private: // private function
 public: // ctor/dtor
     ButtonsFromJoyCon(GamePadId gpId, KeyState state) :
         AbsButtons(gpId, state) {}
 };
 
 class ButtonsFromMultiDevice final : public IButtons {
-public: // static_const/enum
-public: // static
 public: // public function
-    bool key(GPButton button) const override {
-        return std::any_of(m_buttons_list.begin(), m_buttons_list.end(),
-            [button](const auto& buttons){ return buttons->key(button); });
-    }
+    bool key(GPButton button) const override;
 private: // field
     const std::vector<std::shared_ptr<IButtons>> m_buttons_list;
-private: // private function
 public: // ctor/dtor
     ButtonsFromMultiDevice(const std::initializer_list<std::shared_ptr<IButtons>>& buttons_list) :
     m_buttons_list(buttons_list) {}

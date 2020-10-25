@@ -20,5 +20,10 @@ bool ButtonsFromJoyCon::key(GPButton button) const {
     return false;
 }
 
+bool ButtonsFromMultiDevice::key(GPButton button) const {
+    return std::any_of(m_buttons_list.begin(), m_buttons_list.end(),
+        [button](const auto& buttons){ return buttons->key(button); });
+}
+
 }
 }
