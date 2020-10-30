@@ -4,7 +4,7 @@
 namespace dx {
 namespace di {
 
-bool ButtonsFromKeyboard::key(GPButton button) const {
+bool ButtonsFromKeyboard::get(GPButton button) const {
     if (KeyCode code = KeyMapping::get(m_gpid, button); code != KeyCode::None) {
         return isState(keyFromCode(code), m_state);
     }
@@ -19,7 +19,7 @@ s3d::Duration ButtonsFromKeyboard::pressedDuration(GPButton button) const {
 }
 
 
-bool ButtonsFromJoyCon::key(GPButton button) const {
+bool ButtonsFromJoyCon::get(GPButton button) const {
     if (KeyCodeOfJoyCon code = KeyMapping::getJoyCon(m_gpid, button); code != KeyCodeOfJoyCon::None) {
         if (const auto joy = KeyMapping::getJoyCon(m_gpid)) {
             return isState(keyFromCodeAtHorizontally(joy, code), m_state);
@@ -38,9 +38,9 @@ s3d::Duration ButtonsFromJoyCon::pressedDuration(GPButton button) const {
 }
 
 
-bool ButtonsFromMultiSource::key(GPButton button) const {
+bool ButtonsFromMultiSource::get(GPButton button) const {
     return std::any_of(m_buttons_list.begin(), m_buttons_list.end(),
-        [button](const auto& buttons){ return buttons->key(button); });
+        [button](const auto& buttons){ return buttons->get(button); });
 }
 
 s3d::Duration ButtonsFromMultiSource::pressedDuration(GPButton button) const {
@@ -53,6 +53,12 @@ s3d::Duration ButtonsFromMultiSource::pressedDuration(GPButton button) const {
     }
     return duration;
 }
+
+
+bool IButton::down   () const { return m_parent->down   (m_button); }
+bool IButton::pressed() const { return m_parent->pressed(m_button); }
+bool IButton::up     () const { return m_parent->up     (m_button); }
+s3d::Duration IButton::pressedDuration() const { return m_parent->pressedDuration(m_button); }
 
 
 Buttons::Buttons(GamePadId gpid) :
