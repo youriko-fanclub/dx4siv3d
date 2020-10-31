@@ -49,7 +49,6 @@ void SampleGamePadDemo::draw() const {
     if (x) { circleIn.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(input.buttons().get(GPButton::X).pressedDuration())); }
     if (y) { circleIn.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(input.buttons().get(GPButton::Y).pressedDuration())); }
     // 十字ボタン
-    const auto& dpad = input.dpad();
     const bool l = input.dpad().get(GPDPad::Left).pressed(),
                r = input.dpad(GPDPad::Right).pressed(),
                u = input.dpad().up().pressed(),
