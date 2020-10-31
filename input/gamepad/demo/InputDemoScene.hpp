@@ -24,6 +24,11 @@ private: // field
     const ColorF m_arrow_color;
 
 private: // private function
+    void drawABXY() const;
+    void drawLR() const;
+    void drawStartSelect() const;
+    void drawDPad() const;
+    void drawAxis() const;
     const ColorF& buttonColor(bool is_pressed) const;
     ColorF buttonColor(s3d::Duration duration) const;
 public: // ctor/dtor
