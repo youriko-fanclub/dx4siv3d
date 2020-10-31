@@ -7,9 +7,10 @@
 namespace dx {
 namespace di {
 
-enum class GPAxis : int {
+enum class GamePadAxis : int {
     L, R,
 };
+using GPAxis = GamePadAxis;
 
 class IAxis {
 public:

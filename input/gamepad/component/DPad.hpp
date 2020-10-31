@@ -6,9 +6,10 @@
 namespace dx {
 namespace di {
 
-enum class GPDPad : int {
+enum class GamePadDPad : int {
     Left, Right, Up, Down,
 };
+using GPDPad = GamePadDPad;
 
 class AbsDPad {
 public:

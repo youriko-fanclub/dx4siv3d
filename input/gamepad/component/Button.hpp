@@ -6,11 +6,12 @@
 namespace dx {
 namespace di {
 
-enum class GPButton : int {
+enum class GamePadButton : int {
     A, B, X, Y,
     L1, R1, L2, R2,
     Start, Select,
 };
+using GPButton = GamePadButton;
 
 class AbsButtons {
 public:
