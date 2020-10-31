@@ -85,8 +85,10 @@ public:
     IButton b() const { return get(GPButton::B ); }
     IButton x() const { return get(GPButton::X ); }
     IButton y() const { return get(GPButton::Y ); }
-    IButton l() const { return get(GPButton::L1); }
-    IButton r() const { return get(GPButton::R1); }
+    IButton l1() const { return get(GPButton::L1); }
+    IButton r1() const { return get(GPButton::R1); }
+    IButton l2() const { return get(GPButton::L1); }
+    IButton r2() const { return get(GPButton::R1); }
     IButton start () const { return get(GPButton::Start ); }
     IButton select() const { return get(GPButton::Select); }
 private: // field

@@ -73,10 +73,10 @@ void SampleGamePadDemo::draw() const {
     arrow.movedBy((input.arrowL() + Vec2(-4, 4.5)) * m_scale).draw(arrow_color);
     arrow.movedBy((input.arrowR() + Vec2( 4, 4.5)) * m_scale).draw(arrow_color);
     // L/R Trigger
-    const bool l1 = input.buttons().get(GPButton::L1).pressed(),
-               r1 = input.buttons().get(GPButton::R1).pressed(),
-               l2 = input.buttons().get(GPButton::L2).pressed(),
-               r2 = input.buttons().get(GPButton::R2).pressed();
+    const bool l1 = input.buttons().l1().pressed(),
+               r1 = input.buttons().r1().pressed(),
+               l2 = input.buttons().l2().pressed(),
+               r2 = input.buttons().r2().pressed();
     RoundRect shoulder(Arg::center(m_center), SizeF(4, 1) * m_scale, 0.2 * m_scale);
     shoulder.movedBy(Vec2(-8, -4.5) * m_scale).draw(buttonColor(l1));
     shoulder.movedBy(Vec2( 8, -4.5) * m_scale).draw(buttonColor(r1));
@@ -88,8 +88,8 @@ void SampleGamePadDemo::draw() const {
     if (l2) { shoulderIn.movedBy(Vec2(-8, -6  ) * m_scale).draw(buttonColor(input.buttons().get(GPButton::L2).pressedDuration())); }
     if (r2) { shoulderIn.movedBy(Vec2( 8, -6  ) * m_scale).draw(buttonColor(input.buttons().get(GPButton::R2).pressedDuration())); }
     // Start/Select
-    const bool start  = input.buttons().get(GPButton::Start ).pressed(),
-               select = input.buttons().get(GPButton::Select).pressed();
+    const bool start  = input.buttons().start ().pressed(),
+               select = input.buttons().select().pressed();
     RoundRect small(Arg::center(m_center), SizeF(2, 0.8) * m_scale, 0.2 * m_scale);
     small.movedBy(Vec2( 1.7, 1.5) * m_scale).draw(buttonColor(start ));
     small.movedBy(Vec2(-1.7, 1.5) * m_scale).draw(buttonColor(select));
