@@ -9,6 +9,8 @@ class SampleGamePadDemo {
 public: // static_const/enum
 public: // static
 public: // public function
+    void setCenter(float x, float y) { m_center.set(x, y);}
+    void setCenter(const Vec2& center) { m_center = center;}
     void update();
     void draw() const;
 private: // field
@@ -48,12 +50,16 @@ public: // ctor/dtor
 // di デモ用
 class InputDemoScene : public kanji::seq::KanjiScene {
 public: // static_const/enum
+    enum class Layout : int {
+        Square, Horizontal, Vertical
+    };
 public: // static
 public: // public function
     void update() override;
     void draw() const override;
 private: // field
     float m_scale;
+    Layout m_layout;
     std::unordered_map<GamePadId, SampleGamePadDemo> m_gamepad_demos;
     JoyConDemo m_joyConDemo;
 private: // private function

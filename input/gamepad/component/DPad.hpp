@@ -104,7 +104,7 @@ public:
     bool pressed(GPDPad button) const { return m_pressed.get(button); }
     bool up     (GPDPad button) const { return m_up     .get(button); }
     s3d::Duration pressedDuration(GPDPad button) const;
-    virtual s3d::Vec2 vec() const;
+    s3d::Vec2 vec() const override;
 private: // field
     DPadFromMultiSource m_down;
     DPadFromMultiSource m_pressed;
