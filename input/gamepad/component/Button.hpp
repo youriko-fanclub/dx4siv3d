@@ -8,7 +8,7 @@ namespace di {
 
 enum class GamePadButton : int {
     A, B, X, Y,
-    L1, R1, L2, R2,
+    L1, R1, L2, R2, L3, R3,
     Start, Select,
 };
 using GPButton = GamePadButton;
@@ -87,8 +87,10 @@ public:
     IButton y() const { return get(GPButton::Y ); }
     IButton l1() const { return get(GPButton::L1); }
     IButton r1() const { return get(GPButton::R1); }
-    IButton l2() const { return get(GPButton::L1); }
-    IButton r2() const { return get(GPButton::R1); }
+    IButton l2() const { return get(GPButton::L2); }
+    IButton r2() const { return get(GPButton::R2); }
+    IButton l3() const { return get(GPButton::L3); }
+    IButton r3() const { return get(GPButton::R3); }
     IButton start () const { return get(GPButton::Start ); }
     IButton select() const { return get(GPButton::Select); }
 private: // field

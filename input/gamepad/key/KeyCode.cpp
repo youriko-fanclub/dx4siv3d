@@ -276,7 +276,7 @@ s3d::Key keyFromCode(KeyCode code) {
     case KeyCode::Caret_JIS     : return KeyCaret_JIS     ;
     case KeyCode::Apostrophe_US : return KeyApostrophe_US ;
     case KeyCode::Underscore_JIS: return KeyUnderscore_JIS;
-    default: return KeyPrintScreen;
+    default: return s3d::Key(s3d::InputDevice::None, 0);
     }
 }
 
@@ -327,11 +327,13 @@ s3d::Key keyFromCodeAtHorizontally(const s3d::JoyCon& joy, KeyCodeOfJoyCon code)
  // case KeyCodeOfJoyCon::ZR        : return joy.button0;
     case KeyCodeOfJoyCon::SL        : return joy.buttonSL;
     case KeyCodeOfJoyCon::SR        : return joy.buttonSR;
+    case KeyCodeOfJoyCon::StickL    : return joy.buttonStick;
+ // case KeyCodeOfJoyCon::StickR    : return joy.buttonStick;
     case KeyCodeOfJoyCon::Plus      : return joy.buttonPlus;
     case KeyCodeOfJoyCon::Minus     : return joy.buttonMinus;
     case KeyCodeOfJoyCon::Home      : return joy.buttonHome;
     case KeyCodeOfJoyCon::Screenshot: return joy.buttonScreenshot;
-    default                         : return KeyPrintScreen;
+    default                         : return s3d::Key(s3d::InputDevice::None, 0);
     }
 }
 
@@ -352,11 +354,13 @@ s3d::Key keyFromCodeAtFrontally(const s3d::JoyCon& joy_l, const s3d::JoyCon& joy
     case KeyCodeOfJoyCon::ZR        : return joy_r.buttonZLZR;
  // case KeyCodeOfJoyCon::SL        : return joy_l.button0;
  // case KeyCodeOfJoyCon::SR        : return joy_r.button0;
+    case KeyCodeOfJoyCon::StickL    : return joy_l.buttonStick;
+    case KeyCodeOfJoyCon::StickR    : return joy_r.buttonStick;
     case KeyCodeOfJoyCon::Plus      : return joy_r.buttonPlus;
     case KeyCodeOfJoyCon::Minus     : return joy_l.buttonMinus;
     case KeyCodeOfJoyCon::Home      : return joy_r.buttonHome;
     case KeyCodeOfJoyCon::Screenshot: return joy_l.buttonScreenshot;
-    default                         : return KeyPrintScreen;
+    default                         : return s3d::Key(s3d::InputDevice::None, 0);
     }
 }
 

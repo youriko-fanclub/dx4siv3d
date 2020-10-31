@@ -92,6 +92,7 @@ enum class KeyCodeOfJoyCon : int {
     A, B, X, Y,
     Left, Right, Up, Down,
     L, R, ZL, ZR, SL, SR,
+    StickL, StickR,
     Plus, Minus,
     Home, Screenshot,
 };

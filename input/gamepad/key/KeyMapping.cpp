@@ -48,6 +48,10 @@ KeyCodeOfJoyCon KeyMapping::getJoyCon(const GamePadId& gpid, const GPButton& gp_
     case GPButton::Y: return Code::Y;
     case GPButton::L1: return is_horizontally ? Code::SL : Code::L;
     case GPButton::R1: return is_horizontally ? Code::SR : Code::R;
+    case GPButton::L2: return is_horizontally ? Code::None : Code::ZL;
+    case GPButton::R2: return is_horizontally ? Code::None : Code::ZR;
+    case GPButton::L3: return Code::StickL;
+    case GPButton::R3: return is_horizontally ? Code::None : Code::StickR;
     case GPButton::Start:
         switch (getJoyConLR(gpid)) {
         case JoyConLR::L: return Code::Minus;

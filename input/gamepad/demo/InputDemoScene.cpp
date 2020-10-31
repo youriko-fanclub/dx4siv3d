@@ -100,11 +100,13 @@ void SampleGamePadDemo::drawDPad() const {
 
 void SampleGamePadDemo::drawAxis() const {
     const auto& input = Input::get(m_gpid);
-    Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(m_button_color);
-    Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(m_button_color);
-    Circle axis(m_center, 0.5 * m_scale);
-    axis.movedBy((input.axis().l() + Vec2(-4, 4.5)) * m_scale).draw(m_button_pressed_color);
-    axis.movedBy((input.axis().r() + Vec2( 4, 4.5)) * m_scale).draw(m_button_pressed_color);
+    const bool l3 = input.buttons().l3().pressed(),
+               r3 = input.buttons().r3().pressed();
+    Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(buttonColor(l3));
+    Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(buttonColor(r3));
+    Circle axis(m_center, 0.75 * m_scale);
+    axis.movedBy((input.axis().l() + Vec2(-4, 4.5)) * m_scale).draw(l3 ? buttonColor(input.buttons().l3().pressedDuration()) : m_button_pressed_color);
+    axis.movedBy((input.axis().r() + Vec2( 4, 4.5)) * m_scale).draw(r3 ? buttonColor(input.buttons().r3().pressedDuration()) : m_button_pressed_color);
     Circle arrow(m_center, 0.25 * m_scale);
     arrow.movedBy((input.arrowL() + Vec2(-4, 4.5)) * m_scale).draw(m_arrow_color);
     arrow.movedBy((input.arrowR() + Vec2( 4, 4.5)) * m_scale).draw(m_arrow_color);
