@@ -1,10 +1,9 @@
 #include "InputDemoScene.hpp"
+#include <Siv3D/FontAsset.hpp>
+#include <Siv3D/FormatLiteral.hpp>
 #include "InputManager.hpp"
 
-namespace {
-
-
-}
+using namespace s3d::Literals::FormatLiterals;
 
 namespace dx {
 namespace di {
@@ -16,6 +15,7 @@ namespace di {
 void SampleGamePadDemo::update() {}
 void SampleGamePadDemo::draw() const {
     RoundRect(Arg::center(m_center), Size(25, 15) * m_scale, m_scale).draw(m_base_color);
+    drawId();
     drawABXY();
     drawLR();
     drawStartSelect();
@@ -24,13 +24,21 @@ void SampleGamePadDemo::draw() const {
 }
 
 // private function ------------------------------
+void SampleGamePadDemo::drawId() const {
+    const auto& pid = toString(Id::ToPlayerId(m_gpid));
+    const auto& gpid = toString(m_gpid);
+    const auto& rawid = toString(Id::ToRawID(m_gpid));
+    s3d::FontAsset(U"System")(U"{}->{}->{}"_fmt(pid, gpid, rawid))
+        .drawAt(m_center + Vec2(0, -12) * m_scale);
+}
+
 void SampleGamePadDemo::drawABXY() const {
     const auto& input = in(m_gpid);
     const bool a = input.buttons().get(GPButton::A).pressed(),
                b = input.button(GPButton::B).pressed(),
                x = input.buttons().x().pressed(),
                y = input.buttons().get(GPButton::Y).pressed();
-    Circle circle(m_center + Vec2(8, 0) * m_scale, 1 * m_scale);
+    Circle circle(m_center + Vec2(8, 0) * m_scale, m_scale);
     circle.movedBy(Vec2( 2,  0) * m_scale).draw(buttonColor(a));
     circle.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(b));
     circle.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(x));

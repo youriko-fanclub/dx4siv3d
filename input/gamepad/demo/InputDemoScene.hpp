@@ -29,6 +29,7 @@ private: // private function
     void drawStartSelect() const;
     void drawDPad() const;
     void drawAxis() const;
+    void drawId() const;
     const ColorF& buttonColor(bool is_pressed) const;
     ColorF buttonColor(s3d::Duration duration) const;
 public: // ctor/dtor

@@ -14,12 +14,23 @@ enum class PlayerId {
 
 template <typename EnumType>
 inline std::vector<EnumType> elems() { return std::vector<EnumType>(); }
+template <typename EnumType>
+inline s3d::String toString(EnumType value) { return U""; }
 
 template <>
 inline std::vector<PlayerId> elems() {
     return std::vector<PlayerId>({
         PlayerId::_1P, PlayerId::_2P, PlayerId::_3P, PlayerId::_4P,
     });
+}
+template <>
+inline s3d::String toString(PlayerId value) {
+    switch (value) {
+    case PlayerId::_1P: return U"1P";
+    case PlayerId::_2P: return U"2P";
+    case PlayerId::_3P: return U"3P";
+    case PlayerId::_4P: return U"4P";
+    }
 }
 
 /// <summary> コントローラー </summary>
@@ -33,6 +44,15 @@ inline std::vector<GamePadId> elems() {
         GamePadId::_1P, GamePadId::_2P, GamePadId::_3P, GamePadId::_4P,
     });
 }
+template <>
+inline s3d::String toString(GamePadId value) {
+    switch (value) {
+    case GamePadId::_1P: return U"1P";
+    case GamePadId::_2P: return U"2P";
+    case GamePadId::_3P: return U"3P";
+    case GamePadId::_4P: return U"4P";
+    }
+}
 
 /// <summary> コントローラー自動割り振り </summary>
 enum class GamePadRawId {
@@ -44,6 +64,15 @@ inline std::vector<GamePadRawId> elems() {
     return std::vector<GamePadRawId>({
         GamePadRawId::_1P, GamePadRawId::_2P, GamePadRawId::_3P, GamePadRawId::_4P,
     });
+}
+template <>
+inline s3d::String toString(GamePadRawId value) {
+    switch (value) {
+    case GamePadRawId::_1P: return U"1P";
+    case GamePadRawId::_2P: return U"2P";
+    case GamePadRawId::_3P: return U"3P";
+    case GamePadRawId::_4P: return U"4P";
+    }
 }
 
 // e.g. スマブラ
@@ -62,6 +91,14 @@ private:
 public:
     /// <summary> PlayerIdをGamePadIdに変換 </summary>
     static GamePadId ToGamePadId(PlayerId pid) { return s_p2gp.at(pid); }
+    static PlayerId ToPlayerId(GamePadId gpid) {
+        for (const auto& p2gp : s_p2gp) {
+            if (p2gp.second == gpid) {
+                return p2gp.first;
+            }
+        }
+        return PlayerId::_1P;
+    }
     /// <summary> GamePadIdをGamePadRawIdに変換 </summary>
     static GamePadRawId ToRawID(GamePadId gpid) { return s_gp2raw.at(gpid); }
     /// <summary> PlayerIdをColorに変換 </summary>
