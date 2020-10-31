@@ -10,21 +10,21 @@ enum class GPDPad : int {
     Left, Right, Up, Down,
 };
 
-class IDPad {
+class AbsDPad {
 public:
-    virtual bool key(GPDPad button) const = 0;
-    bool left () const { return key(GPDPad::Left ); }
-    bool right() const { return key(GPDPad::Right); }
-    bool up   () const { return key(GPDPad::Up   ); }
-    bool down () const { return key(GPDPad::Down ); }
+    virtual bool get(GPDPad DPad) const = 0;
+    bool left () const { return get(GPDPad::Left ); }
+    bool right() const { return get(GPDPad::Right); }
+    bool up   () const { return get(GPDPad::Up   ); }
+    bool down () const { return get(GPDPad::Down ); }
     s3d::Vec2 vec() const;
-    virtual s3d::Duration pressedDuration(GPDPad button) const = 0;
+    virtual s3d::Duration pressedDuration(GPDPad DPad) const = 0;
 protected:
-    IDPad() = default;
-    virtual ~IDPad() = default;
+    AbsDPad() = default;
+    virtual ~AbsDPad() = default;
 };
 
-class DPadBase : public IDPad {
+class DPadBase : public AbsDPad {
 protected:
     const GamePadId m_gpid;
     const KeyState m_state;
@@ -36,8 +36,8 @@ protected:
 
 class DPadFromKeyboard final : public DPadBase {
 public: // public function
-    bool key(GPDPad button) const override;
-    s3d::Duration pressedDuration(GPDPad button) const override;
+    bool get(GPDPad DPad) const override;
+    s3d::Duration pressedDuration(GPDPad DPad) const override;
 public: // ctor/dtor
     DPadFromKeyboard(GamePadId gpid, KeyState state) :
         DPadBase(gpid, state) {}
@@ -45,31 +45,65 @@ public: // ctor/dtor
 
 class DPadFromJoyCon final : public DPadBase {
 public: // public function
-    bool key(GPDPad button) const override;
-    s3d::Duration pressedDuration(GPDPad button) const override;
+    bool get(GPDPad DPad) const override;
+    s3d::Duration pressedDuration(GPDPad DPad) const override;
 public: // ctor/dtor
     DPadFromJoyCon(GamePadId gpid, KeyState state) :
         DPadBase(gpid, state) {}
 };
 
-class DPadFromMultiSource final : public IDPad {
+class DPadFromMultiSource final : public AbsDPad {
 public: // public function
-    bool key(GPDPad button) const override;
-    s3d::Duration pressedDuration(GPDPad button) const override;
+    bool get(GPDPad DPad) const override;
+    s3d::Duration pressedDuration(GPDPad DPad) const override;
 private: // field
-    const std::vector<std::shared_ptr<IDPad>> m_dpad_list;
+    const std::vector<std::shared_ptr<AbsDPad>> m_dpad_list;
 public: // ctor/dtor
-    DPadFromMultiSource(const std::initializer_list<std::shared_ptr<IDPad>>& dpad_list) :
+    DPadFromMultiSource(const std::initializer_list<std::shared_ptr<AbsDPad>>& dpad_list) :
     m_dpad_list(dpad_list) {}
 };
 
-class DPad {
+
+class DPad;
+
+class IDPadButton {
 public:
-    const IDPad& down   () const { return m_down; }
-    const IDPad& pressed() const { return m_pressed; }
-    const IDPad& up     () const { return m_up; }
+    bool down   () const;
+    bool pressed() const;
+    bool up     () const;
+    s3d::Duration pressedDuration() const;
+private: // field
+    const DPad* const m_parent;
+    const GPDPad m_button;
+public: // ctor/dtor
+    IDPadButton(const DPad* parent, GPDPad button) :
+        m_parent(parent),
+        m_button(button) {}
+};
+
+class IDPad {
+public:
+    virtual IDPadButton get(GPDPad button) const = 0;
+    IDPadButton left () const { return get(GPDPad::Left ); }
+    IDPadButton right() const { return get(GPDPad::Right); }
+    IDPadButton up   () const { return get(GPDPad::Up   ); }
+    IDPadButton down () const { return get(GPDPad::Down ); }
+    virtual s3d::Vec2 vec() const = 0;
+private: // field
+public: // ctor/dtor
+    IDPad() = default;
+};
+
+
+class DPad : public IDPad {
+public:
+    IDPadButton get(GPDPad button) const override { return IDPadButton(this, button); }
+    
+    bool down   (GPDPad button) const { return m_down   .get(button); }
+    bool pressed(GPDPad button) const { return m_pressed.get(button); }
+    bool up     (GPDPad button) const { return m_up     .get(button); }
     s3d::Duration pressedDuration(GPDPad button) const;
-    s3d::Vec2 vec() const;
+    virtual s3d::Vec2 vec() const;
 private: // field
     DPadFromMultiSource m_down;
     DPadFromMultiSource m_pressed;

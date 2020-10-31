@@ -58,7 +58,9 @@ s3d::Duration ButtonsFromMultiSource::pressedDuration(GPButton button) const {
 bool IButton::down   () const { return m_parent->down   (m_button); }
 bool IButton::pressed() const { return m_parent->pressed(m_button); }
 bool IButton::up     () const { return m_parent->up     (m_button); }
-s3d::Duration IButton::pressedDuration() const { return m_parent->pressedDuration(m_button); }
+s3d::Duration IButton::pressedDuration() const {
+    return m_parent->pressedDuration(m_button);
+}
 
 
 Buttons::Buttons(GamePadId gpid) :

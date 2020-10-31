@@ -6,11 +6,11 @@
 namespace dx {
 namespace di {
 
-s3d::Vec2 IDPad::vec() const {
+s3d::Vec2 AbsDPad::vec() const {
     return dx::misc::boolToVec2(right(), left(), down(), up());
 }
 
-bool DPadFromKeyboard::key(GPDPad button) const {
+bool DPadFromKeyboard::get(GPDPad button) const {
     if (KeyCode code = KeyMapping::get(m_gpid, button); code != KeyCode::None) {
         return isState(keyFromCode(code), m_state);
     }
@@ -24,7 +24,7 @@ s3d::Duration DPadFromKeyboard::pressedDuration(GPDPad button) const {
     return s3d::Duration(0);
 }
 
-bool DPadFromJoyCon::key(GPDPad button) const {
+bool DPadFromJoyCon::get(GPDPad button) const {
     if (InputManager::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
         return false;
     }
@@ -48,9 +48,9 @@ s3d::Duration DPadFromJoyCon::pressedDuration(GPDPad button) const {
 }
 
 
-bool DPadFromMultiSource::key(GPDPad button) const {
+bool DPadFromMultiSource::get(GPDPad button) const {
     return std::any_of(m_dpad_list.begin(), m_dpad_list.end(),
-        [button](const auto& dpad){ return dpad->key(button); });
+        [button](const auto& dpad){ return dpad->get(button); });
 }
 
 s3d::Duration DPadFromMultiSource::pressedDuration(GPDPad button) const {
@@ -64,6 +64,13 @@ s3d::Duration DPadFromMultiSource::pressedDuration(GPDPad button) const {
     return duration;
 }
 
+
+bool IDPadButton::down   () const { return m_parent->down   (m_button); }
+bool IDPadButton::pressed() const { return m_parent->pressed(m_button); }
+bool IDPadButton::up     () const { return m_parent->up     (m_button); }
+s3d::Duration IDPadButton::pressedDuration() const {
+    return m_parent->pressedDuration(m_button);
+}
 
 s3d::Duration DPad::pressedDuration(GPDPad button) const {
     return m_pressed.pressedDuration(button);
