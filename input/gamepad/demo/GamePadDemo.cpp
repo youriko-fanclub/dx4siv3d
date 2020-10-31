@@ -5,12 +5,12 @@
 namespace dx {
 namespace di {
 
-/* ---------- SampleGamePadDemo ---------- */
+/* ---------- GamePadDemo ---------- */
 
 // static ----------------------------------------
 // public function -------------------------------
-void SampleGamePadDemo::update() {}
-void SampleGamePadDemo::draw() const {
+void GamePadDemo::update() {}
+void GamePadDemo::draw() const {
     RoundRect(Arg::center(m_center), Size(25, 15) * m_scale, m_scale).draw(m_base_color);
     drawId();
     drawABXY();
@@ -21,7 +21,7 @@ void SampleGamePadDemo::draw() const {
 }
 
 // private function ------------------------------
-void SampleGamePadDemo::drawId() const {
+void GamePadDemo::drawId() const {
     const auto& pid = toString(Id::ToPlayerId(m_gpid));
     const auto& gpid = toString(m_gpid);
     const auto& rawid = toString(Id::ToRawID(m_gpid));
@@ -29,7 +29,7 @@ void SampleGamePadDemo::drawId() const {
         .drawAt(m_center + Vec2(0, -12) * m_scale);
 }
 
-void SampleGamePadDemo::drawABXY() const {
+void GamePadDemo::drawABXY() const {
     const auto& input = Input::get(m_gpid);
     const bool a = input.buttons().get(GPButton::A).pressed(),
                b = input.button(GPButton::B).pressed(),
@@ -47,7 +47,7 @@ void SampleGamePadDemo::drawABXY() const {
     if (y) { circleIn.movedBy(Vec2(-2,  0) * m_scale).draw(buttonColor(input.buttons().get(GPButton::Y).pressedDuration())); }
 }
 
-void SampleGamePadDemo::drawLR() const {
+void GamePadDemo::drawLR() const {
     const auto& input = Input::get(m_gpid);
     const bool l1 = input.buttons().l1().pressed(),
                r1 = input.buttons().r1().pressed(),
@@ -65,7 +65,7 @@ void SampleGamePadDemo::drawLR() const {
     if (r2) { shoulderIn.movedBy(Vec2( 8, -6  ) * m_scale).draw(buttonColor(input.buttons().get(GPButton::R2).pressedDuration())); }
 }
 
-void SampleGamePadDemo::drawStartSelect() const {
+void GamePadDemo::drawStartSelect() const {
     const auto& input = Input::get(m_gpid);
     const bool start  = input.buttons().start ().pressed(),
                select = input.buttons().select().pressed();
@@ -77,7 +77,7 @@ void SampleGamePadDemo::drawStartSelect() const {
     if (select) { smallIn.movedBy(Vec2(-1.7, 1.5) * m_scale).draw(buttonColor(input.buttons().get(GPButton::Select).pressedDuration())); }
 }
 
-void SampleGamePadDemo::drawDPad() const {
+void GamePadDemo::drawDPad() const {
     const auto& input = Input::get(m_gpid);
     const bool l = input.dpad().get(GPDPad::Left).pressed(),
                r = input.dpad(GPDPad::Right).pressed(),
@@ -95,7 +95,7 @@ void SampleGamePadDemo::drawDPad() const {
     if (d) { rectIn.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(input.dpad(GPDPad::Down ).pressedDuration())); }
 }
 
-void SampleGamePadDemo::drawAxis() const {
+void GamePadDemo::drawAxis() const {
     const auto& input = Input::get(m_gpid);
     const bool l3 = input.buttons().l3().pressed(),
                r3 = input.buttons().r3().pressed();
@@ -109,11 +109,11 @@ void SampleGamePadDemo::drawAxis() const {
     arrow.movedBy((input.arrowR() + Vec2( 4, 4.5)) * m_scale).draw(m_arrow_color);
 }
 
-const ColorF& SampleGamePadDemo::buttonColor(bool is_pressed) const {
+const ColorF& GamePadDemo::buttonColor(bool is_pressed) const {
     return is_pressed ? m_button_pressed_color : m_button_color;
 }
 
-ColorF SampleGamePadDemo::buttonColor(s3d::Duration duration) const {
+ColorF GamePadDemo::buttonColor(s3d::Duration duration) const {
     constexpr s3d::Duration max(3);
     const float factor = (1.f - duration / max);
     return ColorF(
@@ -123,7 +123,7 @@ ColorF SampleGamePadDemo::buttonColor(s3d::Duration duration) const {
 }
 
 // ctor/dtor -------------------------------------
-SampleGamePadDemo::SampleGamePadDemo(GamePadId gpid, const Vec2& center, double scale, const ColorF& base, const ColorF& button, const ColorF& pressed, const ColorF& arrow) :
+GamePadDemo::GamePadDemo(GamePadId gpid, const Vec2& center, double scale, const ColorF& base, const ColorF& button, const ColorF& pressed, const ColorF& arrow) :
     m_gpid(gpid),
     m_center(center),
     m_scale(scale),

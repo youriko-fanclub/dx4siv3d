@@ -7,7 +7,7 @@
 namespace dx {
 namespace di {
 
-class SampleGamePadDemo {
+class GamePadDemo {
 public: // static_const/enum
 public: // static
 public: // public function
@@ -35,7 +35,7 @@ private: // private function
     const s3d::ColorF& buttonColor(bool is_pressed) const;
     s3d::ColorF buttonColor(s3d::Duration duration) const;
 public: // ctor/dtor
-    SampleGamePadDemo(GamePadId id, const s3d::Vec2& center, double scale, const s3d::ColorF& base, const s3d::ColorF& button, const s3d::ColorF& pressed, const s3d::ColorF& arrow);
+    GamePadDemo(GamePadId id, const s3d::Vec2& center, double scale, const s3d::ColorF& base, const s3d::ColorF& button, const s3d::ColorF& pressed, const s3d::ColorF& arrow);
 };
 
 }
