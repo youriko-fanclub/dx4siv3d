@@ -19,6 +19,12 @@ std::unordered_map<GamePadId, GamePadRawId> Id::s_gp2raw = {
     { GamePadId::_3P, GamePadRawId::_3P },
     { GamePadId::_4P, GamePadRawId::_4P },
 };
+std::unordered_map<PlayerId, s3d::ColorF> Id::s_p2color = {
+    { PlayerId::_1P, s3d::ColorF(1.0, 0.3, 0.3) },
+    { PlayerId::_2P, s3d::ColorF(0.3, 0.3, 1.0) },
+    { PlayerId::_3P, s3d::ColorF(1.0, 0.9, 0.3) },
+    { PlayerId::_4P, s3d::ColorF(0.3, 1.0, 0.3) },
+};
 
 // public function -------------------------------
 // private function ------------------------------

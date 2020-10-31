@@ -15,9 +15,17 @@ private: // field
     GamePadId m_gpid;
     Vec2 m_center;
     double m_scale;
+    
+    const ColorF m_base_color;
+    const ColorF m_button_color;
+    const ColorF m_button_pressed_color;
+    const ColorF m_arrow_color;
+
 private: // private function
+    const ColorF& buttonColor(bool is_pressed) const;
+    ColorF buttonColor(s3d::Duration duration) const;
 public: // ctor/dtor
-    SampleGamePadDemo(GamePadId id, const Vec2& center, double scale);
+    SampleGamePadDemo(GamePadId id, const Vec2& center, double scale, const ColorF& base, const ColorF& button, const ColorF& pressed, const ColorF& arrow);
 };
 
 class JoyConDemo {
@@ -45,8 +53,8 @@ public: // public function
     void update() override;
     void draw() const override;
 private: // field
-    SampleGamePadDemo m_gamepad_demo;
-    SampleGamePadDemo m_gamepad_demo_s;
+    float m_scale;
+    std::unordered_map<GamePadId, SampleGamePadDemo> m_gamepad_demos;
     JoyConDemo m_joyConDemo;
 private: // private function
 public: // ctor/dtor

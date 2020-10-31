@@ -3,16 +3,6 @@
 
 namespace {
 
-const ColorF& buttonColor(bool is_pressed) {
-    static constexpr ColorF button_color(0.3, 0.3, 0.3);
-    static constexpr ColorF button_pressed_color(0.96, 0.82, 0.57);
-    return is_pressed ? button_pressed_color : button_color;
-}
-ColorF buttonColor(s3d::Duration duration) {
-    constexpr s3d::Duration max(3);
-    const float factor = (1.f - duration / max);
-    return ColorF(0.96, 0.82 * factor, 0.57 * factor);
-}
 
 }
 
@@ -25,14 +15,9 @@ namespace di {
 // public function -------------------------------
 void SampleGamePadDemo::update() {}
 void SampleGamePadDemo::draw() const {
-    // Circle(m_center, m_scale / 2).drawFrame(m_scale * 0.1);
-    const ColorF base_color(0.86, 0.47, 0.35);
-    const ColorF button_color(0.3, 0.3, 0.3);
-    const ColorF button_pressed_color(0.96, 0.82, 0.57);
-    const ColorF arrow_color(1.0, 0.3, 0.3);
     const auto& input = in(m_gpid);
     // ベース
-    RoundRect(Arg::center(m_center), Size(25, 15) * m_scale, m_scale).draw(base_color);
+    RoundRect(Arg::center(m_center), Size(25, 15) * m_scale, m_scale).draw(m_base_color);
     // ABXY
     const bool a = input.buttons().get(GPButton::A).pressed(),
                b = input.button(GPButton::B).pressed(),
@@ -64,14 +49,14 @@ void SampleGamePadDemo::draw() const {
     if (u) { rectIn.movedBy(Vec2( 0, -2) * m_scale).draw(buttonColor(input.dpad(GPDPad::Up   ).pressedDuration())); }
     if (d) { rectIn.movedBy(Vec2( 0,  2) * m_scale).draw(buttonColor(input.dpad(GPDPad::Down ).pressedDuration())); }
     // スティック
-    Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(button_color);
-    Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(button_color);
+    Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(m_button_color);
+    Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(m_button_color);
     Circle axis(m_center, 0.5 * m_scale);
-    axis.movedBy((input.axis().l() + Vec2(-4, 4.5)) * m_scale).draw(button_pressed_color);
-    axis.movedBy((input.axis().r() + Vec2( 4, 4.5)) * m_scale).draw(button_pressed_color);
+    axis.movedBy((input.axis().l() + Vec2(-4, 4.5)) * m_scale).draw(m_button_pressed_color);
+    axis.movedBy((input.axis().r() + Vec2( 4, 4.5)) * m_scale).draw(m_button_pressed_color);
     Circle arrow(m_center, 0.25 * m_scale);
-    arrow.movedBy((input.arrowL() + Vec2(-4, 4.5)) * m_scale).draw(arrow_color);
-    arrow.movedBy((input.arrowR() + Vec2( 4, 4.5)) * m_scale).draw(arrow_color);
+    arrow.movedBy((input.arrowL() + Vec2(-4, 4.5)) * m_scale).draw(m_arrow_color);
+    arrow.movedBy((input.arrowR() + Vec2( 4, 4.5)) * m_scale).draw(m_arrow_color);
     // L/R Trigger
     const bool l1 = input.buttons().l1().pressed(),
                r1 = input.buttons().r1().pressed(),
@@ -100,11 +85,28 @@ void SampleGamePadDemo::draw() const {
 }
 
 // private function ------------------------------
+const ColorF& SampleGamePadDemo::buttonColor(bool is_pressed) const {
+    return is_pressed ? m_button_pressed_color : m_button_color;
+}
+
+ColorF SampleGamePadDemo::buttonColor(s3d::Duration duration) const {
+    constexpr s3d::Duration max(3);
+    const float factor = (1.f - duration / max);
+    return ColorF(
+        m_button_pressed_color.r,
+        m_button_pressed_color.g * factor,
+        m_button_pressed_color.b * factor);
+}
+
 // ctor/dtor -------------------------------------
-SampleGamePadDemo::SampleGamePadDemo(GamePadId gpid, const Vec2& center, double scale) :
+SampleGamePadDemo::SampleGamePadDemo(GamePadId gpid, const Vec2& center, double scale, const ColorF& base, const ColorF& button, const ColorF& pressed, const ColorF& arrow) :
     m_gpid(gpid),
     m_center(center),
-    m_scale(scale) {}
+    m_scale(scale),
+    m_base_color(base),
+    m_button_color(button),
+    m_button_pressed_color(pressed),
+    m_arrow_color(arrow) {}
 
 
 /* ---------- JoyConDemo ---------- */
@@ -173,22 +175,41 @@ JoyConDemo::JoyConDemo() :
 // static ----------------------------------------
 // public function -------------------------------
 void InputDemoScene::update() {
-    m_gamepad_demo.update();
-    // m_joyConDemo.update();
 }
 
 void InputDemoScene::draw() const {
-    m_gamepad_demo.draw();
-    m_gamepad_demo_s.draw();
-    // m_joyConDemo.draw();
+    for (const auto gpid : elems<GamePadId>()) {
+        m_gamepad_demos.at(gpid).draw();
+    }
 }
 
 // private function ------------------------------
 // ctor/dtor -------------------------------------
 InputDemoScene::InputDemoScene(const InitData& init) :
     IScene(init),
-    m_gamepad_demo(GamePadId::_2P, Vec2(400, 300), 20.0),
-    m_gamepad_demo_s(GamePadId::_1P, Vec2(500, 600), 10.0),
+    m_scale(10),
+    m_gamepad_demos({
+        { GamePadId::_1P, SampleGamePadDemo(GamePadId::_1P, Vec2(30, 20) * m_scale, m_scale,
+            ColorF(0.86, 0.47, 0.35), // base
+            ColorF(0.30, 0.30, 0.30), // button
+            ColorF(0.96, 0.82, 0.57), // pressed
+            ColorF(1.00, 0.30, 0.30)) }, // arrow
+        { GamePadId::_2P, SampleGamePadDemo(GamePadId::_2P, Vec2(60, 20) * m_scale, m_scale,
+            ColorF(0.35, 0.47, 0.86), // base
+            ColorF(0.30, 0.30, 0.30), // button
+            ColorF(0.96, 0.82, 0.57), // pressed
+            ColorF(1.00, 0.30, 0.30)) }, // arrow
+        { GamePadId::_3P, SampleGamePadDemo(GamePadId::_3P, Vec2(30, 50) * m_scale, m_scale,
+            ColorF(0.96, 0.77, 0.35), // base
+            ColorF(0.30, 0.30, 0.30), // button
+            ColorF(0.96, 0.92, 0.67), // pressed
+            ColorF(1.00, 0.30, 0.30)) }, // arrow
+        { GamePadId::_4P, SampleGamePadDemo(GamePadId::_4P, Vec2(60, 50) * m_scale, m_scale,
+            ColorF(0.35, 0.86, 0.47), // base
+            ColorF(0.30, 0.30, 0.30), // button
+            ColorF(0.96, 0.82, 0.57), // pressed
+            ColorF(1.00, 0.30, 0.30)) }, // arrow
+    }),
     m_joyConDemo() {}
 
 

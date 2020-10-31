@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include <vector>
+#include <Siv3D/Color.hpp>
 
 /// <summary> 複数プレイヤーによる入力を管理するIDを管理 </summary>
 namespace dx {
@@ -52,15 +53,19 @@ inline std::vector<GamePadRawId> elems() {
 
 class Id {
 private:
-    /// <summary> PlayerIDとGamePadIDの対応表 </summary>
+    /// <summary> PlayerIdとGamePadIdの対応表 </summary>
     static std::unordered_map<PlayerId, GamePadId> s_p2gp;
-    /// <summary> GamePadIdIDとGamePadRawIdIDの対応表 </summary>
+    /// <summary> GamePadIdとGamePadRawIdの対応表 </summary>
     static std::unordered_map<GamePadId, GamePadRawId> s_gp2raw;
+    
+    static std::unordered_map<PlayerId, s3d::ColorF> s_p2color;
 public:
-    /// <summary> PlayerIdIDをGamePadIdIDに変換 </summary>
+    /// <summary> PlayerIdをGamePadIdに変換 </summary>
     static GamePadId ToGamePadId(PlayerId pid) { return s_p2gp.at(pid); }
-    /// <summary> GamePadIdIDをGamePadRawIdIDに変換 </summary>
+    /// <summary> GamePadIdをGamePadRawIdに変換 </summary>
     static GamePadRawId ToRawID(GamePadId gpid) { return s_gp2raw.at(gpid); }
+    /// <summary> PlayerIdをColorに変換 </summary>
+    static s3d::ColorF ToColor(PlayerId pid) { return s_p2color.at(pid); }
 };
 
 #if false
