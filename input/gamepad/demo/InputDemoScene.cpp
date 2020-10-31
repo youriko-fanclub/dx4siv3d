@@ -1,7 +1,7 @@
 #include "InputDemoScene.hpp"
 #include <Siv3D/FontAsset.hpp>
 #include <Siv3D/FormatLiteral.hpp>
-#include "InputManager.hpp"
+#include "Input.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
 
@@ -33,7 +33,7 @@ void SampleGamePadDemo::drawId() const {
 }
 
 void SampleGamePadDemo::drawABXY() const {
-    const auto& input = in(m_gpid);
+    const auto& input = Input::get(m_gpid);
     const bool a = input.buttons().get(GPButton::A).pressed(),
                b = input.button(GPButton::B).pressed(),
                x = input.buttons().x().pressed(),
@@ -51,7 +51,7 @@ void SampleGamePadDemo::drawABXY() const {
 }
 
 void SampleGamePadDemo::drawLR() const {
-    const auto& input = in(m_gpid);
+    const auto& input = Input::get(m_gpid);
     const bool l1 = input.buttons().l1().pressed(),
                r1 = input.buttons().r1().pressed(),
                l2 = input.buttons().l2().pressed(),
@@ -69,7 +69,7 @@ void SampleGamePadDemo::drawLR() const {
 }
 
 void SampleGamePadDemo::drawStartSelect() const {
-    const auto& input = in(m_gpid);
+    const auto& input = Input::get(m_gpid);
     const bool start  = input.buttons().start ().pressed(),
                select = input.buttons().select().pressed();
     RoundRect small(Arg::center(m_center), SizeF(2, 0.8) * m_scale, 0.2 * m_scale);
@@ -81,7 +81,7 @@ void SampleGamePadDemo::drawStartSelect() const {
 }
 
 void SampleGamePadDemo::drawDPad() const {
-    const auto& input = in(m_gpid);
+    const auto& input = Input::get(m_gpid);
     const bool l = input.dpad().get(GPDPad::Left).pressed(),
                r = input.dpad(GPDPad::Right).pressed(),
                u = input.dpad().up().pressed(),
@@ -99,7 +99,7 @@ void SampleGamePadDemo::drawDPad() const {
 }
 
 void SampleGamePadDemo::drawAxis() const {
-    const auto& input = in(m_gpid);
+    const auto& input = Input::get(m_gpid);
     Circle(m_center + Vec2(-4, 4.5) * m_scale, 2 * m_scale).draw(m_button_color);
     Circle(m_center + Vec2( 4, 4.5) * m_scale, 2 * m_scale).draw(m_button_color);
     Circle axis(m_center, 0.5 * m_scale);

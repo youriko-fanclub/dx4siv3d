@@ -1,7 +1,7 @@
 #include "DPad.hpp"
 #include "KeyMapping.hpp"
 #include "Misc.hpp"
-#include "InputManager.hpp"
+#include "Input.hpp"
 
 namespace dx {
 namespace di {
@@ -25,7 +25,7 @@ s3d::Duration DPadFromKeyboard::pressedDuration(GPDPad button) const {
 }
 
 bool DPadFromJoyCon::get(GPDPad button) const {
-    if (InputManager::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
+    if (Input::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
         return false;
     }
 #ifdef UNDER_CONSTRUCTION // TOdO: 横持ちなら常にfalse
@@ -41,7 +41,7 @@ bool DPadFromJoyCon::get(GPDPad button) const {
 }
 
 s3d::Duration DPadFromJoyCon::pressedDuration(GPDPad button) const {
-    if (InputManager::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
+    if (Input::instance()->source(m_gpid) == InputSource::JoyConHorizontally) {
         return s3d::Duration(0);
     }
     return s3d::Duration(0); // TOdO:

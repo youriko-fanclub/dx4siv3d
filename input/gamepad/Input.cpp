@@ -1,4 +1,4 @@
-#include "InputManager.hpp"
+#include "Input.hpp"
 
 namespace dx {
 namespace di {
@@ -10,7 +10,7 @@ namespace di {
 void initialize();
 // private function ------------------------------
 // ctor/dtor -------------------------------------
-InputManager::InputManager() {
+Input::Input() {
     for (auto id : elems<GamePadId>()) {
         m_inputs.insert(std::make_pair(id, PlayerInput(id)));
     }
