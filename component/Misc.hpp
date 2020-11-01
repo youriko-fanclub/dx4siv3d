@@ -12,6 +12,13 @@ s3d::Vec2 boolToVec2(bool xPositive, bool xNegative, bool yPositive, bool yNegat
 s3d::Vec2 keyPressedToVec2(
     const s3d::Key& xPositive, const s3d::Key& xNegative,
     const s3d::Key& yPositive, const s3d::Key& yNegative);
+    
+bool approximately(float a, float b);
+bool approximately(double a, double b);
+bool approximately(const s3d::Vec2& a, const s3d::Vec2& b);
+bool approximately0(float value);
+bool approximately0(double value);
+bool approximately0(const s3d::Vec2& value);
 
 }
 }

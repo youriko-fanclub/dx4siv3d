@@ -1,5 +1,6 @@
 #include "Misc.hpp"
 #include <Siv3D/Key.hpp>
+#include <cfloat>
 
 namespace dx {
 namespace misc {
@@ -19,6 +20,27 @@ s3d::Vec2 keyPressedToVec2(
     return boolToVec2(
         xPositive.pressed(), xNegative.pressed(),
         yPositive.pressed(), yNegative.pressed());
+}
+
+
+bool approximately(float a, float b) {
+    return fabs(a - b) <= FLT_EPSILON;
+}
+bool approximately(double a, double b) {
+    return abs(a - b) <= DBL_EPSILON;
+}
+bool approximately(const s3d::Vec2& a, const s3d::Vec2& b) {
+    return approximately(a.x, b.x) && approximately(a.y, b.y);
+}
+
+bool approximately0(float value) {
+    return fabs(value) <= FLT_EPSILON;
+}
+bool approximately0(double value) {
+    return abs(value) <= DBL_EPSILON;
+}
+bool approximately0(const s3d::Vec2& value) {
+    return approximately0(value.x) && approximately0(value.y);
 }
 
 }
