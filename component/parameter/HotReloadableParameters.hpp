@@ -18,13 +18,14 @@ public: // public function
 public: // protected function
     virtual void loadImpl(const s3d::TOMLReader& toml) {}
 private: // field
-    const s3d::String m_file;
+    const s3d::String m_filename;
     s3d::FilePath m_path;
     s3d::DirectoryWatcher m_watcher;
     s3d::TOMLReader m_reader;
 private: // private function
 protected: // ctor/dtor
     HotReloadableParameters(const s3d::String& filename);
+    virtual ~HotReloadableParameters();
 };
 
 }

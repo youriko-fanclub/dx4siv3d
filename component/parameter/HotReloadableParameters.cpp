@@ -2,6 +2,7 @@
 #include <Siv3D/FileSystem.hpp>
 #include <Siv3D/TOMLReader.hpp>
 #include "FilePath.hpp"
+#include "HotReloadManager.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
 
@@ -37,8 +38,15 @@ void HotReloadableParameters::load() {  // TOML ファイルからデータを�
 // private function ------------------------------
 // ctor/dtor -------------------------------------
 HotReloadableParameters::HotReloadableParameters(const s3d::String& filename) :
-m_path(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/" + filename + U".toml")),
-m_watcher(s3d::FileSystem::ParentPath(m_path)) {}
+m_filename(filename + U".toml"),
+m_path(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/" + m_filename)),
+m_watcher(s3d::FileSystem::ParentPath(m_path)) {
+    HotReloadManager::instance()->registrate(m_filename, this);
+}
+
+HotReloadableParameters::~HotReloadableParameters() {
+    // HotReloadManager::instance()->unregistrate(m_filename);
+}
 
 }
 

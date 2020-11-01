@@ -2,24 +2,26 @@
 
 #include "MainExecutiveManager.hpp"
 #include "SequenceManager.hpp"
+#include "HotReloadManager.hpp"
 
 namespace dx {
 namespace app {
 
 void ExecutiveManager::initialize() {
-  const auto& desc = kanji::app::createExecutiveDesc();
-  ApplicationManager::instance()->initialize(desc.application);
-  AssetManager::instance()->initialize(desc.font, desc.texture);
-  m_sequencer = kanji::seq::SequenceManager::instance().get();
-  m_sequencer->initialize();
+    const auto& desc = kanji::app::createExecutiveDesc();
+    ApplicationManager::instance()->initialize(desc.application);
+    AssetManager::instance()->initialize(desc.font, desc.texture);
+    m_sequencer = kanji::seq::SequenceManager::instance().get();
+    m_sequencer->initialize();
 }
 
 bool ExecutiveManager::update() {
-  return m_sequencer->update();
+    cmp::HotReloadManager::instance()->update();
+    return m_sequencer->update();
 }
 
 void ExecutiveManager::draw() const {
-  m_sequencer->draw();
+    m_sequencer->draw();
 }
 
 }
