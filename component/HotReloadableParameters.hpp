@@ -1,31 +1,30 @@
 #pragma once
 #include <vector>
 #include <Siv3D/DirectoryWatcher.hpp>
+#include <Siv3D/TOMLReader.hpp>
 #include "Enum.hpp"
 
 namespace dx {
 namespace cmp {
 
-class Param {
+class HotReloadableParameters {
 public: // static_const/enum
 public: // static
 public: // public function
     void update();
     void load();
-public: // field
-    double force_horizontal;
-    double force_jump;
-    double chara_friction;
-    double air_resistance;
-    double floor_friction;
-    double wall_friction;
-private:
-    const s3d::String file = U"Physics";
+    template<typename Type>
+    Type get(const s3d::String& key) const { return m_reader[key].get<Type>(); }
+public: // protected function
+    virtual void loadImpl(const s3d::TOMLReader& toml) {}
+private: // field
+    const s3d::String m_file;
     s3d::FilePath m_path;
     s3d::DirectoryWatcher m_watcher;
+    s3d::TOMLReader m_reader;
 private: // private function
-public: // ctor/dtor
-    Param();
+protected: // ctor/dtor
+    HotReloadableParameters(const s3d::String& filename);
 };
 
 }

@@ -12,7 +12,7 @@ namespace cmp {
 
 // static ----------------------------------------
 // public function -------------------------------
-void Param::update() {
+void HotReloadableParameters::update() {
     for (const auto& change : m_watcher.retrieveChanges()) {
         // TOML ファイルが更新されたら再読み込み
         std::cout << U"file was changed:{}:{}"_fmt(
@@ -25,27 +25,20 @@ void Param::update() {
     }
 }
 
-void Param::load() {  // TOML ファイルからデータを読み込む
+void HotReloadableParameters::load() {  // TOML ファイルからデータを読み込む
     const s3d::TOMLReader toml(m_path);
     if (!toml) { // もし読み込みに失敗したら
         throw s3d::Error(U"Failed to load `config.toml`");
     }
-    // 要素のパスで値を取得
-    force_horizontal = toml[U"chara.force.horizontal"].get<double>();
-    force_jump       = toml[U"chara.force.jump"].get<double>();
-    chara_friction   = toml[U"chara.friction"].get<double>();
-    air_resistance   = toml[U"chara.air_resistance"].get<double>();
-    floor_friction   = toml[U"floor.friction"].get<double>();
-    wall_friction    = toml[U"wall.friction"].get<double>();
+    m_reader = toml;
+    loadImpl(m_reader);
 }
 
 // private function ------------------------------
 // ctor/dtor -------------------------------------
-Param::Param() :
-m_path(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/" + file + U".toml")),
-m_watcher(s3d::FileSystem::ParentPath(m_path)) {
-    load();
-    }
+HotReloadableParameters::HotReloadableParameters(const s3d::String& filename) :
+m_path(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/" + filename + U".toml")),
+m_watcher(s3d::FileSystem::ParentPath(m_path)) {}
 
 }
 
