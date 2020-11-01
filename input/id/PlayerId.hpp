@@ -2,6 +2,8 @@
 #include <unordered_map>
 #include <vector>
 #include <Siv3D/Color.hpp>
+#include "Enum.hpp"
+
 
 /// <summary> 複数プレイヤーによる入力を管理するIDを管理 </summary>
 namespace dx {
@@ -12,68 +14,15 @@ enum class PlayerId {
     _1P, _2P, _3P, _4P// , Any
 };
 
-template <typename EnumType>
-inline std::vector<EnumType> elems() { return std::vector<EnumType>(); }
-template <typename EnumType>
-inline s3d::String toString(EnumType value) { return U""; }
-
-template <>
-inline std::vector<PlayerId> elems() {
-    return std::vector<PlayerId>({
-        PlayerId::_1P, PlayerId::_2P, PlayerId::_3P, PlayerId::_4P,
-    });
-}
-template <>
-inline s3d::String toString(PlayerId value) {
-    switch (value) {
-    case PlayerId::_1P: return U"1P";
-    case PlayerId::_2P: return U"2P";
-    case PlayerId::_3P: return U"3P";
-    case PlayerId::_4P: return U"4P";
-    }
-}
-
 /// <summary> コントローラー </summary>
 enum class GamePadId {
     _1P, _2P, _3P, _4P// , Any
 };
 
-template <>
-inline std::vector<GamePadId> elems() {
-    return std::vector<GamePadId>({
-        GamePadId::_1P, GamePadId::_2P, GamePadId::_3P, GamePadId::_4P,
-    });
-}
-template <>
-inline s3d::String toString(GamePadId value) {
-    switch (value) {
-    case GamePadId::_1P: return U"1P";
-    case GamePadId::_2P: return U"2P";
-    case GamePadId::_3P: return U"3P";
-    case GamePadId::_4P: return U"4P";
-    }
-}
-
 /// <summary> コントローラー自動割り振り </summary>
 enum class GamePadRawId {
     _1P, _2P, _3P, _4P// , Any, Max
 };
-
-template <>
-inline std::vector<GamePadRawId> elems() {
-    return std::vector<GamePadRawId>({
-        GamePadRawId::_1P, GamePadRawId::_2P, GamePadRawId::_3P, GamePadRawId::_4P,
-    });
-}
-template <>
-inline s3d::String toString(GamePadRawId value) {
-    switch (value) {
-    case GamePadRawId::_1P: return U"1P";
-    case GamePadRawId::_2P: return U"2P";
-    case GamePadRawId::_3P: return U"3P";
-    case GamePadRawId::_4P: return U"4P";
-    }
-}
 
 // e.g. スマブラ
 // - Player     : キャラが左から何枠目か
@@ -276,5 +225,26 @@ public static class Util {
 #endif
 
 }
+
+namespace denum {
+
+template <>
+std::vector<di::PlayerId> elems();
+template <>
+s3d::String toString(di::PlayerId value);
+
+template <>
+std::vector<di::GamePadId> elems();
+template <>
+s3d::String toString(di::GamePadId value);
+
+template <>
+std::vector<di::GamePadRawId> elems();
+template <>
+s3d::String toString(di::GamePadRawId value);
+
+
+}
+
 }
 

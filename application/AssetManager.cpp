@@ -2,6 +2,7 @@
 
 #include <Siv3D/FontAsset.hpp>
 #include <Siv3D/TextureAsset.hpp>
+#include "FilePath.hpp"
 
 namespace dx {
 namespace app {
@@ -15,23 +16,19 @@ void AssetManager::initialize(
   const std::vector<FontDesc>& fontDescs,
   const std::vector<TextureDesc>& textureDescs) {
   
-  const s3d::String assetPath = U"../KANJI-asset/";
-  
   // 使用するフォントアセットを登録
-  for (const s3d::String fontPath = assetPath + U"font/";
-    const auto& desc : fontDescs) {
+  for (const auto& desc : fontDescs) {
     if (!desc.typefaceString.empty()) {
-      s3d::FontAsset::Register(desc.key, desc.size, fontPath + desc.typefaceString);
+      s3d::FontAsset::Register(desc.key, desc.size, FilePath::asset_font + desc.typefaceString);
     }
     else {
       s3d::FontAsset::Register(desc.key, desc.size, desc.typeface);
     }
   }
   
-  const s3d::String texturePath = assetPath + U"texture/";
-  const s3d::String textureExtension = U".png";
-  for (const auto& desc : textureDescs) {
-    s3d::TextureAsset::Register(desc.key, texturePath + desc.path + textureExtension);
+  for (const s3d::String textureExtension = U".png";
+      const auto& desc : textureDescs) {
+    s3d::TextureAsset::Register(desc.key, FilePath::asset_texture + desc.path + textureExtension);
   }
 }
 
