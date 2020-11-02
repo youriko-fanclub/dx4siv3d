@@ -40,14 +40,12 @@ void HotReloadableParameters::load() {  // TOML ファイルからデータを�
 HotReloadableParameters::HotReloadableParameters(const s3d::String& filename) :
 m_filename(filename + U".toml"),
 m_path(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/" + m_filename)),
-m_watcher(s3d::FileSystem::ParentPath(m_path)) {
-    HotReloadManager::instance()->registrate(m_filename, this);
-}
+m_watcher(s3d::FileSystem::ParentPath(m_path)) {}
 
 HotReloadableParameters::~HotReloadableParameters() {
     const auto& instance = HotReloadManager::instance();
     if (instance != nullptr) {
-        instance->unregistrate(m_filename);
+        instance->unsubscribe(m_filename);
     }
 }
 

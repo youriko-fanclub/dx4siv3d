@@ -11,6 +11,7 @@ class HotReloadableParameters {
 public: // static_const/enum
 public: // static
 public: // public function
+    const s3d::String& filename() const { return m_filename; }
     void update();
     void load();
     template<typename Type>

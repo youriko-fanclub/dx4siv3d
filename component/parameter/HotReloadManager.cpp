@@ -28,7 +28,7 @@ void HotReloadManager::update() {
     }
 }
 
-void HotReloadManager::registrate(const s3d::String& key, HotReloadableParameters* params) {
+void HotReloadManager::subscribe(const s3d::String& key, std::shared_ptr<HotReloadableParameters> params) {
     if (m_paramList.contains(key)) {
         m_paramList.at(key) = params;
     }
@@ -37,7 +37,7 @@ void HotReloadManager::registrate(const s3d::String& key, HotReloadableParameter
     }
 }
 
-void HotReloadManager::unregistrate(const s3d::String& key) {
+void HotReloadManager::unsubscribe(const s3d::String& key) {
     if (m_paramList.contains(key)) {
         m_paramList.erase(key);
     }
