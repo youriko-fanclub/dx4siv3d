@@ -45,7 +45,10 @@ m_watcher(s3d::FileSystem::ParentPath(m_path)) {
 }
 
 HotReloadableParameters::~HotReloadableParameters() {
-    // HotReloadManager::instance()->unregistrate(m_filename);
+    const auto& instance = HotReloadManager::instance();
+    if (instance != nullptr) {
+        instance->unregistrate(m_filename);
+    }
 }
 
 }
