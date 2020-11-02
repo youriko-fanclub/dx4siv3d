@@ -16,9 +16,9 @@ s3d::Vec2 keyPressedToVec2(
 bool approximately(float a, float b);
 bool approximately(double a, double b);
 bool approximately(const s3d::Vec2& a, const s3d::Vec2& b);
-bool approximately0(float value);
-bool approximately0(double value);
-bool approximately0(const s3d::Vec2& value);
+bool approximatelyZero(float value);
+bool approximatelyZero(double value);
+bool approximatelyZero(const s3d::Vec2& value);
 
 }
 }

@@ -33,14 +33,14 @@ bool approximately(const s3d::Vec2& a, const s3d::Vec2& b) {
     return approximately(a.x, b.x) && approximately(a.y, b.y);
 }
 
-bool approximately0(float value) {
+bool approximatelyZero(float value) {
     return fabs(value) <= FLT_EPSILON;
 }
-bool approximately0(double value) {
+bool approximatelyZero(double value) {
     return abs(value) <= DBL_EPSILON;
 }
-bool approximately0(const s3d::Vec2& value) {
-    return approximately0(value.x) && approximately0(value.y);
+bool approximatelyZero(const s3d::Vec2& value) {
+    return approximatelyZero(value.x) && approximatelyZero(value.y);
 }
 
 }
