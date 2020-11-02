@@ -6,6 +6,7 @@ namespace app {
 /* ---------- FilePath ---------- */
 
 // static ----------------------------------------
+// .appファイルからの相対パス
 s3d::String FilePath::asset         = U"../KANJI-asset/";
 s3d::String FilePath::asset_font    = asset + U"font/";
 s3d::String FilePath::asset_texture = asset + U"texture/";
