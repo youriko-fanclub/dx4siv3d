@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneStates.hpp"
+#include "SceneState.hpp"
 #include "PlayerInput.hpp"
 #include "GamePadDemo.hpp"
 #include "JoyConDemo.hpp"
