@@ -10,9 +10,9 @@ namespace cmp {
 class HotReloadManager : public Singleton<HotReloadManager> {
 public: // static_const/enum
 public: // static
-    template<typename ConcleteParams>
-    static std::shared_ptr<ConcleteParams> createParams(bool withSubscribe = true) {
-        auto params = std::make_shared<ConcleteParams>();
+    template<typename ConcreteParams>
+    static std::shared_ptr<ConcreteParams> createParams(bool withSubscribe = true) {
+        auto params = std::make_shared<ConcreteParams>();
         if (withSubscribe) {
             instance()->subscribe(params->filename(), params);
         }

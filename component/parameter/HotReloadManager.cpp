@@ -46,7 +46,7 @@ void HotReloadManager::unsubscribe(const s3d::String& key) {
 // private function ------------------------------
 // ctor/dtor -------------------------------------
 HotReloadManager::HotReloadManager() :
-m_directory(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"toml/")),
+m_directory(s3d::FileSystem::FullPath(app::FilePath::asset_toml)),
 m_watcher(m_directory)
 {}
 

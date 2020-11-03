@@ -13,19 +13,6 @@ namespace cmp {
 
 // static ----------------------------------------
 // public function -------------------------------
-void HotReloadableParameters::update() {
-    for (const auto& change : m_watcher.retrieveChanges()) {
-        // TOML ファイルが更新されたら再読み込み
-        std::cout << U"file was changed:{}:{}"_fmt(
-            dx::denum::toString(change.second),
-            s3d::FileSystem::FileName(change.first)) << std::endl;
-        if (change.first == m_path
-        && (change.second == s3d::FileAction::Added || change.second == s3d::FileAction::Modified)) {
-            load();
-        }
-    }
-}
-
 void HotReloadableParameters::load() {  // TOML ファイルからデータを読み込む
     const s3d::TOMLReader toml(m_path);
     if (!toml) { // もし読み込みに失敗したら
