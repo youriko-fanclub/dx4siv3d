@@ -14,10 +14,6 @@ using GPDPad = GamePadDPad;
 class AbsDPad {
 public:
     virtual bool get(GPDPad DPad) const = 0;
-    bool left () const { return get(GPDPad::Left ); }
-    bool right() const { return get(GPDPad::Right); }
-    bool up   () const { return get(GPDPad::Up   ); }
-    bool down () const { return get(GPDPad::Down ); }
     s3d::Vec2 vec() const;
     virtual s3d::Duration pressedDuration(GPDPad DPad) const = 0;
 protected:

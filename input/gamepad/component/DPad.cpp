@@ -7,7 +7,9 @@ namespace dx {
 namespace di {
 
 s3d::Vec2 AbsDPad::vec() const {
-    return dx::misc::boolToVec2(right(), left(), down(), up());
+    return dx::misc::boolToVec2(
+        get(GPDPad::Right), get(GPDPad::Left ),
+        get(GPDPad::Down ), get(GPDPad::Up   ));
 }
 
 bool DPadFromKeyboard::get(GPDPad button) const {
