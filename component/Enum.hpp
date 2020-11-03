@@ -1,12 +1,15 @@
 #pragma once
+#include <optional>
 
 namespace dx {
 namespace denum {
 
 template <typename EnumType>
-inline std::vector<EnumType> elems() { return std::vector<EnumType>(); }
+std::vector<EnumType> elems() { return std::vector<EnumType>(); }
 template <typename EnumType>
-inline s3d::String toString(EnumType value) { return U""; }
+s3d::String toString(EnumType value) { return U""; }
+template <typename EnumType>
+std::optional<EnumType> fromString(const s3d::String& str) { return std::optional<EnumType>(); }
 
 }
 }
