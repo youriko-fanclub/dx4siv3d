@@ -13,7 +13,7 @@ void InputDemoScene::update() {
 }
 
 void InputDemoScene::draw() const {
-    for (const auto gpid : elems<GamePadId>()) {
+    for (const auto gpid : denum::elems<GamePadId>()) {
         m_gamepad_demos.at(gpid).draw();
     }
 }

@@ -22,9 +22,9 @@ void GamePadDemo::draw() const {
 
 // private function ------------------------------
 void GamePadDemo::drawId() const {
-    const auto& pid = toString(Id::ToPlayerId(m_gpid));
-    const auto& gpid = toString(m_gpid);
-    const auto& rawid = toString(Id::ToRawID(m_gpid));
+    const auto& pid = denum::toString(Id::ToPlayerId(m_gpid));
+    const auto& gpid = denum::toString(m_gpid);
+    const auto& rawid = denum::toString(Id::ToRawID(m_gpid));
     s3d::FontAsset(U"System")(U"{}->{}->{}"_fmt(pid, gpid, rawid))
         .drawAt(m_center + Vec2(0, -12) * m_scale);
 }

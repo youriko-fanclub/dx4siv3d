@@ -11,7 +11,7 @@ void initialize();
 // private function ------------------------------
 // ctor/dtor -------------------------------------
 Input::Input() {
-    for (auto id : elems<GamePadId>()) {
+    for (auto id : denum::elems<GamePadId>()) {
         m_inputs.insert(std::make_pair(id, PlayerInput(id)));
     }
     // TOdO:
