@@ -22,16 +22,14 @@ public: // static
     static void error(const Category& category, const s3d::String& body, const Args&... args) {
         instance()->logImpl(Level::Error, category, body, args...);
     }
-private:
+public: // public function
+private: // field
+    std::shared_ptr<LogETL> m_etl;
+private: // private function
     template<typename ...Args>
     void logImpl(Level level, const Category& category, const s3d::String& body, const Args&... args) {
         m_etl->send(level, category, body, args...);
     }
-
-public: // public function
-    std::shared_ptr<LogETL> m_etl;
-private: // field
-private: // private function
 public: // ctor/dtor
     Log() :
     m_etl(std::make_shared<LogETL>()) {}
