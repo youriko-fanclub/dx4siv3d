@@ -23,6 +23,12 @@ public: // static
         instance()->logImpl(Level::Error, category, body, args...);
     }
 public: // public function
+    void setCategoryIsActive(const Category& category, bool is_active) {
+        m_etl->destination()->setCategoryIsActive(category, is_active);
+    }
+    void addCategoryIcon(const Category& category, const s3d::String& icon) {
+        m_etl->destination()->addCategoryIcon(category, icon);
+    }
 private: // field
     std::shared_ptr<LogETL> m_etl;
 private: // private function

@@ -15,10 +15,17 @@ public:
     void addCategoryIcon(const Category& category, const s3d::String& icon);
     template<typename ...Args>
     void send(Level level, const Category& category, const s3d::String& body, const Args&... args) {
-        output(level, category, fillBody(body, args...));
+        if (!m_is_active.contains(category) || m_is_active.at(category)) {
+            output(level, category, fillBody(body, args...));
+        }
     }
 protected:
     virtual void output(Level level, const Category& category, const s3d::String& filled_body) const = 0;
+    s3d::String icon(Category category) const {
+        return m_category_icon.contains(category)
+            ? m_category_icon.at(category)
+            : category;
+    }
     const s3d::String& icon(Level level) const { return m_level_icon.at(level); }
     s3d::String str(Level level) const { return denum::toString(level); }
 private:
@@ -37,7 +44,7 @@ public: // ctor/dtor
 class LogDestinationConsole : public LogDestinationText {
 protected:
     void output(Level level, const Category& category, const s3d::String& filled_body) const override {
-        std::cout << U"{}:[{}] {}"_fmt(icon(level), category, filled_body) << std::endl;
+        std::cout << U"{}:[{}] {}"_fmt(icon(level), icon(category), filled_body) << std::endl;
     }
 private: // field
 };
@@ -52,7 +59,7 @@ protected:
 class LogDestinationConsoleAndScreen : public LogDestinationText {
 protected:
     void output(Level level, const Category& category, const s3d::String& filled_body) const override {
-        std::cout << U"{}:[{}] {}"_fmt(icon(level), category, filled_body) << std::endl;
+        std::cout << U"{}:[{}] {}"_fmt(icon(level), icon(category), filled_body) << std::endl;
         s3d::Print << U"{}:[{}] {}"_fmt(str(level), category, filled_body);
     }
 };

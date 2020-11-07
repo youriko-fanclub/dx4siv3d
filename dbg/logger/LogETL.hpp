@@ -13,6 +13,9 @@ public:
     void send(Level level, const Category& category, const s3d::String& body, const Args&... args) {
         m_dest->send(level, category, body, args...);
     }
+    const std::shared_ptr<LogDestinationText>& destination() const {
+        return m_dest;
+    }
 private: // field
     std::shared_ptr<LogDestinationText> m_dest;
 public: // ctor/dtor
