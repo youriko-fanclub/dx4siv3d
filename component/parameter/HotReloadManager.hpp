@@ -18,7 +18,21 @@ public: // static
         }
         return params;
     }
-    static std::shared_ptr<HotReloadableParameters> createParams(const s3d::String& filename, bool withSubscribe = true);
+    static std::shared_ptr<HotReloadableParameters> createParams(const s3d::String& filename, bool withSubscribe = true) {
+        if (instance()->m_paramList.contains(filename)) {
+            return instance()->m_paramList.at(filename);
+        }
+        auto params = std::make_shared<HotReloadableParameters>(filename);
+        if (withSubscribe) {
+            instance()->subscribe(params->filename(), params);
+        }
+        return params;
+    }
+    static std::shared_ptr<HotReloadableParameters> createParamsWithLoad(const s3d::String& filename, bool withSubscribe = true) {
+        auto param = createParams(filename, withSubscribe);
+        param->load();
+        return param;
+    }
 public: // public function
     void update();
     void subscribe(const s3d::String& key, std::shared_ptr<HotReloadableParameters> params);
