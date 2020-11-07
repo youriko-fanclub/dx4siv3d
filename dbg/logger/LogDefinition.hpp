@@ -5,6 +5,8 @@
 namespace dx {
 namespace dbg {
 
+using Category = s3d::String;
+
 enum class Level : int {
     Error, Info, Debug
 };

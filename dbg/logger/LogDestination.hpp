@@ -2,7 +2,6 @@
 #include <Siv3D/FormatLiteral.hpp>
 #include <Siv3D/Print.hpp>
 #include "LogDefinition.hpp"
-#include "LogCategory.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "Singleton.hpp"
 #include "LogETL.hpp"
-#include "LogCategory.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
 
