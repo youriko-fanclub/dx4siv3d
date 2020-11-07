@@ -10,7 +10,7 @@ class LogLoader {};
 class LogETL {
 public:
     template<typename ...Args>
-    void send(Level level, const s3d::String& category, const s3d::String& body, const Args&... args) {
+    void send(Level level, const Category& category, const s3d::String& body, const Args&... args) {
         m_dest->send(level, category, body, args...);
     }
 private: // field

@@ -2,6 +2,7 @@
 #include <Siv3D/FormatLiteral.hpp>
 #include <Siv3D/Print.hpp>
 #include "LogDefinition.hpp"
+#include "LogCategory.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
 
@@ -11,14 +12,14 @@ namespace dbg {
 class LogDestinationText {
 public:
     template<typename ...Args>
-    void send(Level level, const s3d::String& category, const s3d::String& body, const Args&... args) {
+    void send(Level level, const Category& category, const s3d::String& body, const Args&... args) {
         output(convertToString(level, category, body, args...));
     }
 protected:
     virtual void output(const s3d::String& text) const = 0;
 private:
     template<typename ...Args>
-    s3d::String convertToString(Level level, const s3d::String& category, const s3d::String& body, const Args&... args) {
+    s3d::String convertToString(Level level, const Category& category, const s3d::String& body, const Args&... args) {
         const s3d::String filled_body = fillBody(&body, args...);
         return U"[{}|{}] {}"_fmt(denum::toString(level), category, filled_body);
     }
