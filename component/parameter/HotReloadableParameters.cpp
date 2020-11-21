@@ -43,6 +43,11 @@ s3d::ColorF HotReloadableParameters::getColorF(const s3d::String& key) const {
         m_reader[key + U".g"].get<float>(),
         m_reader[key + U".b"].get<float>(), a);
 }
+s3d::Font HotReloadableParameters::getFont(const s3d::String& key) const {
+    return s3d::Font(
+        m_reader[key + U".size"].get<int>(),
+        dx::app::FilePath::asset_font + m_reader[key + U".name"].getString());
+}
 std::shared_ptr<s3d::Font> HotReloadableParameters::getFontPtr(const s3d::String& key) const {
     return std::make_shared<s3d::Font>(
         m_reader[key + U".size"].get<int>(),

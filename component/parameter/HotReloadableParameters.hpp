@@ -19,6 +19,7 @@ public: // public function
     s3d::Vec2 getVec2(const s3d::String& key) const;
     s3d::Size getSize(const s3d::String& key) const;
     s3d::ColorF getColorF(const s3d::String& key) const;
+    s3d::Font getFont(const s3d::String& key) const;
     std::shared_ptr<s3d::Font> getFontPtr(const s3d::String& key) const;
 public: // protected function
     virtual void loadImpl(const s3d::TOMLReader& toml) {}
