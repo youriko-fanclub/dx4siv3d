@@ -8,10 +8,10 @@ class Key;
 namespace dx {
 namespace misc {
 
-s3d::Vec2 boolToVec2(bool xPositive, bool xNegative, bool yPositive, bool yNegative);
+s3d::Vec2 boolToVec2(bool x_positive, bool x_negative, bool y_positive, bool y_negative);
 s3d::Vec2 keyPressedToVec2(
-    const s3d::Key& xPositive, const s3d::Key& xNegative,
-    const s3d::Key& yPositive, const s3d::Key& yNegative);
+    const s3d::Key& x_positive, const s3d::Key& x_negative,
+    const s3d::Key& y_positive, const s3d::Key& y_negative);
     
 bool approximately(float a, float b);
 bool approximately(double a, double b);
