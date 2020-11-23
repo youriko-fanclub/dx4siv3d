@@ -29,8 +29,9 @@ public: // static
         return params;
     }
     static std::shared_ptr<HotReloadableParameters> createParamsWithLoad(const s3d::String& filename, bool withSubscribe = true) {
+        bool loadIsNeedless = instance()->m_paramList.contains(filename);
         auto param = createParams(filename, withSubscribe);
-        param->load();
+        if (!loadIsNeedless) { param->load(); }
         return param;
     }
 public: // public function
