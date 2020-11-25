@@ -15,14 +15,14 @@ public: // static_const/enum
     public:
         const s3d::String key;
         const unsigned size;
-        const s3d::String typefaceString = U"";
+        const s3d::String typeface_string = U"";
         const s3d::Typeface typeface = s3d::Typeface::Regular;
     public:
         FontDesc(
             const s3d::String& key,
             unsigned size,
             const s3d::String& typeface) :
-        key(key), size(size), typefaceString(typeface) {}
+        key(key), size(size), typeface_string(typeface) {}
         FontDesc(
             const s3d::String& key,
             unsigned size,
@@ -43,8 +43,8 @@ public: // static_const/enum
 public: // static
 public: // public function
     void initialize(
-            const std::vector<FontDesc>& fontDescs,
-            const std::vector<TextureDesc>& textureDescs);
+            const std::vector<FontDesc>& font_descs,
+            const std::vector<TextureDesc>& texture_descs);
     
 private: // field
 private: // private function

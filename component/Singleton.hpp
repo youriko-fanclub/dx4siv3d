@@ -18,7 +18,7 @@ public: // public function
     // virtual bool initialize() = 0;
     virtual void finalize() {}
 private: // field
-    bool m_hasInitialized;
+    bool m_has_initialized;
     
 protected: // ctor/dtor
     Singleton() = default;

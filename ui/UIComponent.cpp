@@ -5,7 +5,7 @@ namespace ui {
 
 
 void Button::setCallback(const std::function<void()>& callback) {
-    m_pressedCallback = callback;
+    m_pressed_callback = callback;
 }
 bool Button::update() {
     m_transition.update(m_rect.mouseOver());
@@ -13,7 +13,7 @@ bool Button::update() {
         s3d::Cursor::RequestStyle(s3d::CursorStyle::Hand);
     }
     if (rect().leftClicked()) {
-        m_pressedCallback();
+        m_pressed_callback();
     }
     return true;
 }

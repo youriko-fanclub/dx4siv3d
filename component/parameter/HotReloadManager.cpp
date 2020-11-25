@@ -22,24 +22,24 @@ void HotReloadManager::update() {
         std::cout << U"file was changed:{}:{}"_fmt(
             dx::denum::toString(change.second),
             filename) << std::endl;
-        if (m_paramList.contains(filename)) {
-            m_paramList.at(filename)->load();
+        if (m_param_list.contains(filename)) {
+            m_param_list.at(filename)->load();
         }
     }
 }
 
 void HotReloadManager::subscribe(const s3d::String& key, std::shared_ptr<HotReloadableParameters> params) {
-    if (m_paramList.contains(key)) {
-        m_paramList.at(key) = params;
+    if (m_param_list.contains(key)) {
+        m_param_list.at(key) = params;
     }
     else {
-        m_paramList.insert(std::make_pair(key, params));
+        m_param_list.insert(std::make_pair(key, params));
     }
 }
 
 void HotReloadManager::unsubscribe(const s3d::String& key) {
-    if (m_paramList.contains(key)) {
-        m_paramList.erase(key);
+    if (m_param_list.contains(key)) {
+        m_param_list.erase(key);
     }
 }
 

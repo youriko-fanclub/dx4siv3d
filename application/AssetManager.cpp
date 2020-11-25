@@ -13,20 +13,20 @@ namespace app {
 // static ----------------------------------------
 // public function -------------------------------
 void AssetManager::initialize(
-    const std::vector<FontDesc>& fontDescs,
-    const std::vector<TextureDesc>& textureDescs) {
+    const std::vector<FontDesc>& font_descs,
+    const std::vector<TextureDesc>& texture_descs) {
     
     // 使用するフォントアセットを登録
-    for (const auto& desc : fontDescs) {
-        if (!desc.typefaceString.empty()) {
-            s3d::FontAsset::Register(desc.key, desc.size, FilePath::asset_font + desc.typefaceString);
+    for (const auto& desc : font_descs) {
+        if (!desc.typeface_string.empty()) {
+            s3d::FontAsset::Register(desc.key, desc.size, FilePath::asset_font + desc.typeface_string);
         }
         else {
             s3d::FontAsset::Register(desc.key, desc.size, desc.typeface);
         }
     }
     
-    for (const s3d::String textureExtension = U".png"; const auto& desc : textureDescs) {
+    for (const s3d::String textureExtension = U".png"; const auto& desc : texture_descs) {
         s3d::TextureAsset::Register(desc.key, FilePath::asset_texture + desc.path + textureExtension);
     }
 }
