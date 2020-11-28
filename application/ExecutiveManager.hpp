@@ -25,6 +25,7 @@ public: // static_const/enum
         ApplicationManager::Desc application;
         std::vector<AssetManager::FontDesc> font;
         std::vector<AssetManager::TextureDesc> texture;
+        std::vector<AssetManager::AudioDesc> audio;
     };
 public: // static
 public: // public function

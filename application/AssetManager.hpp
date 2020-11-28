@@ -40,11 +40,32 @@ public: // static_const/enum
             const s3d::String& path) :
         key(key), path(path) {}
     };
+
+    struct AudioDesc {
+    public:
+        enum class Type : int {
+            BGM, SE
+        };
+        const Type type;
+        const s3d::String key;
+        const s3d::String path;
+    public:
+        AudioDesc(
+            Type type,
+            const s3d::String& key,
+            const s3d::String& path) :
+        type(type), key(key), path(path) {}
+        AudioDesc(
+            Type type,
+            const s3d::String& key_path) :
+        type(type), key(key_path), path(key_path) {}
+    };
 public: // static
 public: // public function
     void initialize(
-            const std::vector<FontDesc>& font_descs,
-            const std::vector<TextureDesc>& texture_descs);
+        const std::vector<FontDesc>& font_descs,
+        const std::vector<TextureDesc>& texture_descs,
+        const std::vector<AudioDesc>& audio_descs);
     
 private: // field
 private: // private function
