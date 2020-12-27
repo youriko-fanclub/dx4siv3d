@@ -1,10 +1,10 @@
 #pragma once
 
-#include <string>
 #include <vector>
 #include <Siv3D/String.hpp>
 #include <Siv3D/Font.hpp>
 #include "Singleton.hpp"
+#include "AudioType.hpp"
 
 namespace dx {
 namespace app {
@@ -43,22 +43,24 @@ public: // static_const/enum
 
     struct AudioDesc {
     public:
-        enum class Type : int {
-            BGM, SE
-        };
-        const Type type;
+        static std::vector<AudioDesc> loadFromToml();
+    public:
+        const aud::AudioType type;
         const s3d::String key;
         const s3d::String path;
+        const bool is_loop;
     public:
         AudioDesc(
-            Type type,
+            aud::AudioType type,
             const s3d::String& key,
-            const s3d::String& path) :
-        type(type), key(key), path(path) {}
+            const s3d::String& path,
+            const bool is_loop = false) :
+        type(type), key(key), path(path), is_loop(is_loop) {}
         AudioDesc(
-            Type type,
-            const s3d::String& key_path) :
-        type(type), key(key_path), path(key_path) {}
+            aud::AudioType type,
+            const s3d::String& key_path,
+            const bool is_loop = false) :
+        type(type), key(key_path), path(key_path), is_loop(is_loop) {}
     };
 public: // static
 public: // public function
