@@ -5,21 +5,21 @@
 namespace dx {
 namespace misc {
 
-s3d::Vec2 boolToVec2(bool xPositive, bool xNegative, bool yPositive, bool yNegative) {
-    if (xPositive || xNegative || yPositive || yNegative) {
+s3d::Vec2 boolToVec2(bool x_positive, bool x_negative, bool y_positive, bool y_negative) {
+    if (x_positive || x_negative || y_positive || y_negative) {
         return s3d::Vec2(
-            static_cast<int>(xPositive) - static_cast<int>(xNegative),
-            static_cast<int>(yPositive) - static_cast<int>(yNegative));
+            static_cast<int>(x_positive) - static_cast<int>(x_negative),
+            static_cast<int>(y_positive) - static_cast<int>(y_negative));
     }
     return s3d::Vec2::Zero();
 }
 
 s3d::Vec2 keyPressedToVec2(
-    const s3d::Key& xPositive, const s3d::Key& xNegative,
-    const s3d::Key& yPositive, const s3d::Key& yNegative) {
+    const s3d::Key& x_positive, const s3d::Key& x_negative,
+    const s3d::Key& y_positive, const s3d::Key& y_negative) {
     return boolToVec2(
-        xPositive.pressed(), xNegative.pressed(),
-        yPositive.pressed(), yNegative.pressed());
+        x_positive.pressed(), x_negative.pressed(),
+        y_positive.pressed(), y_negative.pressed());
 }
 
 

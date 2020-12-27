@@ -12,10 +12,11 @@ namespace ui {
 
 class UIComponent {
 public:
-    bool setVisible() const { return m_isVisible; }
+    bool visible() const { return m_isVisible; }
     void setVisible(bool isVisible) { m_isVisible = isVisible; }
     
     void draw() const { if (m_isVisible) { drawImpl(); } }
+protected:
     virtual void drawImpl() const = 0;
     
 private: // field
@@ -40,15 +41,15 @@ private: // field
     s3d::Rect m_rect;
     s3d::DrawableText m_label;
     s3d::Transition m_transition;
-    std::function<void()> m_pressedCallback = [](){};
+    std::function<void()> m_pressed_callback = [](){};
 private: // private function
 public: // ctor/dtor
     Button(
         const s3d::Rect& rect,
         const s3d::DrawableText& label,
         const s3d::Transition& transition,
-        const std::function<void()>& pressedCallback) :
-    m_rect(rect), m_label(label), m_transition(transition), m_pressedCallback(pressedCallback) {}
+        const std::function<void()>& pressed_callback) :
+    m_rect(rect), m_label(label), m_transition(transition), m_pressed_callback(pressed_callback) {}
     Button(const s3d::Rect& rect, const s3d::DrawableText& label, const s3d::Transition& transition) :
     m_rect(rect), m_label(label), m_transition(transition) {}
 };

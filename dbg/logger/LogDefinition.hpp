@@ -1,5 +1,4 @@
 #pragma once
-#include <Siv3D/String.hpp>
 #include "Enum.hpp"
 
 namespace dx {

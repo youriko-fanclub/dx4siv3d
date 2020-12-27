@@ -13,6 +13,9 @@ enum class InputSource : int {
 class Input final : public cmp::Singleton<Input> {
 public: // static_const/enum
 public: // static
+    static const IPlayerInput& get(PlayerId pid) {
+        return instance()->getImpl(dx::di::Id::ToGamePadId(pid));
+    }
     static const IPlayerInput& get(GamePadId gpid) { return instance()->getImpl(gpid); }
 public: // public function
     void initialize();

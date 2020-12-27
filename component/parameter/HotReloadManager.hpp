@@ -11,20 +11,35 @@ class HotReloadManager : public Singleton<HotReloadManager> {
 public: // static_const/enum
 public: // static
     template<typename ConcreteParams>
-    static std::shared_ptr<ConcreteParams> createParams(bool withSubscribe = true) {
+    static std::shared_ptr<ConcreteParams> createParams(bool with_subscribe = true) {
         auto params = std::make_shared<ConcreteParams>();
-        if (withSubscribe) {
+        if (with_subscribe) {
             instance()->subscribe(params->filename(), params);
         }
         return params;
     }
-    static std::shared_ptr<HotReloadableParameters> createParams(const s3d::String& filename, bool withSubscribe = true);
+    static std::shared_ptr<HotReloadableParameters> createParams(const s3d::String& filename, bool with_subscribe = true) {
+        if (instance()->m_param_list.contains(filename)) {
+            return instance()->m_param_list.at(filename);
+        }
+        auto params = std::make_shared<HotReloadableParameters>(filename);
+        if (with_subscribe) {
+            instance()->subscribe(params->filename(), params);
+        }
+        return params;
+    }
+    static std::shared_ptr<HotReloadableParameters> createParamsWithLoad(const s3d::String& filename, bool with_subscribe = true) {
+        bool load_is_needless = instance()->m_param_list.contains(filename);
+        auto param = createParams(filename, with_subscribe);
+        if (!load_is_needless) { param->load(); }
+        return param;
+    }
 public: // public function
     void update();
     void subscribe(const s3d::String& key, std::shared_ptr<HotReloadableParameters> params);
     void unsubscribe(const s3d::String& key);
 private: // field
-    std::unordered_map<s3d::String, std::shared_ptr<HotReloadableParameters>> m_paramList;
+    std::unordered_map<s3d::String, std::shared_ptr<HotReloadableParameters>> m_param_list;
 private: // private function
     s3d::FilePath m_directory;
     s3d::DirectoryWatcher m_watcher;
