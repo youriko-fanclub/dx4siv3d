@@ -1,5 +1,6 @@
 #pragma once
 #include <optional>
+#include <Siv3D/String.hpp>
 
 namespace dx {
 namespace denum {
