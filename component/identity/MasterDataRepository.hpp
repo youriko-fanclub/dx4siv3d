@@ -8,16 +8,14 @@ namespace md {
 
 
 template <typename ID, typename MasterData>
-class IMasterDataRepogitory {
-public: // static_const
-    using Dictionary = std::unordered_map<ID, const std::unique_ptr<MasterData>>;
+class IMasterDataRepository {
 public: // public getter
     virtual bool isExist(ID id) const = 0;
     virtual const MasterData* at(ID id) const = 0;
-    virtual const Dictionary& data() const = 0;
+    virtual const std::unordered_map<ID, const std::unique_ptr<MasterData>>& data() const = 0;
 
 private: // ctor/dtor
-    IMasterDataRepogitory() = default;
+    IMasterDataRepository() = default;
 };
 
 
@@ -26,15 +24,14 @@ class MasterDataRepository :
     public IMasterDataRepository<ID, MasterData>,
     public cmp::Singleton<MasterDataRepository<ID, MasterData>> {
 public: // static_const/enum
+    using Dictionary = std::unordered_map<ID, const std::unique_ptr<MasterData>>;
+    using Base = cmp::Singleton<MasterDataRepository<ID, MasterData>>;
 public: // static
-    static bool isExist(ID id) { return instance()->isExist(id); }
-    static const MasterData* at(ID id) { return instance()->at(id); }
-    static const Dictionary& data() { return instance()->data(id); }
 public: // public function
     bool isExist(ID id) const override { return m_data.contains(id); }
     const MasterData* at(ID id) const override {
         if (isExist(id)) {
-            return m_data.at(id);
+            return m_data.at(id).get();
         }
         else {
             return nullptr;
@@ -42,10 +39,13 @@ public: // public function
     }
     const Dictionary& data() const override { return m_data; }
     
+protected: // protected function
+    virtual void initialize() {}
 private: // field
     Dictionary m_data;
 private: // private function
-public: // ctor/dtor
+private: // ctor/dtor
+    MasterDataRepository() { initialize(); }
 };
 
 

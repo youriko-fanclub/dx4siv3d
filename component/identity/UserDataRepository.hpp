@@ -31,9 +31,6 @@ class UserDataRepository :
     public cmp::Singleton<UserDataRepository<ID, UserData>> {
 public: // static_const/enum
 public: // static
-    static bool isExist(ID id) { return instance()->isExist(id); }
-    static const UserData* at(ID id) { return instance()->at(id); }
-    static const Dictionary& data() { return instance()->data(id); }
 public: // public getter
     bool isExist(ID id) const override { return m_data.contains(id); }
     const UserData* at(ID id) const override {
@@ -66,10 +63,13 @@ public: // public setter
         }
     }
     
+protected: // protected function
+    virtual void initialize() {}
 private: // field
     Dictionary m_data;
 private: // private function
-public: // ctor/dtor
+private: // ctor/dtor
+    UserDataRepository() { initialize(); }
 };
 
 
