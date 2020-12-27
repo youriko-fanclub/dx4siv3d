@@ -3,6 +3,7 @@
 #include "MainExecutiveManager.hpp"
 #include "SequenceManager.hpp"
 #include "HotReloadManager.hpp"
+#include "Audio.hpp"
 #include "Log.hpp"
 
 namespace dx {
@@ -30,6 +31,10 @@ bool ExecutiveManager::update() {
 
 void ExecutiveManager::draw() const {
     m_sequencer->draw();
+}
+
+void ExecutiveManager::finalize() {
+    aud::Audio::masterSource()->finalize();
 }
 
 }

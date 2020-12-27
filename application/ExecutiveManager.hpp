@@ -32,6 +32,7 @@ public: // public function
     void initialize();
     bool update();
     void draw() const;
+    void finalize() override;
     // void transScene();
 private: // field
     ISequenceManager* m_sequencer = nullptr;
