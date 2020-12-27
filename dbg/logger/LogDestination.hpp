@@ -22,7 +22,7 @@ public:
 protected:
     virtual void output(Level level, const Category& category, const s3d::String& filled_body) const = 0;
     s3d::String icon(Category category) const {
-        if (m_category_icon.contains(category))
+        if (m_category_icon.contains(category)) {
             return m_category_icon.at(category);
         }
         else {
