@@ -3,6 +3,7 @@
 #include "MainExecutiveManager.hpp"
 #include "SequenceManager.hpp"
 #include "HotReloadManager.hpp"
+#include "Log.hpp"
 
 namespace dx {
 namespace app {
@@ -13,6 +14,13 @@ void ExecutiveManager::initialize() {
     AssetManager::instance()->initialize(desc.font, desc.texture);
     m_sequencer = kanji::seq::SequenceManager::instance().get();
     m_sequencer->initialize();
+    
+    dbg::Log::instance()->setCategoryIsActive(U"Error", true);
+    dbg::Log::instance()->setCategoryIsActive(U"Info", true);
+    dbg::Log::instance()->setCategoryIsActive(U"Debug", true);
+    // dbg::Log::instance()->setCategoryIcon(U"dx"      , U"");
+    // dbg::Log::instance()->setCategoryIcon(U"dx.SOUND", U"");
+    // dbg::Log::instance()->setCategoryIcon(U"main"    , U"");
 }
 
 bool ExecutiveManager::update() {
