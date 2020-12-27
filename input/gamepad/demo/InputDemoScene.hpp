@@ -8,7 +8,7 @@ namespace dx {
 namespace di {
 
 // di デモ用
-class InputDemoScene : public kanji::seq::KanjiScene {
+class InputDemoScene : public kanji::seq::SceneWithData {
 public: // static_const/enum
     enum class Layout : int {
         Square, Horizontal, Vertical
