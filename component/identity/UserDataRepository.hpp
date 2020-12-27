@@ -65,7 +65,7 @@ public: // public setter
     
 protected: // protected function
     virtual void initialize() {}
-private: // field
+protected: // field
     Dictionary m_data;
 private: // private function
 private: // ctor/dtor

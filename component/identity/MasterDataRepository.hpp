@@ -1,7 +1,6 @@
 #pragma once
 
 #include <unordered_map>
-#include "Singleton.hpp"
 
 namespace dx {
 namespace md {
@@ -14,18 +13,15 @@ public: // public getter
     virtual const MasterData* at(ID id) const = 0;
     virtual const std::unordered_map<ID, const std::unique_ptr<MasterData>>& data() const = 0;
 
-private: // ctor/dtor
-    IMasterDataRepository() = default;
+public: // ctor/dtor
 };
 
 
 template <typename ID, typename MasterData>
 class MasterDataRepository :
-    public IMasterDataRepository<ID, MasterData>,
-    public cmp::Singleton<MasterDataRepository<ID, MasterData>> {
+    public IMasterDataRepository<ID, MasterData> {
 public: // static_const/enum
     using Dictionary = std::unordered_map<ID, const std::unique_ptr<MasterData>>;
-    using Base = cmp::Singleton<MasterDataRepository<ID, MasterData>>;
 public: // static
 public: // public function
     bool isExist(ID id) const override { return m_data.contains(id); }
@@ -39,13 +35,10 @@ public: // public function
     }
     const Dictionary& data() const override { return m_data; }
     
-protected: // protected function
-    virtual void initialize() {}
-private: // field
+protected: // field
     Dictionary m_data;
 private: // private function
-private: // ctor/dtor
-    MasterDataRepository() { initialize(); }
+public: // ctor/dtor
 };
 
 
