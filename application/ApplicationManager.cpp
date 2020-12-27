@@ -14,7 +14,6 @@ namespace app {
 // static ----------------------------------------
 // public function -------------------------------
 void ApplicationManager::initialize(const Desc& desc) {
-    // （Esc キーで終了しないようにする場合はコメントを外す）
     if (desc.is_close_by_escape_key) {
         s3d::System::SetTerminationTriggers(s3d::UserAction::CloseButtonClicked);
     }
