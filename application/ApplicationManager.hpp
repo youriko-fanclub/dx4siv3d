@@ -10,9 +10,9 @@ namespace app {
 class ApplicationManager final : public cmp::Singleton<ApplicationManager> {
 public: // static_const/enum
     struct Desc {
-        bool isCloseByEscapeKey;
-        s3d::String windowTitle;
-        s3d::Size windowSize;
+        bool is_close_by_escape_key;
+        s3d::String window_title;
+        s3d::Size window_size;
     };
     
 public: // static
