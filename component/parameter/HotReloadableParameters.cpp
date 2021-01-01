@@ -1,6 +1,7 @@
 #include "HotReloadableParameters.hpp"
 #include <Siv3D/FileSystem.hpp>
-#include <Siv3D/TOMLReader.hpp>
+#include <Siv3D/Vector2D.hpp>
+#include <Siv3D/Font.hpp>
 #include "FilePath.hpp"
 #include "HotReloadManager.hpp"
 
@@ -20,6 +21,37 @@ void HotReloadableParameters::load() {  // TOML ファイルからデータを�
     }
     m_reader = toml;
     loadImpl(m_reader);
+}
+
+s3d::Vec2 HotReloadableParameters::getVec2(const s3d::String& key) const {
+    return s3d::Vec2(
+        m_reader[key + U".x"].get<float>(),
+        m_reader[key + U".y"].get<float>());
+}
+s3d::Size HotReloadableParameters::getSize(const s3d::String& key) const {
+    return s3d::Size(
+        m_reader[key + U".w"].get<int>(),
+        m_reader[key + U".h"].get<int>());
+}
+s3d::ColorF HotReloadableParameters::getColorF(const s3d::String& key) const {
+    const float a =
+        m_reader[key].hasMember(U"a")
+        ? m_reader[key + U".a"].get<float>()
+        : 1.f;
+    return s3d::ColorF(
+        m_reader[key + U".r"].get<float>(),
+        m_reader[key + U".g"].get<float>(),
+        m_reader[key + U".b"].get<float>(), a);
+}
+s3d::Font HotReloadableParameters::getFont(const s3d::String& key) const {
+    return s3d::Font(
+        m_reader[key + U".size"].get<int>(),
+        dx::app::FilePath::asset_font + m_reader[key + U".name"].getString());
+}
+std::shared_ptr<s3d::Font> HotReloadableParameters::getFontPtr(const s3d::String& key) const {
+    return std::make_shared<s3d::Font>(
+        m_reader[key + U".size"].get<int>(),
+        dx::app::FilePath::asset_font + m_reader[key + U".name"].getString());
 }
 
 // private function ------------------------------

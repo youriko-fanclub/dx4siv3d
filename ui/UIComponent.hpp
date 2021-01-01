@@ -12,10 +12,11 @@ namespace ui {
 
 class UIComponent {
 public:
-    bool setVisible() const { return m_isVisible; }
+    bool visible() const { return m_isVisible; }
     void setVisible(bool isVisible) { m_isVisible = isVisible; }
     
     void draw() const { if (m_isVisible) { drawImpl(); } }
+protected:
     virtual void drawImpl() const = 0;
     
 private: // field
