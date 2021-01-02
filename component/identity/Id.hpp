@@ -60,16 +60,7 @@ public:
 
 }
 
-#define ID_UOMAP(IDType, ValueType) std::unordered_map<IDType, ValueType, dx::idHash<IDType>>
-
 #define ID_DEFINITION(Type)    \
 class Type;                    \
 using Type##ID = dx::ID<Type>; \
 using Type##IDCR = const dx::ID<Type>&;
-
-#define ID_DEFINITION_NS(NameSpace, Type)   \
-namespace NameSpace {                       \
-    class Type;                             \
-    using Type##ID = dx::ID<Type>;          \
-    using Type##IDCR = const dx::ID<Type>&; \
-}
