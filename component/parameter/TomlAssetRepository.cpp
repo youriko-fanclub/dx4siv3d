@@ -1,6 +1,6 @@
 #include "TomlAssetRepository.hpp"
 #include <Siv3D/FileSystem.hpp>
-#include "Path.hpp"
+#include "TomlAsset.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
 
@@ -11,6 +11,24 @@ namespace cmp {
 
 // static ----------------------------------------
 // public function -------------------------------
+bool TomlAssetRepository::load(const s3d::String& filename, const app::Path& directory, bool is_hotreload) {
+    if (!is_loaded(filename)) {
+        m_tomls.insert(std::make_pair(filename, std::make_shared<TomlAssetImpl>(filename, directory)));
+        return true;
+    }
+    const auto key = (directory / filename).full();
+    if (!m_watchers.contains(key)) {
+        m_watchers.insert(std::make_pair(key, std::make_unique<s3d::DirectoryWatcher>()));
+    }
+    return false;
+}
+
+void TomlAssetRepository::unload(const s3d::String& filename) {
+    if (is_loaded(filename)) {
+        m_tomls.erase(filename);
+    }
+}
+
 void TomlAssetRepository::update() {
     for (const auto& watcher : m_watchers) {
         for (const auto& change : watcher.second->retrieveChanges()) {
