@@ -5,6 +5,16 @@
 namespace dx {
 namespace cmp {
 
+/* ---------- TomlKey ---------- */
+
+// static ----------------------------------------
+const s3d::String TomlKey::delimiter = U".";
+// public function -------------------------------
+// private function ------------------------------
+// ctor/dtor -------------------------------------
+
+
+
 /* ---------- TomlAssetImpl ---------- */
 
 // static ----------------------------------------
