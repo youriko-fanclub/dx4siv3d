@@ -1,6 +1,6 @@
 #include "HotReloadManager.hpp"
 #include <Siv3D/FileSystem.hpp>
-#include "FilePath.hpp"
+#include "Path.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
 
@@ -46,7 +46,7 @@ void HotReloadManager::unsubscribe(const s3d::String& key) {
 // private function ------------------------------
 // ctor/dtor -------------------------------------
 HotReloadManager::HotReloadManager() :
-m_directory(s3d::FileSystem::FullPath(app::FilePath::asset_toml)),
+m_directory(app::Path::asset_toml.full()),
 m_watcher(m_directory)
 {}
 

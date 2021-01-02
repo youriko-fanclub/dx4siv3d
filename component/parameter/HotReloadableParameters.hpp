@@ -32,6 +32,7 @@ private: // field
 private: // private function
 public: // ctor/dtor
     HotReloadableParameters(const s3d::String& filename);
+    HotReloadableParameters(const s3d::String& filename, int dummy);
     virtual ~HotReloadableParameters();
 };
 

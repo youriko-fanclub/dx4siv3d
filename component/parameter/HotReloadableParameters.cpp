@@ -2,7 +2,7 @@
 #include <Siv3D/FileSystem.hpp>
 #include <Siv3D/Vector2D.hpp>
 #include <Siv3D/Font.hpp>
-#include "FilePath.hpp"
+#include "Path.hpp"
 #include "HotReloadManager.hpp"
 
 using namespace s3d::Literals::FormatLiterals;
@@ -46,19 +46,24 @@ s3d::ColorF HotReloadableParameters::getColorF(const s3d::String& key) const {
 s3d::Font HotReloadableParameters::getFont(const s3d::String& key) const {
     return s3d::Font(
         m_reader[key + U".size"].get<int>(),
-        dx::app::FilePath::asset_font + m_reader[key + U".name"].getString());
+        dx::app::Path::asset_font / m_reader[key + U".name"].getString());
 }
 std::shared_ptr<s3d::Font> HotReloadableParameters::getFontPtr(const s3d::String& key) const {
     return std::make_shared<s3d::Font>(
         m_reader[key + U".size"].get<int>(),
-        dx::app::FilePath::asset_font + m_reader[key + U".name"].getString());
+        dx::app::Path::asset_font / m_reader[key + U".name"].getString());
 }
 
 // private function ------------------------------
 // ctor/dtor -------------------------------------
 HotReloadableParameters::HotReloadableParameters(const s3d::String& filename) :
 m_filename(filename + U".toml"),
-m_path(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/" + m_filename)),
+m_path((app::Path::asset_toml / U"hot" / m_filename).full()),
+m_watcher(s3d::FileSystem::ParentPath(m_path)) {}
+
+HotReloadableParameters::HotReloadableParameters(const s3d::String& filename, int dummy) :
+m_filename(filename + U".toml"),
+m_path((app::Path::asset_schema / U"master" / U"class" / U"kanji" / m_filename).full()),
 m_watcher(s3d::FileSystem::ParentPath(m_path)) {}
 
 HotReloadableParameters::~HotReloadableParameters() {
