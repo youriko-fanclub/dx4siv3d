@@ -25,14 +25,8 @@ public: // static_const/enum
 public: // static
 public: // public function
     bool isExist(ID id) const override { return m_data.contains(id); }
-    const MasterData* at(ID id) const override {
-        if (isExist(id)) {
-            return m_data.at(id).get();
-        }
-        else {
-            return nullptr;
-        }
-    }
+    // 見つからなければ例外を投げる
+    const MasterData* at(ID id) const override { return m_data.at(id).get(); }
     const Dictionary& data() const override { return m_data; }
     
 protected: // field
