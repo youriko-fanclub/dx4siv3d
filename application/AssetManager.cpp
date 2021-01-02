@@ -5,7 +5,7 @@
 #include <Siv3D/AudioAsset.hpp>
 #include <Siv3D/FileSystem.hpp>
 #include <Siv3D/TOMLReader.hpp>
-#include "FilePath.hpp"
+#include "Path.hpp"
 #include "Audio.hpp"
 
 namespace {
@@ -35,7 +35,7 @@ namespace app {
 
 // static ----------------------------------------
 std::vector<AssetManager::AudioDesc> AudioDesc::loadFromToml() {
-    const s3d::TOMLReader toml(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/AudioAsset.toml"));
+    const s3d::TOMLReader toml((app::Path::asset_toml / U"hot" / U"AudioAsset.toml").full());
     if (!toml) { // もし読み込みに失敗したら
         throw s3d::Error(U"Failed to load `AudioAsset.toml`");
     }
@@ -107,7 +107,7 @@ void AssetManager::initialize(
     // Font
     for (const auto& desc : font_descs) {
         if (!desc.typeface_string.empty()) {
-            s3d::FontAsset::Register(desc.key, desc.size, FilePath::asset_font + desc.typeface_string);
+            s3d::FontAsset::Register(desc.key, desc.size, Path::asset_font / desc.typeface_string);
         }
         else {
             s3d::FontAsset::Register(desc.key, desc.size, desc.typeface);
@@ -116,7 +116,7 @@ void AssetManager::initialize(
     
     // Texture
     for (const s3d::String extension = U".png"; const auto& desc : texture_descs) {
-        s3d::TextureAsset::Register(desc.key, FilePath::asset_texture + desc.path + extension);
+        s3d::TextureAsset::Register(desc.key, Path::asset_texture / (desc.path + extension));
     }
     
     // Audio
