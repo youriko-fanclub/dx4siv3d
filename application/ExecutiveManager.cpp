@@ -2,7 +2,6 @@
 
 #include "MainExecutiveManager.hpp"
 #include "SequenceManager.hpp"
-#include "HotReloadManager.hpp"
 #include "TomlAssetRepository.hpp"
 #include "Audio.hpp"
 #include "Log.hpp"
