@@ -15,12 +15,17 @@ public: // static
 public: // public function
     TomlKey operator + (const TomlKey& child) const { return TomlKey(m_impl + delimiter + child.m_impl); }
     TomlKey operator + (const s3d::String& child) const { return TomlKey(m_impl + delimiter + child); }
+    TomlKey operator + (int child) const { return TomlKey(m_impl + delimiter + s3d::ToString(child)); }
     TomlKey& operator += (const TomlKey& child) {
         m_impl += delimiter + child.m_impl;
         return *this;
     }
     TomlKey& operator += (const s3d::String& child) {
         m_impl += delimiter + child;
+        return *this;
+    }
+    TomlKey& operator += (int child) {
+        m_impl += delimiter + s3d::ToString(child);
         return *this;
     }
     
