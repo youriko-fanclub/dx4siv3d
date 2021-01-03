@@ -7,6 +7,7 @@
 #include <Siv3D/TOMLReader.hpp>
 #include "Path.hpp"
 #include "Audio.hpp"
+#include "TomlAsset.hpp"
 
 namespace {
 
@@ -98,6 +99,13 @@ std::vector<AssetManager::AudioDesc> AudioDesc::loadFromToml() {
 /* ---------- AssetManager ---------- */
 
 // static ----------------------------------------
+struct TomlDesc {
+    const s3d::String file_name;
+    const dx::app::Path path;
+    TomlDesc(const s3d::String& file_name, const dx::app::Path& path) :
+    file_name(file_name),
+    path(path) {}
+};
 // public function -------------------------------
 void AssetManager::initialize(
     const std::vector<FontDesc>& font_descs,
@@ -122,6 +130,16 @@ void AssetManager::initialize(
     // Audio
     for (const auto& desc : audio_descs) {
         aud::Audio::Register(desc);
+    }
+    
+    // Toml
+    for (const auto& desc : {
+        TomlDesc(U"System", dx::app::Path::asset_toml / U"hot"),
+        TomlDesc(U"Battle", dx::app::Path::asset_toml / U"hot"),
+        TomlDesc(U"Physics", dx::app::Path::asset_toml / U"hot"),
+        TomlDesc(U"Stage", dx::app::Path::asset_toml / U"hot")
+    }) {
+        dx::cmp::TomlAsset::load(desc.file_name, desc.path);
     }
 }
 

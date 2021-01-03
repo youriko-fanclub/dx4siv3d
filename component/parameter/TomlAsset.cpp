@@ -54,6 +54,39 @@ bool TomlAsset::is_loaded(const s3d::String& name) {
 }
 
 // public function -------------------------------
+s3d::Vec2 TomlAsset::getVec2(const TomlKey& key) const {
+    const auto& toml = (*this)[key];
+    return s3d::Vec2(
+        toml[U"x"].get<double>(),
+        toml[U"y"].get<double>());
+}
+
+s3d::Size TomlAsset::getSize(const TomlKey& key) const {
+    const auto& toml = (*this)[key];
+    return s3d::Size(
+        toml[U"w"].get<int>(),
+        toml[U"h"].get<int>());
+}
+
+s3d::ColorF TomlAsset::getColorF(const TomlKey& key) const {
+    const auto& toml = (*this)[key];
+    float a = 1.f;
+    if (toml.hasMember(U"a")) {
+        a = toml[U"a"].get<float>();
+    }
+    return s3d::ColorF(
+        toml[U"r"].get<float>(),
+        toml[U"g"].get<float>(),
+        toml[U"b"].get<float>(), a);
+}
+
+s3d::Font TomlAsset::getFont(const TomlKey& key) const {
+    const auto& toml = (*this)[key];
+    return s3d::Font(
+        toml[U"size"].get<int>(),
+        dx::app::Path::asset_font / toml[U"name"].getString());
+}
+
 // private function ------------------------------
 // ctor/dtor -------------------------------------
 TomlAsset::TomlAsset(const s3d::String& filename) :

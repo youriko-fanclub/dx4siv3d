@@ -1,6 +1,8 @@
 #pragma once
 #include <Siv3D/DirectoryWatcher.hpp>
 #include <Siv3D/TOMLReader.hpp>
+#include <Siv3D/Vector2D.hpp>
+#include <Siv3D/Font.hpp>
 #include "Path.hpp"
 
 namespace dx {
@@ -13,6 +15,14 @@ public: // static
 public: // public function
     TomlKey operator + (const TomlKey& child) const { return TomlKey(m_impl + delimiter + child.m_impl); }
     TomlKey operator + (const s3d::String& child) const { return TomlKey(m_impl + delimiter + child); }
+    TomlKey& operator += (const TomlKey& child) {
+        m_impl += delimiter + child.m_impl;
+        return *this;
+    }
+    TomlKey& operator += (const s3d::String& child) {
+        m_impl += delimiter + child;
+        return *this;
+    }
     
     s3d::String full() const { return m_impl; }
 private: // field
@@ -78,11 +88,12 @@ public: // public function
     [[nodiscard]] s3d::TOMLValue operator [](const TomlKey& key) const {
         return (*m_impl)[key];
     }
-    // s3d::Vec2 getVec2(const s3d::String& key) const;
-    // s3d::Size getSize(const s3d::String& key) const;
-    // s3d::ColorF getColorF(const s3d::String& key) const;
-    // s3d::Font getFont(const s3d::String& key) const;
-    // std::shared_ptr<s3d::Font> getFontPtr(const s3d::String& key) const;
+    
+    s3d::Vec2 getVec2(const TomlKey& key) const;
+    s3d::Size getSize(const TomlKey& key) const;
+    s3d::ColorF getColorF(const TomlKey& key) const;
+    s3d::Font getFont(const TomlKey& key) const;
+    // std::shared_ptr<s3d::Font> getFontPtr(const TomlKey& key) const;
 private: // field
     const std::shared_ptr<TomlAssetImpl> m_impl;
 private: // private function

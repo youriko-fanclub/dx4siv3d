@@ -26,7 +26,6 @@ void ExecutiveManager::initialize() {
 }
 
 bool ExecutiveManager::update() {
-    cmp::HotReloadManager::instance()->update();
     cmp::TomlAssetRepository::instance()->update();
     return m_sequencer->update();
 }
