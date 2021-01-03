@@ -5,8 +5,9 @@
 #include <Siv3D/AudioAsset.hpp>
 #include <Siv3D/FileSystem.hpp>
 #include <Siv3D/TOMLReader.hpp>
-#include "FilePath.hpp"
+#include "Path.hpp"
 #include "Audio.hpp"
+#include "TomlAsset.hpp"
 
 namespace {
 
@@ -35,7 +36,7 @@ namespace app {
 
 // static ----------------------------------------
 std::vector<AssetManager::AudioDesc> AudioDesc::loadFromToml() {
-    const s3d::TOMLReader toml(s3d::FileSystem::FullPath(app::FilePath::asset_toml + U"hot/AudioAsset.toml"));
+    const s3d::TOMLReader toml((app::Path::asset_toml / U"hot" / U"AudioAsset.toml").full());
     if (!toml) { // もし読み込みに失敗したら
         throw s3d::Error(U"Failed to load `AudioAsset.toml`");
     }
@@ -98,6 +99,13 @@ std::vector<AssetManager::AudioDesc> AudioDesc::loadFromToml() {
 /* ---------- AssetManager ---------- */
 
 // static ----------------------------------------
+struct TomlDesc {
+    const s3d::String file_name;
+    const dx::app::Path path;
+    TomlDesc(const s3d::String& file_name, const dx::app::Path& path) :
+    file_name(file_name),
+    path(path) {}
+};
 // public function -------------------------------
 void AssetManager::initialize(
     const std::vector<FontDesc>& font_descs,
@@ -107,7 +115,7 @@ void AssetManager::initialize(
     // Font
     for (const auto& desc : font_descs) {
         if (!desc.typeface_string.empty()) {
-            s3d::FontAsset::Register(desc.key, desc.size, FilePath::asset_font + desc.typeface_string);
+            s3d::FontAsset::Register(desc.key, desc.size, Path::asset_font / desc.typeface_string);
         }
         else {
             s3d::FontAsset::Register(desc.key, desc.size, desc.typeface);
@@ -116,12 +124,31 @@ void AssetManager::initialize(
     
     // Texture
     for (const s3d::String extension = U".png"; const auto& desc : texture_descs) {
-        s3d::TextureAsset::Register(desc.key, FilePath::asset_texture + desc.path + extension);
+        s3d::TextureAsset::Register(desc.key, Path::asset_texture / (desc.path + extension));
     }
     
     // Audio
     for (const auto& desc : audio_descs) {
         aud::Audio::Register(desc);
+    }
+    
+    // Toml
+    const auto hot_toml = dx::app::Path::asset_toml / U"hot";
+    const auto md_kanji = dx::app::Path::asset_schema / U"master" / U"class" / U"kanji";
+    for (const auto& desc : {
+        // misc
+        TomlDesc(U"System" , hot_toml),
+        TomlDesc(U"Battle" , hot_toml),
+        TomlDesc(U"Physics", hot_toml),
+        TomlDesc(U"Stage"  , hot_toml),
+        // masterdata
+        TomlDesc(U"KanjiParam"       , md_kanji),
+        TomlDesc(U"KanjiDictionary"  , md_kanji),
+        TomlDesc(U"RadicalParam"     , md_kanji),
+        TomlDesc(U"RadicalDictionary", md_kanji),
+        TomlDesc(U"KanjiConsist"     , md_kanji)
+    }) {
+        dx::toml::TomlAsset::load(desc.file_name, desc.path);
     }
 }
 

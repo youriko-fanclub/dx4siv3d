@@ -2,7 +2,7 @@
 
 #include "MainExecutiveManager.hpp"
 #include "SequenceManager.hpp"
-#include "HotReloadManager.hpp"
+#include "TomlAssetRepository.hpp"
 #include "Audio.hpp"
 #include "Log.hpp"
 
@@ -25,7 +25,7 @@ void ExecutiveManager::initialize() {
 }
 
 bool ExecutiveManager::update() {
-    cmp::HotReloadManager::instance()->update();
+    toml::TomlAssetRepository::instance()->update();
     return m_sequencer->update();
 }
 
