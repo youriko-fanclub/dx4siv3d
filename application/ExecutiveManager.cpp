@@ -25,7 +25,7 @@ void ExecutiveManager::initialize() {
 }
 
 bool ExecutiveManager::update() {
-    cmp::TomlAssetRepository::instance()->update();
+    toml::TomlAssetRepository::instance()->update();
     return m_sequencer->update();
 }
 

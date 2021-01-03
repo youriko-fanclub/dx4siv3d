@@ -6,7 +6,7 @@
 #include "Path.hpp"
 
 namespace dx {
-namespace cmp {
+namespace toml {
 
 class TomlKey {
 public: // static_const/enum
@@ -97,15 +97,14 @@ public: // ctor/dtor
     virtual ~TomlAsset();
 };
 
-namespace toml {
+
 inline int getInt(const s3d::TOMLValue& toml) { return toml.get<int>(); }
 inline float getFloat(const s3d::TOMLValue& toml) { return toml.get<float>(); }
 inline double getDouble(const s3d::TOMLValue& toml) { return toml.get<double>(); }
-s3d::Vec2 getVec2(const s3d::TOMLValue& toml);
-s3d::Size getSize(const s3d::TOMLValue& toml);
-s3d::ColorF getColorF(const s3d::TOMLValue& toml);
-s3d::Font getFont(const s3d::TOMLValue& toml);
-}
+s3d::Vec2 vec2(const s3d::TOMLValue& toml);
+s3d::Size size(const s3d::TOMLValue& toml);
+s3d::ColorF colorF(const s3d::TOMLValue& toml);
+s3d::Font font(const s3d::TOMLValue& toml);
 
 }
 }

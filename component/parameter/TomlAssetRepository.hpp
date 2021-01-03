@@ -5,11 +5,11 @@
 #include "Enum.hpp"
 
 namespace dx {
-namespace cmp {
+namespace toml {
 
 class TomlAssetImpl;
 
-class TomlAssetRepository : public Singleton<TomlAssetRepository> {
+class TomlAssetRepository : public cmp::Singleton<TomlAssetRepository> {
 public: // static_const/enum
     class TomlAssetData {
     public: // static_const/enum

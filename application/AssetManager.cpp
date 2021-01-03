@@ -148,7 +148,7 @@ void AssetManager::initialize(
         TomlDesc(U"RadicalDictionary", md_kanji),
         TomlDesc(U"KanjiConsist"     , md_kanji)
     }) {
-        dx::cmp::TomlAsset::load(desc.file_name, desc.path);
+        dx::toml::TomlAsset::load(desc.file_name, desc.path);
     }
 }
 

@@ -5,7 +5,7 @@
 using namespace s3d::Literals::FormatLiterals;
 
 namespace dx {
-namespace cmp {
+namespace toml {
 
 /* ---------- TomlAssetRepository ---------- */
 
