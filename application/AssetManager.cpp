@@ -133,11 +133,20 @@ void AssetManager::initialize(
     }
     
     // Toml
+    const auto hot_toml = dx::app::Path::asset_toml / U"hot";
+    const auto md_kanji = dx::app::Path::asset_schema / U"master" / U"class" / U"kanji";
     for (const auto& desc : {
-        TomlDesc(U"System", dx::app::Path::asset_toml / U"hot"),
-        TomlDesc(U"Battle", dx::app::Path::asset_toml / U"hot"),
-        TomlDesc(U"Physics", dx::app::Path::asset_toml / U"hot"),
-        TomlDesc(U"Stage", dx::app::Path::asset_toml / U"hot")
+        // misc
+        TomlDesc(U"System" , hot_toml),
+        TomlDesc(U"Battle" , hot_toml),
+        TomlDesc(U"Physics", hot_toml),
+        TomlDesc(U"Stage"  , hot_toml),
+        // masterdata
+        TomlDesc(U"KanjiParam"       , md_kanji),
+        TomlDesc(U"KanjiDictionary"  , md_kanji),
+        TomlDesc(U"RadicalParam"     , md_kanji),
+        TomlDesc(U"RadicalDictionary", md_kanji),
+        TomlDesc(U"KanjiConsist"     , md_kanji)
     }) {
         dx::cmp::TomlAsset::load(desc.file_name, desc.path);
     }
