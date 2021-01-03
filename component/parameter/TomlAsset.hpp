@@ -37,24 +37,6 @@ public: // ctor/dtor
     TomlKey(const s3d::String& key) :
     m_impl(key) {}
 };
-#if false
-    s3d::String full() const {
-        auto key = m_keys.front();
-        for (int i = 1; i < m_keys.size(); ++i) {
-            key += delimiter + m_keys.at(1);
-        }
-        return key;
-    }
-private: // field
-    std::vector<s3d::String> m_keys;
-private: // private function
-public: // ctor/dtor
-    TomlKey(const s3d::String& key) :
-        m_keys({ key }) {}
-    TomlKey(const std::initializer_list<s3d::String>& keys) :
-        m_keys(keys) {}
-};
-#endif
 
 
 // データ/ファイルの実体
