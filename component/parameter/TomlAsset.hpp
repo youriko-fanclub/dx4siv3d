@@ -89,19 +89,23 @@ public: // public function
         return (*m_impl)[key];
     }
     
-    s3d::Vec2 getVec2(const TomlKey& key) const;
-    s3d::Size getSize(const TomlKey& key) const;
-    s3d::ColorF getColorF(const TomlKey& key) const;
-    s3d::Font getFont(const TomlKey& key) const;
-    // std::shared_ptr<s3d::Font> getFontPtr(const TomlKey& key) const;
 private: // field
-    const std::shared_ptr<TomlAssetImpl> m_impl;
+    const TomlAssetImpl* const m_impl;
 private: // private function
 public: // ctor/dtor
     TomlAsset(const s3d::String& filename);
     virtual ~TomlAsset();
 };
 
+namespace toml {
+inline int getInt(const s3d::TOMLValue& toml) { return toml.get<int>(); }
+inline float getFloat(const s3d::TOMLValue& toml) { return toml.get<float>(); }
+inline double getDouble(const s3d::TOMLValue& toml) { return toml.get<double>(); }
+s3d::Vec2 getVec2(const s3d::TOMLValue& toml);
+s3d::Size getSize(const s3d::TOMLValue& toml);
+s3d::ColorF getColorF(const s3d::TOMLValue& toml);
+s3d::Font getFont(const s3d::TOMLValue& toml);
+}
 
 }
 }

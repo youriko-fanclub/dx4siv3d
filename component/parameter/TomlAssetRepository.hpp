@@ -24,8 +24,8 @@ public: // static_const/enum
 
 public: // static
 public: // public function
-    std::shared_ptr<TomlAssetImpl> get(const s3d::String& filename) {
-        return m_tomls.at(filename);
+    TomlAssetImpl* get(const s3d::String& filename) {
+        return m_tomls.at(filename).get();
     }
     bool load(const s3d::String& filename, const app::Path& directory, bool is_hotreload = true);
     void unload(const s3d::String& filename);
