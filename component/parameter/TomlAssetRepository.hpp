@@ -11,17 +11,6 @@ class TomlAssetImpl;
 
 class TomlAssetRepository : public cmp::Singleton<TomlAssetRepository> {
 public: // static_const/enum
-    class TomlAssetData {
-    public: // static_const/enum
-    public: // static
-    public: // public function
-        bool is_hotreload;
-        std::shared_ptr<TomlAssetImpl> impl;
-    private: // field
-    private: // private function
-    public: // ctor/dtor
-    };
-
 public: // static
 public: // public function
     TomlAssetImpl* get(const s3d::String& filename) {
@@ -33,21 +22,16 @@ public: // public function
         return m_tomls.contains(filename);
     }
     void update();
-#if false
-    void subscribe(const s3d::String& key, std::shared_ptr<TomlAssetImpl> toml);
-    void unsubscribe(const s3d::String& key);
-#endif
 private: // field
     std::unordered_map<s3d::String, std::shared_ptr<TomlAssetImpl>> m_tomls;
     std::unordered_map<s3d::FilePath, std::unique_ptr<s3d::DirectoryWatcher>> m_watchers;
 private: // private function
 public: // ctor/dtor
-    TomlAssetRepository();
+    TomlAssetRepository() = default;
 };
 
 }
 
-#if false
 namespace denum {
 
 template <>
@@ -56,5 +40,4 @@ template <>
 s3d::String toString(s3d::FileAction value);
 
 }
-#endif
 }

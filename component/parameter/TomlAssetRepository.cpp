@@ -48,30 +48,11 @@ void TomlAssetRepository::update() {
     }
 }
 
-#if false
-void TomlAssetRepository::subscribe(const s3d::String& key, std::shared_ptr<TomlAssetImpl> toml) {
-    if (m_tomls.contains(key)) {
-        m_tomls.at(key) = toml;
-    }
-    else {
-        m_tomls.insert(std::make_pair(key, toml));
-    }
-}
-
-void TomlAssetRepository::unsubscribe(const s3d::String& key) {
-    if (m_tomls.contains(key)) {
-        m_tomls.erase(key);
-    }
-}
-#endif
-
 // private function ------------------------------
 // ctor/dtor -------------------------------------
-TomlAssetRepository::TomlAssetRepository() {}
 
 }
 
-#if false
 namespace denum {
 
 template <>
@@ -94,5 +75,4 @@ s3d::String toString(s3d::FileAction value) {
 }
 
 }
-#endif
 }
