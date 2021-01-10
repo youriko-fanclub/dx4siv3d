@@ -73,6 +73,14 @@ s3d::Size size(const s3d::TOMLValue& toml) {
         toml[U"h"].get<int>());
 }
 
+s3d::Rect rect(const s3d::TOMLValue& toml) {
+    return s3d::Rect(
+        toml[U"x"].get<double>(),
+        toml[U"y"].get<double>(),
+        toml[U"w"].get<int>(),
+        toml[U"h"].get<int>());
+}
+
 s3d::ColorF colorF(const s3d::TOMLValue& toml) {
     float a = 1.f;
     if (toml.hasMember(U"a")) {

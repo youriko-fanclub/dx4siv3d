@@ -141,6 +141,7 @@ void AssetManager::initialize(
         TomlDesc(U"System" , hot_toml),
         TomlDesc(U"Battle" , hot_toml),
         TomlDesc(U"Physics", hot_toml),
+        TomlDesc(U"Develop", hot_toml),
         // masterdata
         TomlDesc(U"KanjiParam"       , md_kanji),
         TomlDesc(U"KanjiDictionary"  , md_kanji),
