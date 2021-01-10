@@ -37,6 +37,7 @@ private:
     static std::unordered_map<GamePadId, GamePadRawId> s_gp2raw;
     
     static std::unordered_map<PlayerId, s3d::ColorF> s_p2color;
+    static std::unordered_map<PlayerId, s3d::ColorF> s_p2color_light;
     static std::unordered_map<PlayerId, s3d::ColorF> s_p2color_dark;
 public:
     /// <summary> PlayerIdをGamePadIdに変換 </summary>
@@ -53,6 +54,8 @@ public:
     static GamePadRawId ToRawID(GamePadId gpid) { return s_gp2raw.at(gpid); }
     /// <summary> PlayerIdをColorに変換 </summary>
     static s3d::ColorF ToColor(PlayerId pid) { return s_p2color.at(pid); }
+    /// <summary> PlayerIdをColorに変換 </summary>
+    static s3d::ColorF ToColorLight(PlayerId pid) { return s_p2color_light.at(pid); }
     /// <summary> PlayerIdをColorに変換 </summary>
     static s3d::ColorF ToColorDark(PlayerId pid) { return s_p2color_dark.at(pid); }
 };
