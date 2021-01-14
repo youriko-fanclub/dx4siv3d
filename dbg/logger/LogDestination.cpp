@@ -11,7 +11,7 @@ void LogDestinationText::setCategoryIsActive(const Category& category, bool is_a
     m_is_active[category] = is_active;
 }
 
-void LogDestinationText::addCategoryIcon(const Category& category, const s3d::String& icon) {
+void LogDestinationText::setCategoryIcon(const Category& category, const s3d::String& icon) {
     m_category_icon[category] = icon;
 }
 

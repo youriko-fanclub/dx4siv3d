@@ -12,7 +12,7 @@ namespace dbg {
 class LogDestinationText {
 public:
     void setCategoryIsActive(const Category& category, bool is_active);
-    void addCategoryIcon(const Category& category, const s3d::String& icon);
+    void setCategoryIcon(const Category& category, const s3d::String& icon);
     template<typename ...Args>
     void send(Level level, const Category& category, const s3d::String& body, const Args&... args) {
         if (!m_is_active.contains(category) || m_is_active.at(category)) {
@@ -22,9 +22,12 @@ public:
 protected:
     virtual void output(Level level, const Category& category, const s3d::String& filled_body) const = 0;
     s3d::String icon(Category category) const {
-        return m_category_icon.contains(category)
-            ? m_category_icon.at(category)
-            : category;
+        if (m_category_icon.contains(category)) {
+            return m_category_icon.at(category);
+        }
+        else {
+            return category;
+        }
     }
     const s3d::String& icon(Level level) const { return m_level_icon.at(level); }
     s3d::String str(Level level) const { return denum::toString(level); }

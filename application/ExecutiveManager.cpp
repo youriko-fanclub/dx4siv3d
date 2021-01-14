@@ -19,9 +19,9 @@ void ExecutiveManager::initialize() {
     dbg::Log::instance()->setCategoryIsActive(U"Error", true);
     dbg::Log::instance()->setCategoryIsActive(U"Info", true);
     dbg::Log::instance()->setCategoryIsActive(U"Debug", true);
-    // dbg::Log::instance()->addCategoryIcon(U"dx"      , U"");
-    // dbg::Log::instance()->addCategoryIcon(U"dx.SOUND", U"");
-    // dbg::Log::instance()->addCategoryIcon(U"main"    , U"");
+    // dbg::Log::instance()->setCategoryIcon(U"dx"      , U"");
+    // dbg::Log::instance()->setCategoryIcon(U"dx.SOUND", U"");
+    // dbg::Log::instance()->setCategoryIcon(U"main"    , U"");
 }
 
 bool ExecutiveManager::update() {
