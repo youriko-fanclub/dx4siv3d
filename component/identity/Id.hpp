@@ -62,5 +62,4 @@ public:
 
 #define ID_DEFINITION(Type)    \
 class Type;                    \
-using Type##ID = dx::ID<Type>; \
-using Type##IDCR = const dx::ID<Type>&;
+using Type##ID = dx::ID<Type>;
