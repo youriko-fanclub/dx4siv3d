@@ -18,19 +18,25 @@ public: // static
         }
         return params;
     }
-    static std::shared_ptr<HotReloadableParameters> createParams(const s3d::String& filename, bool with_subscribe = true) {
+    static std::shared_ptr<HotReloadableParameters> createParams(const s3d::String& filename, bool with_subscribe = true, bool is_md = false) {
         if (instance()->m_param_list.contains(filename)) {
             return instance()->m_param_list.at(filename);
         }
-        auto params = std::make_shared<HotReloadableParameters>(filename);
+        std::shared_ptr<HotReloadableParameters> params = nullptr;
+        if (is_md) {
+            params = std::make_shared<HotReloadableParameters>(filename, 0);
+        }
+        else {
+            params = std::make_shared<HotReloadableParameters>(filename);
+        }
         if (with_subscribe) {
             instance()->subscribe(params->filename(), params);
         }
         return params;
     }
-    static std::shared_ptr<HotReloadableParameters> createParamsWithLoad(const s3d::String& filename, bool with_subscribe = true) {
+    static std::shared_ptr<HotReloadableParameters> createParamsWithLoad(const s3d::String& filename, bool with_subscribe = true, bool is_md = false) {
         bool load_is_needless = instance()->m_param_list.contains(filename);
-        auto param = createParams(filename, with_subscribe);
+        auto param = createParams(filename, with_subscribe, is_md);
         if (!load_is_needless) { param->load(); }
         return param;
     }

@@ -2,13 +2,13 @@
 #include "AudioProxy.hpp"
 #include "AudioSource.hpp"
 #include "Siv3D/AudioAsset.hpp"
-#include "FilePath.hpp"
+#include "Path.hpp"
 
 namespace {
 
 const s3d::String generatePath(dx::aud::AudioType type, const s3d::String& short_path) {
     static const s3d::String extention = U".mp3";
-    return dx::app::FilePath::asset_audio + dx::denum::toString(type) + U"/" + short_path + extention;
+    return dx::app::Path::asset_audio / dx::denum::toString(type) / (short_path + extention);
 }
 
 }
