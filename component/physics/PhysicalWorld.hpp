@@ -1,24 +1,18 @@
 #pragma once
 #include <Siv3D/HashTable.hpp>
 #include "PhysicalObject.hpp"
+#include "PhysicalCategoryManager.hpp"
 #include "Timer.hpp"
-
 
 namespace dx {
 namespace phys {
-
-using CategoryMgr = kanji::battle::PhysicalCategory;
 
 class PhysicalWorld {
 public: // static_const/enum
 public: // static
 public: // public function
-    const std::weak_ptr<IPhysicalObject>& object(s3d::P2BodyID id) {
-        return m_objects.at(id);
-    }
     void update(Time dt = s3d::Scene::DeltaTime(), s3d::int32 velocity_iterations = 6, s3d::int32 position_iterations = 2);
-    s3d::P2World& impl() { return m_impl; }
-    
+
     // create
     std::shared_ptr<IPhysicalObject> createRect(
         Category category,
@@ -45,13 +39,17 @@ public: // public function
         const s3d::Line& line,
         const s3d::P2Material& material);
 private: // field
-    s3d::Array<s3d::P2Body> m_bodies;
     s3d::P2World m_impl;
     s3d::HashTable<s3d::P2BodyID, std::weak_ptr<IPhysicalObject>> m_objects;
+    PhysicalCategoryManager m_category_mgr;
 private: // private function
 public: // ctor/dtor
-    PhysicalWorld(double gravity = 9.8) :
-    m_impl(gravity) {}
+    PhysicalWorld(
+        const PhysicalCategoryManager::Categories& categories,
+        const PhysicalCategoryManager::CollisionMap& collision_map,
+        double gravity = 9.8) :
+    m_impl(gravity),
+    m_category_mgr(categories, collision_map) {}
 };
 
 
