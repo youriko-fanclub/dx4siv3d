@@ -18,8 +18,10 @@ void Panel::update()
 
 void Panel::draw() const
 {
-    s3d::RectF(s3d::Arg::center = m_pos, m_size).drawFrame(2.0);
-    s3d::FontAsset(U"Panel")(m_label).draw(s3d::Arg::center = m_pos);
+    constexpr double thickness = 2.0;
+    s3d::RectF(m_pos, m_size).drawFrame(thickness);
+    
+    s3d::FontAsset(U"Panel")(m_label).draw(s3d::Arg::center = (m_pos + m_size / 2));
 }
 
 }
