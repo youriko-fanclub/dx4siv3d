@@ -9,6 +9,7 @@ public: // static_const/enum
     static s3d::String asset;
     static s3d::String asset_font;
     static s3d::String asset_texture;
+    static s3d::String asset_audio;
     static s3d::String asset_toml;
     
 public: // static

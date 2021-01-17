@@ -10,6 +10,7 @@ namespace app {
 s3d::String FilePath::asset         = U"../KANJI-asset/";
 s3d::String FilePath::asset_font    = asset + U"font/";
 s3d::String FilePath::asset_texture = asset + U"texture/";
+s3d::String FilePath::asset_audio   = asset + U"audio/mp3/";
 s3d::String FilePath::asset_toml    = asset + U"toml/";
 
 // public function -------------------------------
