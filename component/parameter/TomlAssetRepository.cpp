@@ -12,7 +12,7 @@ namespace toml {
 // static ----------------------------------------
 // public function -------------------------------
 bool TomlAssetRepository::load(const s3d::String& filename, const app::Path& directory, bool is_hotreload) {
-    if (!is_loaded(filename)) {
+    if (!isLoaded(filename)) {
         m_tomls.insert(std::make_pair(filename, std::make_shared<TomlAssetImpl>(filename, directory)));
         const auto key = directory.full();
         if (!m_watchers.contains(key)) {
@@ -24,7 +24,7 @@ bool TomlAssetRepository::load(const s3d::String& filename, const app::Path& dir
 }
 
 void TomlAssetRepository::unload(const s3d::String& filename) {
-    if (is_loaded(filename)) {
+    if (isLoaded(filename)) {
         m_tomls.erase(filename);
     }
 }

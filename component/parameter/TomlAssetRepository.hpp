@@ -18,7 +18,7 @@ public: // public function
     }
     bool load(const s3d::String& filename, const app::Path& directory, bool is_hotreload = true);
     void unload(const s3d::String& filename);
-    bool is_loaded(const s3d::String& filename) const {
+    bool isLoaded(const s3d::String& filename) const {
         return m_tomls.contains(filename);
     }
     void update();

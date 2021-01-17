@@ -68,7 +68,7 @@ public: // static_const/enum
 public: // static
     static bool load(const s3d::String& name, const app::Path& path);
     static void unload(const s3d::String& name);
-    [[nodiscard]] static bool is_loaded(const s3d::String& name);
+    [[nodiscard]] static bool isLoaded(const s3d::String& name);
 public: // public function
     const s3d::String& filename() const { return m_impl->filename(); }
 

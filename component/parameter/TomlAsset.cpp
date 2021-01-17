@@ -49,8 +49,8 @@ void TomlAsset::unload(const s3d::String& name) {
     TomlAssetRepository::instance()->unload(name);
 }
 
-bool TomlAsset::is_loaded(const s3d::String& name) {
-    return TomlAssetRepository::instance()->is_loaded(name);
+bool TomlAsset::isLoaded(const s3d::String& name) {
+    return TomlAssetRepository::instance()->isLoaded(name);
 }
 
 // public function -------------------------------
