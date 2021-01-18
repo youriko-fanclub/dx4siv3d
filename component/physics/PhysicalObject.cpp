@@ -9,10 +9,10 @@ namespace phys {
 // public function -------------------------------
 // private function ------------------------------
 // ctor/dtor -------------------------------------
-PhysicalObject::PhysicalObject(const s3d::String& tag, Category category, const std::shared_ptr<s3d::P2Body>& impl) :
-m_tag(tag),
+PhysicalObject::PhysicalObject(const s3d::String& name, Category category, const std::shared_ptr<s3d::P2Body>& body) :
+m_name(name),
 m_category(category),
-m_impl(impl) {}
+m_body(body) {}
 
 
 }
