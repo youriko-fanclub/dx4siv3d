@@ -49,8 +49,8 @@ void TomlAsset::unload(const s3d::String& name) {
     TomlAssetRepository::instance()->unload(name);
 }
 
-bool TomlAsset::is_loaded(const s3d::String& name) {
-    return TomlAssetRepository::instance()->is_loaded(name);
+bool TomlAsset::isLoaded(const s3d::String& name) {
+    return TomlAssetRepository::instance()->isLoaded(name);
 }
 
 // public function -------------------------------
@@ -69,6 +69,14 @@ s3d::Vec2 vec2(const s3d::TOMLValue& toml) {
 
 s3d::Size size(const s3d::TOMLValue& toml) {
     return s3d::Size(
+        toml[U"w"].get<int>(),
+        toml[U"h"].get<int>());
+}
+
+s3d::Rect rect(const s3d::TOMLValue& toml) {
+    return s3d::Rect(
+        toml[U"x"].get<double>(),
+        toml[U"y"].get<double>(),
         toml[U"w"].get<int>(),
         toml[U"h"].get<int>());
 }

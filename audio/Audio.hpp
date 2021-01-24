@@ -48,7 +48,7 @@ public: // static
     static IAudioSource* source(const std::vector<s3d::String>& keys) {
         return AudioMgr::instance()->source(keys);
     }
-    static void Finalize() {
+    static void finalize() {
         AudioMgr::instance()->finalize();
     }
 public: // ctor/dtor

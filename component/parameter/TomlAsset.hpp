@@ -68,7 +68,7 @@ public: // static_const/enum
 public: // static
     static bool load(const s3d::String& name, const app::Path& path);
     static void unload(const s3d::String& name);
-    [[nodiscard]] static bool is_loaded(const s3d::String& name);
+    [[nodiscard]] static bool isLoaded(const s3d::String& name);
 public: // public function
     const s3d::String& filename() const { return m_impl->filename(); }
 
@@ -90,6 +90,7 @@ inline float getFloat(const s3d::TOMLValue& toml) { return toml.get<float>(); }
 inline double getDouble(const s3d::TOMLValue& toml) { return toml.get<double>(); }
 s3d::Vec2 vec2(const s3d::TOMLValue& toml);
 s3d::Size size(const s3d::TOMLValue& toml);
+s3d::Rect rect(const s3d::TOMLValue& toml);
 s3d::ColorF colorF(const s3d::TOMLValue& toml);
 s3d::Font font(const s3d::TOMLValue& toml);
 
