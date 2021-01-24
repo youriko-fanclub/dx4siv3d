@@ -19,8 +19,9 @@ public: // public function
     virtual ID id() const = 0;
     virtual const s3d::String& name() const = 0;
     virtual Category category() const = 0;
-    virtual const std::shared_ptr<s3d::P2Body>& body() = 0;
-    virtual const std::shared_ptr<ICollisionObserver>& collisionObserver() = 0;
+    virtual const std::shared_ptr<s3d::P2Body>& body() const = 0;
+    virtual ICollisionObserver* collisionObserver() = 0;
+    virtual void setCollisionObserver(ICollisionObserver* observer) = 0;
 private: // field
 private: // private function
 protected: // ctor/dtor
@@ -36,14 +37,18 @@ public: // public function
     ID id() const override { return m_body->id(); }
     const s3d::String& name() const override { return m_name; }
     Category category() const override { return m_category; }
-    const std::shared_ptr<s3d::P2Body>& body() override { return m_body; }
-    const std::shared_ptr<ICollisionObserver>& collisionObserver() override {
-        return nullptr;
+    const std::shared_ptr<s3d::P2Body>& body() const override { return m_body; }
+    ICollisionObserver* collisionObserver() override {
+        return m_collision_observer;
+    }
+    void setCollisionObserver(ICollisionObserver* observer) override {
+        m_collision_observer = observer;
     }
 private: // field
     s3d::String m_name;
     Category m_category;
-    std::shared_ptr<s3d::P2Body> m_body;
+    std::shared_ptr<s3d::P2Body> m_body = nullptr;
+    ICollisionObserver* m_collision_observer = nullptr;
 private: // private function
 public: // ctor/dtor
     PhysicalObject(const s3d::String& name, Category category, const std::shared_ptr<s3d::P2Body>& impl);

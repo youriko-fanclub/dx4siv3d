@@ -41,6 +41,7 @@ public: // public function
 private: // field
     s3d::P2World m_impl;
     s3d::HashTable<s3d::P2BodyID, std::weak_ptr<IPhysicalObject>> m_objects;
+    s3d::Array<s3d::P2ContactPair> m_contacts;
     PhysicalCategoryManager m_category_mgr;
 private: // private function
 public: // ctor/dtor
