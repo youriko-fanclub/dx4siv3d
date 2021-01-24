@@ -25,6 +25,12 @@ std::unordered_map<PlayerId, s3d::ColorF> Id::s_p2color = {
     { PlayerId::_3P, s3d::ColorF(1.0, 0.9, 0.3) },
     { PlayerId::_4P, s3d::ColorF(0.3, 1.0, 0.3) },
 };
+std::unordered_map<PlayerId, s3d::ColorF> Id::s_p2color_light = {
+    { PlayerId::_1P, s3d::ColorF(s3d::Color(255, 133, 133)) },
+    { PlayerId::_2P, s3d::ColorF(s3d::Color(140, 140, 204)) },
+    { PlayerId::_3P, s3d::ColorF(s3d::Color(255, 235,  70)) },
+    { PlayerId::_4P, s3d::ColorF(s3d::Color(130, 201, 130)) },
+};
 std::unordered_map<PlayerId, s3d::ColorF> Id::s_p2color_dark = {
     { PlayerId::_1P, s3d::ColorF(s3d::Color(204,  33,  33)) },
     { PlayerId::_2P, s3d::ColorF(s3d::Color( 50,  50, 144)) },
