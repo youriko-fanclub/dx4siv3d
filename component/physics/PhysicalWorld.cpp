@@ -45,6 +45,7 @@ void PhysicalWorld::update(Time dt, s3d::int32 velocity_iterations, s3d::int32 p
     }
     // 衝突終了のお知らせ
     for (const auto& contact : contacts) {
+        // TOdO: あるオブジェクトが消滅したことによるExit呼び出し時、衝突相手がnullになってしまう
         auto obj_a = m_objects.contains(contact.a)
             ? m_objects.at(contact.a).lock()
             : nullptr;
