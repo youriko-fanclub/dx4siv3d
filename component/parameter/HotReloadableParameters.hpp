@@ -16,6 +16,7 @@ public: // public function
     
     template<typename Type>
     Type get(const s3d::String& key) const { return m_reader[key].get<Type>(); }
+    s3d::TOMLValue getTOML(const s3d::String& key) const { return m_reader[key]; }
     s3d::Vec2 getVec2(const s3d::String& key) const;
     s3d::Size getSize(const s3d::String& key) const;
     s3d::ColorF getColorF(const s3d::String& key) const;
