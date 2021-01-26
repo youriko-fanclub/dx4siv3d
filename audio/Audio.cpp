@@ -1,7 +1,7 @@
 #include "Audio.hpp"
 #include "AudioProxy.hpp"
 #include "AudioSource.hpp"
-#include "Siv3D/AudioAsset.hpp"
+#include <Siv3D/AudioAsset.hpp>
 #include "Path.hpp"
 
 namespace {
@@ -30,7 +30,7 @@ void AudioMgr::Register(const AudioDesc& desc) {
 IAudioSource* AudioMgr::source(const s3d::String& key) {
     return m_master_source->source(key);
 }
-IAudioSource* AudioMgr::source(const std::vector<s3d::String>& keys) {
+IAudioSource* AudioMgr::source(const s3d::Array<s3d::String>& keys) {
     IAudioSource* ret = m_master_source.get();
     for (const auto& key : keys) {
         ret = ret->source(key);

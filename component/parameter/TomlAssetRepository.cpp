@@ -57,8 +57,8 @@ void TomlAssetRepository::update() {
 namespace denum {
 
 template <>
-std::vector<s3d::FileAction> elems() {
-    return std::vector<s3d::FileAction>({
+s3d::Array<s3d::FileAction> elems() {
+    return s3d::Array<s3d::FileAction>({
         s3d::FileAction::Unknown,
         s3d::FileAction::Added,
         s3d::FileAction::Removed,

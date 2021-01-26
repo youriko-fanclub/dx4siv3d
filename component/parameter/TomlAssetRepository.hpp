@@ -36,7 +36,7 @@ public: // ctor/dtor
 namespace denum {
 
 template <>
-std::vector<s3d::FileAction> elems();
+s3d::Array<s3d::FileAction> elems();
 template <>
 s3d::String toString(s3d::FileAction value);
 

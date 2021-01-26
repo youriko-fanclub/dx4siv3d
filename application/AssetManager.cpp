@@ -34,7 +34,7 @@ namespace app {
 /* ---------- AudioDesc ---------- */
 
 // static ----------------------------------------
-std::vector<AssetManager::AudioDesc> AudioDesc::loadFromToml() {
+s3d::Array<AssetManager::AudioDesc> AudioDesc::loadFromToml() {
     const s3d::TOMLReader toml((app::Path::asset_toml / U"hot" / U"AudioAsset.toml").full());
     if (!toml) { // もし読み込みに失敗したら
         throw s3d::Error(U"Failed to load `AudioAsset.toml`");
@@ -76,7 +76,7 @@ std::vector<AssetManager::AudioDesc> AudioDesc::loadFromToml() {
     const std::initializer_list<s3d::String> voice_list = {
         U"system.decide",
     };
-    std::vector<AudioDesc> descs;
+    s3d::Array<AudioDesc> descs;
     descs.reserve(bgm_list.size() + se_list.size() + voice_list.size());
     for (const auto& key : bgm_list) {
         descs.push_back(get(toml, aud::AudioType::BGM, key));
@@ -107,9 +107,9 @@ struct TomlDesc {
 };
 // public function -------------------------------
 void AssetManager::initialize(
-    const std::vector<FontDesc>& font_descs,
-    const std::vector<TextureDesc>& texture_descs,
-    const std::vector<AudioDesc>& audio_descs) {
+    const s3d::Array<FontDesc>& font_descs,
+    const s3d::Array<TextureDesc>& texture_descs,
+    const s3d::Array<AudioDesc>& audio_descs) {
     
     // Font
     for (const auto& desc : font_descs) {

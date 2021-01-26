@@ -48,8 +48,8 @@ s3d::HashTable<PlayerId, s3d::ColorF> Id::s_p2color_dark = {
 namespace denum {
 
 template <>
-std::vector<di::PlayerId> elems() {
-    return std::vector<di::PlayerId>({
+s3d::Array<di::PlayerId> elems() {
+    return s3d::Array<di::PlayerId>({
         di::PlayerId::_1P, di::PlayerId::_2P, di::PlayerId::_3P, di::PlayerId::_4P,
     });
 }
@@ -64,8 +64,8 @@ s3d::String toString(di::PlayerId value) {
 }
 
 template <>
-std::vector<di::GamePadId> elems() {
-    return std::vector<di::GamePadId>({
+s3d::Array<di::GamePadId> elems() {
+    return s3d::Array<di::GamePadId>({
         di::GamePadId::_1P, di::GamePadId::_2P, di::GamePadId::_3P, di::GamePadId::_4P,
     });
 }
@@ -80,8 +80,8 @@ s3d::String toString(di::GamePadId value) {
 }
 
 template <>
-std::vector<di::GamePadRawId> elems() {
-    return std::vector<di::GamePadRawId>({
+s3d::Array<di::GamePadRawId> elems() {
+    return s3d::Array<di::GamePadRawId>({
         di::GamePadRawId::_1P, di::GamePadRawId::_2P, di::GamePadRawId::_3P, di::GamePadRawId::_4P,
     });
 }

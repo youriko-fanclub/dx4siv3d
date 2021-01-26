@@ -16,7 +16,7 @@ public:
     using Key = s3d::String;
 public:
     virtual bool addClip(AudioType type, const Key& key, bool with_play = false) = 0;
-    virtual bool addClip(AudioType type, const Key& key, const std::vector<AudioTag>& tags, bool with_play = false) = 0;
+    virtual bool addClip(AudioType type, const Key& key, const s3d::Array<AudioTag>& tags, bool with_play = false) = 0;
     virtual bool play(const Key& key, const s3d::Duration& duration = s3d::SecondsF(0.0)) = 0;
     virtual void playOneShot(const Key& key) = 0;
     
@@ -53,7 +53,7 @@ public: // static_const/enum
 public: // static
 public: // public function
     bool addClip(AudioType type, const Key& key, bool with_play = false) override;
-    bool addClip(AudioType type, const Key& key, const std::vector<AudioTag>& tags, bool with_play = false) override;
+    bool addClip(AudioType type, const Key& key, const s3d::Array<AudioTag>& tags, bool with_play = false) override;
     bool play(const Key& key, const s3d::Duration& duration = s3d::SecondsF(0.0)) override;
     void playOneShot(const Key& key) override;
     

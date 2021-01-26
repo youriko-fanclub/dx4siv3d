@@ -12,7 +12,7 @@ namespace aud {
 bool AudioSource::addClip(AudioType type, const Key& key, bool with_play) {
     return addClip(type, key, {}, with_play);
 }
-bool AudioSource::addClip(AudioType type, const Key& key, const std::vector<AudioTag>& tags, bool with_play) {
+bool AudioSource::addClip(AudioType type, const Key& key, const s3d::Array<AudioTag>& tags, bool with_play) {
     if (m_has_finalized) { return false; }
     if (!m_clips.contains(key)) {
         m_clips.emplace(key, std::make_shared<AudioProxy>(type, key, tags));

@@ -1,6 +1,5 @@
 #pragma once
 #include <Siv3D/HashTable.hpp>
-#include <vector>
 #include <Siv3D/Color.hpp>
 #include "Enum.hpp"
 
@@ -235,17 +234,17 @@ public static class Util {
 namespace denum {
 
 template <>
-std::vector<di::PlayerId> elems();
+s3d::Array<di::PlayerId> elems();
 template <>
 s3d::String toString(di::PlayerId value);
 
 template <>
-std::vector<di::GamePadId> elems();
+s3d::Array<di::GamePadId> elems();
 template <>
 s3d::String toString(di::GamePadId value);
 
 template <>
-std::vector<di::GamePadRawId> elems();
+s3d::Array<di::GamePadRawId> elems();
 template <>
 s3d::String toString(di::GamePadRawId value);
 

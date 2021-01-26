@@ -55,7 +55,7 @@ public: // public function
     bool get(GPButton button) const override;
     s3d::Duration pressedDuration(GPButton button) const override;
 private: // field
-    const std::vector<std::shared_ptr<AbsButtons>> m_buttons_list;
+    const s3d::Array<std::shared_ptr<AbsButtons>> m_buttons_list;
 public: // ctor/dtor
     ButtonsFromMultiSource(const std::initializer_list<std::shared_ptr<AbsButtons>>& buttons_list) :
     m_buttons_list(buttons_list) {}

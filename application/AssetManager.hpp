@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include <Siv3D/String.hpp>
 #include <Siv3D/Font.hpp>
 #include "Singleton.hpp"
@@ -43,7 +42,7 @@ public: // static_const/enum
 
     struct AudioDesc {
     public:
-        static std::vector<AudioDesc> loadFromToml();
+        static s3d::Array<AudioDesc> loadFromToml();
     public:
         const aud::AudioType type;
         const s3d::String key;
@@ -65,9 +64,9 @@ public: // static_const/enum
 public: // static
 public: // public function
     void initialize(
-        const std::vector<FontDesc>& font_descs,
-        const std::vector<TextureDesc>& texture_descs,
-        const std::vector<AudioDesc>& audio_descs);
+        const s3d::Array<FontDesc>& font_descs,
+        const s3d::Array<TextureDesc>& texture_descs,
+        const s3d::Array<AudioDesc>& audio_descs);
     
 private: // field
 private: // private function
