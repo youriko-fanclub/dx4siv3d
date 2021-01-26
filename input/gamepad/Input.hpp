@@ -23,8 +23,8 @@ public: // public function
     InputSource source(GamePadId gpid) const { return m_sources.at(gpid); }
 private: // field
 private: // private function
-    std::unordered_map<GamePadId, PlayerInput> m_inputs;
-    std::unordered_map<GamePadId, InputSource> m_sources;
+    s3d::HashTable<GamePadId, PlayerInput> m_inputs;
+    s3d::HashTable<GamePadId, InputSource> m_sources;
 public: // ctor/dtor
     Input();
 };

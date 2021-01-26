@@ -6,32 +6,32 @@ namespace di {
 /* ---------- Id ---------- */
 
 // static ----------------------------------------
-std::unordered_map<PlayerId, GamePadId> Id::s_p2gp = {
+s3d::HashTable<PlayerId, GamePadId> Id::s_p2gp = {
     { PlayerId::_1P, GamePadId::_1P },
     { PlayerId::_2P, GamePadId::_2P },
     { PlayerId::_3P, GamePadId::_3P },
     { PlayerId::_4P, GamePadId::_4P },
 };
 /// <summary> GamePadIdIDとGamePadRawIdIDの対応表 </summary>
-std::unordered_map<GamePadId, GamePadRawId> Id::s_gp2raw = {
+s3d::HashTable<GamePadId, GamePadRawId> Id::s_gp2raw = {
     { GamePadId::_1P, GamePadRawId::_1P },
     { GamePadId::_2P, GamePadRawId::_2P },
     { GamePadId::_3P, GamePadRawId::_3P },
     { GamePadId::_4P, GamePadRawId::_4P },
 };
-std::unordered_map<PlayerId, s3d::ColorF> Id::s_p2color = {
+s3d::HashTable<PlayerId, s3d::ColorF> Id::s_p2color = {
     { PlayerId::_1P, s3d::ColorF(1.0, 0.3, 0.3) },
     { PlayerId::_2P, s3d::ColorF(0.3, 0.3, 1.0) },
     { PlayerId::_3P, s3d::ColorF(1.0, 0.9, 0.3) },
     { PlayerId::_4P, s3d::ColorF(0.3, 1.0, 0.3) },
 };
-std::unordered_map<PlayerId, s3d::ColorF> Id::s_p2color_light = {
+s3d::HashTable<PlayerId, s3d::ColorF> Id::s_p2color_light = {
     { PlayerId::_1P, s3d::ColorF(s3d::Color(255, 133, 133)) },
     { PlayerId::_2P, s3d::ColorF(s3d::Color(140, 140, 204)) },
     { PlayerId::_3P, s3d::ColorF(s3d::Color(255, 235,  70)) },
     { PlayerId::_4P, s3d::ColorF(s3d::Color(130, 201, 130)) },
 };
-std::unordered_map<PlayerId, s3d::ColorF> Id::s_p2color_dark = {
+s3d::HashTable<PlayerId, s3d::ColorF> Id::s_p2color_dark = {
     { PlayerId::_1P, s3d::ColorF(s3d::Color(204,  33,  33)) },
     { PlayerId::_2P, s3d::ColorF(s3d::Color( 50,  50, 144)) },
     { PlayerId::_3P, s3d::ColorF(s3d::Color(230, 185,  10)) },

@@ -8,7 +8,7 @@ using bitflag = PhysicalCategoryManager::bitflag;
 /* ---------- PhysicalCategoryManager ---------- */
 
 // static ----------------------------------------
-void PhysicalCategoryManager::initialize(const std::vector<bitflag>& categories, const std::unordered_map<bitflag, bool>& collision_map) {
+void PhysicalCategoryManager::initialize(const s3d::Array<bitflag>& categories, const s3d::HashTable<bitflag, bool>& collision_map) {
     m_categories = categories;
     m_collision_map = collision_map;
     for (const auto category_a : m_categories) {
@@ -31,9 +31,9 @@ s3d::P2Filter PhysicalCategoryManager::filter(bitflag category) {
     return s3d::P2Filter(category, m_masks.at(category));
 }
 
-std::unordered_map<bitflag, bool> PhysicalCategoryManager::m_collision_map;
-std::unordered_map<bitflag, bitflag> PhysicalCategoryManager::m_masks;
-std::vector<bitflag> PhysicalCategoryManager::m_categories;
+s3d::HashTable<bitflag, bool> PhysicalCategoryManager::m_collision_map;
+s3d::HashTable<bitflag, bitflag> PhysicalCategoryManager::m_masks;
+s3d::Array<bitflag> PhysicalCategoryManager::m_categories;
 // public function -------------------------------
 // private function ------------------------------
 // ctor/dtor -------------------------------------

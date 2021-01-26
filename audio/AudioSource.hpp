@@ -1,5 +1,5 @@
 #pragma once
-#include <unordered_map>
+#include <Siv3D/HashTable.hpp>
 #include <Siv3D/Duration.hpp>
 #include "AssetManager.hpp"
 #include "AudioVolume.hpp"
@@ -72,8 +72,8 @@ public: // public function
     
 private: // field
     bool m_has_finalized = false;
-    std::unordered_map<s3d::String, std::shared_ptr<AudioProxy>> m_clips;
-    std::unordered_map<s3d::String, std::shared_ptr<AudioSource>> m_sources;
+    s3d::HashTable<s3d::String, std::shared_ptr<AudioProxy>> m_clips;
+    s3d::HashTable<s3d::String, std::shared_ptr<AudioSource>> m_sources;
     AudioVolume m_volume;
 private: // private function
 public: // ctor/dtor

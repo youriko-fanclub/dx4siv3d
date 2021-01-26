@@ -13,10 +13,10 @@ namespace toml {
 // public function -------------------------------
 bool TomlAssetRepository::load(const s3d::String& filename, const app::Path& directory, bool is_hotreload) {
     if (!isLoaded(filename)) {
-        m_tomls.insert(std::make_pair(filename, std::make_shared<TomlAssetImpl>(filename, directory)));
+        m_tomls.emplace(filename, std::make_shared<TomlAssetImpl>(filename, directory));
         const auto key = directory.full();
         if (!m_watchers.contains(key)) {
-            m_watchers.insert(std::make_pair(key, std::make_unique<s3d::DirectoryWatcher>(directory.full())));
+            m_watchers.emplace(key, s3d::DirectoryWatcher(directory.full()));
         }
         return true;
     }
@@ -31,7 +31,7 @@ void TomlAssetRepository::unload(const s3d::String& filename) {
 
 void TomlAssetRepository::update() {
     for (const auto& watcher : m_watchers) {
-        for (const auto& change : watcher.second->retrieveChanges()) {
+        for (const auto& change : watcher.second.retrieveChanges()) {
             if (change.second != s3d::FileAction::Added
             && change.second != s3d::FileAction::Modified) {
                 continue;

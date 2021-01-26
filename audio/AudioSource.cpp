@@ -15,7 +15,7 @@ bool AudioSource::addClip(AudioType type, const Key& key, bool with_play) {
 bool AudioSource::addClip(AudioType type, const Key& key, const std::vector<AudioTag>& tags, bool with_play) {
     if (m_has_finalized) { return false; }
     if (!m_clips.contains(key)) {
-        m_clips.insert(std::make_pair(key, std::make_shared<AudioProxy>(type, key, tags)));
+        m_clips.emplace(key, std::make_shared<AudioProxy>(type, key, tags));
         if (with_play) { return play(key); }
         else { return true; }
     }
@@ -64,7 +64,7 @@ void AudioSource::stopTag(const AudioTag& tag, const s3d::Duration& duration) {
 }
 
 IAudioSource* AudioSource::addSource(const Key& key, double relative, bool is_mute) {
-    m_sources.insert(std::make_pair(key, std::make_shared<AudioSource>(&m_volume, relative, is_mute)));
+    m_sources.emplace(key, std::make_shared<AudioSource>(&m_volume, relative, is_mute));
     return m_sources.at(key).get();
 }
 void AudioSource::removeSource(const Key& key) {

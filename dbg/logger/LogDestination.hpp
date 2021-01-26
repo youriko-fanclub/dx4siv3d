@@ -1,5 +1,5 @@
 #pragma once
-#include <unordered_map>
+#include <Siv3D/HashTable.hpp>
 #include <Siv3D/FormatLiteral.hpp>
 #include <Siv3D/Print.hpp>
 #include "LogDefinition.hpp"
@@ -37,9 +37,9 @@ private:
         return Fmt(body)(args...);
     }
 private: // field
-    std::unordered_map<Category, bool> m_is_active;
-    std::unordered_map<Category, s3d::String> m_category_icon;
-    std::unordered_map<Level, s3d::String> m_level_icon;
+    s3d::HashTable<Category, bool> m_is_active;
+    s3d::HashTable<Category, s3d::String> m_category_icon;
+    s3d::HashTable<Level, s3d::String> m_level_icon;
 public: // ctor/dtor
     LogDestinationText();
 };

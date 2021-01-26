@@ -1,5 +1,4 @@
 #include "AssetManager.hpp"
-#include <unordered_map>
 #include <Siv3D/FontAsset.hpp>
 #include <Siv3D/TextureAsset.hpp>
 #include <Siv3D/AudioAsset.hpp>

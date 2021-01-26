@@ -1,5 +1,6 @@
 #pragma once
-#include <unordered_map>
+#include <Siv3D/HashTable.hpp>
+#include <Siv3D/DirectoryWatcher.hpp>
 #include "Path.hpp"
 #include "Singleton.hpp"
 #include "Enum.hpp"
@@ -23,8 +24,8 @@ public: // public function
     }
     void update();
 private: // field
-    std::unordered_map<s3d::String, std::shared_ptr<TomlAssetImpl>> m_tomls;
-    std::unordered_map<s3d::FilePath, std::unique_ptr<s3d::DirectoryWatcher>> m_watchers;
+    s3d::HashTable<s3d::String, std::shared_ptr<TomlAssetImpl>> m_tomls;
+    s3d::HashTable<s3d::FilePath, s3d::DirectoryWatcher> m_watchers;
 private: // private function
 public: // ctor/dtor
     TomlAssetRepository() = default;
