@@ -1,6 +1,6 @@
 #pragma once
 
-#include <unordered_map>
+#include <Siv3D/HashTable.hpp>
 
 namespace dx {
 namespace md {
@@ -11,7 +11,7 @@ class IMasterDataRepository {
 public: // public getter
     virtual bool isExist(ID id) const = 0;
     virtual const MasterData* at(ID id) const = 0;
-    virtual const std::unordered_map<ID, const std::unique_ptr<MasterData>>& data() const = 0;
+    virtual const s3d::HashTable<ID, const std::shared_ptr<MasterData>>& data() const = 0;
 
 public: // ctor/dtor
 };
@@ -21,7 +21,7 @@ template <typename ID, typename MasterData>
 class MasterDataRepository :
     public IMasterDataRepository<ID, MasterData> {
 public: // static_const/enum
-    using Dictionary = std::unordered_map<ID, const std::unique_ptr<MasterData>>;
+    using Dictionary = s3d::HashTable<ID, const std::shared_ptr<MasterData>>;
 public: // static
 public: // public function
     bool isExist(ID id) const override { return m_data.contains(id); }
@@ -33,6 +33,7 @@ protected: // field
     Dictionary m_data;
 private: // private function
 public: // ctor/dtor
+    MasterDataRepository() : m_data() {}
 };
 
 

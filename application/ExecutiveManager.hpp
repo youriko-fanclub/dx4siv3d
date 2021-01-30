@@ -23,9 +23,9 @@ public: // static_const/enum
     class Desc {
     public:
         ApplicationManager::Desc application;
-        std::vector<AssetManager::FontDesc> font;
-        std::vector<AssetManager::TextureDesc> texture;
-        std::vector<AssetManager::AudioDesc> audio;
+        s3d::Array<AssetManager::FontDesc> font;
+        s3d::Array<AssetManager::TextureDesc> texture;
+        s3d::Array<AssetManager::AudioDesc> audio;
     };
 public: // static
 public: // public function

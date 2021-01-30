@@ -1,5 +1,5 @@
 #pragma once
-#include <unordered_map>
+#include <Siv3D/HashTable.hpp>
 #include <Siv3D/Duration.hpp>
 #include "AssetManager.hpp"
 #include "AudioVolume.hpp"
@@ -16,7 +16,7 @@ public:
     using Key = s3d::String;
 public:
     virtual bool addClip(AudioType type, const Key& key, bool with_play = false) = 0;
-    virtual bool addClip(AudioType type, const Key& key, const std::vector<AudioTag>& tags, bool with_play = false) = 0;
+    virtual bool addClip(AudioType type, const Key& key, const s3d::Array<AudioTag>& tags, bool with_play = false) = 0;
     virtual bool play(const Key& key, const s3d::Duration& duration = s3d::SecondsF(0.0)) = 0;
     virtual void playOneShot(const Key& key) = 0;
     
@@ -53,7 +53,7 @@ public: // static_const/enum
 public: // static
 public: // public function
     bool addClip(AudioType type, const Key& key, bool with_play = false) override;
-    bool addClip(AudioType type, const Key& key, const std::vector<AudioTag>& tags, bool with_play = false) override;
+    bool addClip(AudioType type, const Key& key, const s3d::Array<AudioTag>& tags, bool with_play = false) override;
     bool play(const Key& key, const s3d::Duration& duration = s3d::SecondsF(0.0)) override;
     void playOneShot(const Key& key) override;
     
@@ -72,8 +72,8 @@ public: // public function
     
 private: // field
     bool m_has_finalized = false;
-    std::unordered_map<s3d::String, std::shared_ptr<AudioProxy>> m_clips;
-    std::unordered_map<s3d::String, std::shared_ptr<AudioSource>> m_sources;
+    s3d::HashTable<s3d::String, std::shared_ptr<AudioProxy>> m_clips;
+    s3d::HashTable<s3d::String, std::shared_ptr<AudioSource>> m_sources;
     AudioVolume m_volume;
 private: // private function
 public: // ctor/dtor

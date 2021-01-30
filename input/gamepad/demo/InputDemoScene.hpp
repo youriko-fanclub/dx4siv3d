@@ -20,7 +20,7 @@ public: // public function
 private: // field
     float m_scale;
     Layout m_layout;
-    std::unordered_map<GamePadId, GamePadDemo> m_gamepad_demos;
+    s3d::HashTable<GamePadId, GamePadDemo> m_gamepad_demos;
     JoyConDemo m_joyConDemo;
 private: // private function
 public: // ctor/dtor

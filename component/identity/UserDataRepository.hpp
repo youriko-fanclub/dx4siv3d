@@ -1,6 +1,6 @@
 #pragma once
 
-#include <unordered_map>
+#include <Siv3D/HashTable.hpp>
 #include "Singleton.hpp"
 
 namespace dx {
@@ -10,7 +10,7 @@ namespace ud {
 template <typename ID, typename UserData>
 class IUserDataRepogitory {
 public: // static_const
-    using Dictionary = std::unordered_map<ID, const std::unique_ptr<UserData>>;
+    using Dictionary = s3d::HashTable<ID, const std::shared_ptr<UserData>>;
 public: // public getter
     virtual bool isExist(ID id) const = 0;
     virtual const UserData* at(ID id) const = 0;
@@ -49,7 +49,7 @@ public: // public setter
             return false;
         }
         else {
-            m_data.insert(std::make_pair(id, std::make_unique<UserData>(value)));
+            m_data.emplace(id, std::make_unique<UserData>(value));
             return true;
         }
     }
