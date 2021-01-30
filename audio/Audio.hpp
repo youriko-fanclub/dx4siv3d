@@ -17,7 +17,7 @@ public: // public function
         return m_master_source;
     }
     IAudioSource* source(const s3d::String& key);
-    IAudioSource* source(const std::vector<s3d::String>& keys);
+    IAudioSource* source(const s3d::Array<s3d::String>& keys);
     void finalize() override;
     // static void stopAll();
     // static void setMasterVolume();
@@ -45,7 +45,7 @@ public: // static
     static IAudioSource* source(const s3d::String& key) {
         return AudioMgr::instance()->source(key);
     }
-    static IAudioSource* source(const std::vector<s3d::String>& keys) {
+    static IAudioSource* source(const s3d::Array<s3d::String>& keys) {
         return AudioMgr::instance()->source(keys);
     }
     static void finalize() {

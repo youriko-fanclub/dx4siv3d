@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include <unordered_map>
+#include <Siv3D/HashTable.hpp>
 #include "Singleton.hpp"
 #include "Basic.hpp"
 #include "ID.hpp"
@@ -39,7 +39,7 @@ private:
     
 public: // public getter
     bool isExist(const ID<T>& id) const {
-        return m_data.count(id) > 0;
+        return m_data.contains(id);
     }
     const T* at(const ID<T>& id) const {
         return isExist(id) ? m_data.at(id) : throw std::error;
@@ -50,7 +50,7 @@ public: // public setter
     }
     bool add(const ID<T>& id, const T& value) {
         if (!isExist(id)) {
-            m_data.insert(std::make_pair(id, value));
+            m_data.emplace(id, value);
             return true;
         }
         else { return false; }
@@ -64,14 +64,14 @@ public: // public setter
     }
     bool erase(const ID<T>& id) {
         if (isExist(id)) {
-            m_data.remove(id);
+            m_data.erase(id);
             return true;
         }
         else { return false; }
     }
     
 private: // field
-    std::unordered_map<int, T> m_data;
+    s3d::HashTable<int, T> m_data;
 private: // private function
 private: // ctor/dtor
     Repogitory() = default;

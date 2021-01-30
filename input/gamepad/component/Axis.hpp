@@ -48,7 +48,7 @@ class AxisFromMultiSource final : public IAxis {
 public: // public function
     s3d::Vec2 vec(GPAxis axis) const override;
 private: // field
-    const std::vector<std::shared_ptr<IAxis>> m_axes_list;
+    const s3d::Array<std::shared_ptr<IAxis>> m_axes_list;
 public: // ctor/dtor
     AxisFromMultiSource(const std::initializer_list<std::shared_ptr<IAxis>>& axes_list) :
     m_axes_list(axes_list) {}

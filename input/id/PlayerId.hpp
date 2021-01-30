@@ -1,6 +1,5 @@
 #pragma once
-#include <unordered_map>
-#include <vector>
+#include <Siv3D/HashTable.hpp>
 #include <Siv3D/Color.hpp>
 #include "Enum.hpp"
 
@@ -32,13 +31,13 @@ enum class GamePadRawId {
 class Id {
 private:
     /// <summary> PlayerIdとGamePadIdの対応表 </summary>
-    static std::unordered_map<PlayerId, GamePadId> s_p2gp;
+    static s3d::HashTable<PlayerId, GamePadId> s_p2gp;
     /// <summary> GamePadIdとGamePadRawIdの対応表 </summary>
-    static std::unordered_map<GamePadId, GamePadRawId> s_gp2raw;
+    static s3d::HashTable<GamePadId, GamePadRawId> s_gp2raw;
     
-    static std::unordered_map<PlayerId, s3d::ColorF> s_p2color;
-    static std::unordered_map<PlayerId, s3d::ColorF> s_p2color_light;
-    static std::unordered_map<PlayerId, s3d::ColorF> s_p2color_dark;
+    static s3d::HashTable<PlayerId, s3d::ColorF> s_p2color;
+    static s3d::HashTable<PlayerId, s3d::ColorF> s_p2color_light;
+    static s3d::HashTable<PlayerId, s3d::ColorF> s_p2color_dark;
 public:
     /// <summary> PlayerIdをGamePadIdに変換 </summary>
     static GamePadId ToGamePadId(PlayerId pid) { return s_p2gp.at(pid); }
@@ -235,17 +234,17 @@ public static class Util {
 namespace denum {
 
 template <>
-std::vector<di::PlayerId> elems();
+s3d::Array<di::PlayerId> elems();
 template <>
 s3d::String toString(di::PlayerId value);
 
 template <>
-std::vector<di::GamePadId> elems();
+s3d::Array<di::GamePadId> elems();
 template <>
 s3d::String toString(di::GamePadId value);
 
 template <>
-std::vector<di::GamePadRawId> elems();
+s3d::Array<di::GamePadRawId> elems();
 template <>
 s3d::String toString(di::GamePadRawId value);
 

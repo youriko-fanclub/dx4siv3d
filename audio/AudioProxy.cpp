@@ -64,7 +64,7 @@ type(desc.type),
 key(generateKey(desc.type, desc.key)),
 m_tags() {}
 
-AudioProxy::AudioProxy(const AudioDesc& desc, const std::vector<AudioTag>& tags) :
+AudioProxy::AudioProxy(const AudioDesc& desc, const s3d::Array<AudioTag>& tags) :
 type(desc.type),
 key(generateKey(desc.type, desc.key)),
 m_tags(tags) {}
@@ -74,7 +74,7 @@ type(type),
 key(key),
 m_tags() {}
 
-AudioProxy::AudioProxy(AudioType type, const s3d::String& key, const std::vector<AudioTag>& tags) :
+AudioProxy::AudioProxy(AudioType type, const s3d::String& key, const s3d::Array<AudioTag>& tags) :
 type(type),
 key(key),
 m_tags(tags) {}

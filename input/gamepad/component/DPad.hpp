@@ -54,7 +54,7 @@ public: // public function
     bool get(GPDPad DPad) const override;
     s3d::Duration pressedDuration(GPDPad DPad) const override;
 private: // field
-    const std::vector<std::shared_ptr<AbsDPad>> m_dpad_list;
+    const s3d::Array<std::shared_ptr<AbsDPad>> m_dpad_list;
 public: // ctor/dtor
     DPadFromMultiSource(const std::initializer_list<std::shared_ptr<AbsDPad>>& dpad_list) :
     m_dpad_list(dpad_list) {}

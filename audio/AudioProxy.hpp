@@ -31,7 +31,7 @@ public: // public function
 public: // field
     const AudioType type;
     const s3d::String key;
-    std::vector<AudioTag> m_tags;
+    s3d::Array<AudioTag> m_tags;
 private: // private function
     s3d::AudioAsset getReal() const { return s3d::AudioAsset(key); }
     bool isValid() const {
@@ -39,9 +39,9 @@ private: // private function
     }
 public: // ctor/dtor
     AudioProxy(const AudioDesc& desc);
-    AudioProxy(const AudioDesc& desc, const std::vector<AudioTag>& tags);
+    AudioProxy(const AudioDesc& desc, const s3d::Array<AudioTag>& tags);
     AudioProxy(AudioType type, const s3d::String& short_key);
-    AudioProxy(AudioType type, const s3d::String& short_key, const std::vector<AudioTag>& tags);
+    AudioProxy(AudioType type, const s3d::String& short_key, const s3d::Array<AudioTag>& tags);
 private:
     AudioProxy() : // 無効値用
     type(AudioType::BGM),
